@@ -8,6 +8,10 @@ h1 {
     color: #fff;
     text-align: center;
 }
+h2 {
+    color: #fff;
+    text-align: center;
+}
 p {
     color: #fff;
     font-size: 18px;
@@ -15,6 +19,7 @@ p {
 }
 main {
     max-width: 800px;
+    min-height: 400px;
     margin: 0 auto;
     padding: 20px;
     background-color: #111;
@@ -33,4 +38,30 @@ button {
 }
 button:hover {
     background-color: #0056b3;
+}
+
+.scrollableX {
+    width: 100%;
+    overflow-x: auto;
+}   
+
+.levelContainer {
+    border-collapse: separate;
+    border-spacing: 10px;
+    min-width: max-content;
+}
+
+.levelButton {
+    min-width: 100px;
+    height: 100px;
+    background-color: black;
+    border: 10px solid white;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    color: white;
+}
+
+.levelButton:hover {
+    background-color: #555;
 }
