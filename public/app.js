@@ -29,11 +29,12 @@ function createLevelButtonRow() {
     let buttonsHTML = "";
     for (let level of levels) {
         buttonsHTML += `
-            <button class="levelButton" id="level ${level.id}">
+            <button 
+                class="levelButton ${!level.unlocked ? "levelButtonLocked": ""} ${level.completed ? "levelButtonCompleted": ""}"
+                id="level ${level.id}">
                 ${level.name}
             </button>`;
     }
-//${!level.unlocked ? "disabled" : ""}
 
     return `
         <div class="scrollableX">
@@ -59,11 +60,24 @@ function createLevelButtons() {
             
             const backButton = document.getElementById("backButton");
             backButton.addEventListener("click", () => {
+                markLevelCompleted(levelId);
                 mainContent.innerHTML =
                     `<h2>Please select a level</h2>
-                    <div>${createLevelTable()}</div>`;
+                    <div>${createLevelButtonRow()}</div>`;
                 createLevelButtons();
             });
         });
+    }
+}
+
+function markLevelCompleted(levelId) {
+    const level = levels.find(l => l.id === levelId);
+    if (level) {
+        level.completed = true;
+        // Unlock the next level if it exists
+        const nextLevel = levels.find(l => l.id === levelId + 1);
+        if (nextLevel) {
+            nextLevel.unlocked = true;
+        }
     }
 }

@@ -61,3 +61,30 @@ button:hover {
 .levelButton:hover {
     background-color: #555;
 }
+
+.levelButtonLocked {
+    min-width: 100px;
+    height: 100px;
+    background-color: #333;
+    border: 10px solid white;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    color: white;
+}
+
+.levelButtonLocked:hover {
+    background-color: #aa4848;
+    cursor: not-allowed;
+}
+
+.levelButtonCompleted {
+    min-width: 100px;
+    height: 100px;
+    background-color: #61b652;
+    border: 10px solid white;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    color: white;
+}
