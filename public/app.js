@@ -9,25 +9,61 @@ startButton.addEventListener("click", () => {
     console.log("Start button clicked");
     mainContent.innerHTML =
         `<h2>Please select a level</h2>
-    <div>${createLevelTable()}</div>`;
+    <div>${createLevelButtonRow()}</div>`;
+    createLevelButtons()
 });
 
 
-function createLevelTable() {
+const levels = [
+    { id: 1, name: "Intro", description: "Learn the basics of logic gates." , unlocked: true, completed: false},
+    { id: 2, name: "AND Gates", description: "Master the AND gate and its applications." , unlocked: true, completed: false},
+    { id: 3, name: "OR Gates", description: "Explore the OR gate and its uses." , unlocked: false, completed: false},
+    { id: 4, name: "NAND Gates", description: "Understand the NAND gate and its significance." , unlocked: false, completed: false},
+    { id: 5, name: "NOR Gates", description: "Discover the NOR gate and its functions." , unlocked: false, completed: false},
+    { id: 6, name: "XOR Gates", description: "Delve into the XOR gate and its properties." , unlocked: false, completed: false},
+    { id: 7, name: "XNOR Gates", description: "Learn about the XNOR gate and its applications." , unlocked: false, completed: false},
+    { id: 8, name: "OTHER", description: "Explore other types of logic gates and circuits." , unlocked: false, completed: false}
+];
+
+function createLevelButtonRow() {
+    let buttonsHTML = "";
+    for (let level of levels) {
+        buttonsHTML += `
+            <button class="levelButton" id="level ${level.id}">
+                ${level.name}
+            </button>`;
+    }
+//${!level.unlocked ? "disabled" : ""}
+
     return `
-    <div class = "scrollableX">
-        <table id="levelTable" class="levelContainer">    
-            <tr>
-                <th class="levelButton">Introduction</th>
-                <th class="levelButton">AND Gates</th>
-                <th class="levelButton">OR Gates</th>
-                <th class="levelButton">NAND Gates</th>
-                <th class="levelButton">NOR Gates</th>
-                <th class="levelButton">XOR Gates</th>
-                <th class="levelButton">XNOR Gates</th>
-                <th class="levelButton">OTHER</th>
-            </tr>
-        </table>
-    </div>
-    `;
+        <div class="scrollableX">
+            ${buttonsHTML}
+        </div>`;
+}
+
+function createLevelButtons() {
+    const levelButtons = document.getElementsByClassName("levelButton");
+    
+    for (let levelButton of document.getElementsByClassName("levelButton")) {
+        levelButton.addEventListener("click", () => {
+            const levelId = parseInt(levelButton.id.split(" ")[1]);
+            const level = levels.find(l => l.id === levelId);
+            if (!level.unlocked) {
+                alert("This level is locked. Please complete previous levels to unlock it.");
+                return;
+            }
+            mainContent.innerHTML =
+                `<h2>${level.name} Level</h2>
+                <p>${level.description}</p>
+                <button id="backButton">Back to Levels</button>`;
+            
+            const backButton = document.getElementById("backButton");
+            backButton.addEventListener("click", () => {
+                mainContent.innerHTML =
+                    `<h2>Please select a level</h2>
+                    <div>${createLevelTable()}</div>`;
+                createLevelButtons();
+            });
+        });
+    }
 }

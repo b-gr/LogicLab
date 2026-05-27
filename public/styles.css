@@ -18,7 +18,7 @@ p {
     text-align: center;
 }
 main {
-    max-width: 800px;
+    max-width: 90%;
     min-height: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -43,13 +43,9 @@ button:hover {
 .scrollableX {
     width: 100%;
     overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap;
 }   
-
-.levelContainer {
-    border-collapse: separate;
-    border-spacing: 10px;
-    min-width: max-content;
-}
 
 .levelButton {
     min-width: 100px;
