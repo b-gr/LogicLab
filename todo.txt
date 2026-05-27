@@ -1,7 +1,6 @@
 to do:
     change table into buttons
     create next button
-    create mark as complete button
     create xml Gates
     create sub levels
     create schema
