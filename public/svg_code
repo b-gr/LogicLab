@@ -1,0 +1,201 @@
+//and
+<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path 
+        d="
+
+            M90 30 
+            C90 15 80 0.5 60 0.5 
+            L6 0.5 
+            V59.5 
+            H59.5 
+            C80 60 90 50 90 30 
+            Z 
+
+            M90 30 
+            H110
+
+            M0 15 
+            H6
+            
+            M0 45 
+            H6
+        " 
+        stroke="black" 
+        stroke-linecap="round"/>
+</svg>
+
+//nand
+<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path 
+        d="
+            M90 30 
+            C90 15 80 0.5 60 0.5 
+            L6 0.5 
+            V59.5 
+            H59.5 
+            C80 60 90 50 90 30 
+            Z 
+
+            M96 30 
+            H110
+
+            M0 15 
+            H6
+
+            M0 45 
+            H6
+        " 
+        stroke="black" 
+        stroke-linecap="round"/>
+    <circle 
+        cx="93" 
+        cy="30" 
+        r="3" 
+        stroke="black" 
+        stroke-linecap="round"
+        />
+</svg>
+
+//or
+<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path 
+        d="
+            M6 0.5 
+            C64 2 82 10 90 30
+            C82 50 64 58 6 59.5
+            C25 40 25 19.5 6 0.5
+            Z
+
+            M90 30 
+            H110
+
+            M0 15 
+            H16
+
+            M0 45 
+            H16
+        " 
+        stroke="black" 
+        stroke-linecap="round"/>
+</svg>
+
+//nor
+<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path 
+        d="
+            M6 0.5 
+            C64 2 82 10 90 30
+            C82 50 64 58 6 59.5
+            C25 40 25 19.5 6 0.5
+            Z
+
+            M96.5 30 
+            H110
+
+            M0 15 
+            H16
+
+            M0 45 
+            H16
+        " 
+        stroke="black" 
+        stroke-linecap="round"/>
+    <circle 
+        cx="93.5" 
+        cy="30" 
+        r="3" 
+        stroke="black" 
+        stroke-linecap="round"
+        />
+</svg>
+
+//not
+<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path 
+        d="
+            M6 0.5 
+            L57 30
+            L6 59.5
+            Z
+
+            M63.5 30 
+            H110
+
+            M0 15 
+            H6
+
+            M0 45 
+            H6
+        " 
+        stroke="black" 
+        stroke-linecap="round"/>
+    <circle 
+        cx="60.5" 
+        cy="30" 
+        r="3" 
+        stroke="black" 
+        stroke-linecap="round"
+        />
+</svg>
+
+
+//xnor
+<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path 
+        d="
+            M6 0.5 
+            C64 2 82 10 90 30
+            C82 50 64 58 6 59.5
+            C25 40 25 19.5 6 0.5
+            Z
+
+            M0 59.5 
+            C19 40 19 19.5 0 0.5
+
+            M96.5 30 
+            H110
+
+            M0 15 
+            H16
+
+            M0 45 
+            H16
+        " 
+        stroke="black" 
+        stroke-linecap="round"/>
+    <circle 
+        cx="93.5" 
+        cy="30" 
+        r="3" 
+        stroke="black" 
+        stroke-linecap="round"
+        />
+</svg>
+
+
+
+//xor
+<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path 
+        d="
+            M6 0.5 
+            C64 2 82 10 90 30
+            C82 50 64 58 6 59.5
+            C25 40 25 19.5 6 0.5
+            Z
+
+            M0 59.5 
+            C19 40 19 19.5 0 0.5
+
+            M90 30 
+            H110
+
+            M0 15 
+            H16
+
+            M0 45 
+            H16
+        " 
+        stroke="black" 
+        stroke-linecap="round"/>
+</svg>
