@@ -2,3 +2,35 @@ to do:
     create next button
     create sub levels
     create schema
+    create viewer / sandbox mode / line connector
+        create a menu or toolbar
+            - add AND button etc for 'unlocked' gates
+            - add bin to remove
+            - if clicked it adds (to centre or top right?)
+            - on hover it comes up with the four arrows to show its been moved
+            - on removal it removes wires? 
+            - toolbar could also include how many could be added (in sandbox unlimited (1000s) in level mode or exam mode (1-10?))
+        make gates dragable
+            store positional data? - update LogicGate class if necessary
+            store how many there are? Maybe in array
+            change css to make grabbale through cursor and mouse movements
+        make a connector that joins/binds to inputs and output
+            include this as coordinates relative to the SVG?
+            add a cute way to visualise this - maybe electric purple lines with small circles at either end
+            dragable from the start and once connected the gate changes colour to purple too
+            Once connected and correct the purple is replaced by green or red
+                - ideally this would be along the route of the line but unlikely
+            update as gates are removed or moved
+            Store connection in array of coordinates?
+    create first level
+        - add instructions
+        - add AND to toolbar
+        - add correct solution etc
+        - check output is correct before next or 'home' buton comes up
+    create JSON level schema
+
+    test visually
+    test through code (Boolean results in console)
+    test through unit testing
+
+
