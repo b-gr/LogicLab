@@ -1,4 +1,4 @@
-
+import LogicGate from "./logicGate.js";
 
 
 const mainContent = document.getElementById("mainContent");
@@ -11,8 +11,39 @@ startButton.addEventListener("click", () => {
         `<h2>Please select a level</h2>
     <div>${createLevelButtonRow()}</div>`;
     createLevelButtons()
+    evaluateBooleanLogicTest();
 });
 
+
+function evaluateBooleanLogicTest() {
+    const andGate = new LogicGate('AND');
+    andGate.inputs = [true, false];
+    console.log('AND Gate Output (true AND false):', andGate.booleanOperation());
+
+    const orGate = new LogicGate('OR');
+    orGate.inputs = [true, false];
+    console.log('OR Gate Output (true OR false):', orGate.booleanOperation());
+
+    const notGate = new LogicGate('NOT');
+    notGate.inputs = [true];
+    console.log('NOT Gate Output (NOT true):', notGate.booleanOperation());
+
+    const nandGate = new LogicGate('NAND');
+    nandGate.inputs = [true, true];
+    console.log('NAND Gate Output (true NAND true):', nandGate.booleanOperation());
+
+    const norGate = new LogicGate('NOR');
+    norGate.inputs = [false, false];
+    console.log('NOR Gate Output (false NOR false):', norGate.booleanOperation());
+
+    const xorGate = new LogicGate('XOR');
+    xorGate.inputs = [true, false];
+    console.log('XOR Gate Output (true XOR false):', xorGate.booleanOperation());
+
+    const xnorGate = new LogicGate('XNOR');
+    xnorGate.inputs = [true, true];
+    console.log('XNOR Gate Output (true XNOR true):', xnorGate.booleanOperation());
+}
 
 const levels = [
     { id: 1, name: "Intro", description: "Learn the basics of logic gates." , unlocked: true, completed: false},

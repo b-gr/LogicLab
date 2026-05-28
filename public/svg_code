@@ -20,7 +20,7 @@
             M0 45 
             H6
         " 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"/>
 </svg>
 
@@ -45,13 +45,13 @@
             M0 45 
             H6
         " 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"/>
     <circle 
         cx="93" 
         cy="30" 
         r="3" 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"
         />
 </svg>
@@ -75,7 +75,7 @@
             M0 45 
             H16
         " 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"/>
 </svg>
 
@@ -98,13 +98,13 @@
             M0 45 
             H16
         " 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"/>
     <circle 
         cx="93.5" 
         cy="30" 
         r="3" 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"
         />
 </svg>
@@ -127,17 +127,16 @@
             M0 45 
             H6
         " 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"/>
     <circle 
         cx="60.5" 
         cy="30" 
         r="3" 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"
         />
 </svg>
-
 
 //xnor
 <svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -161,18 +160,16 @@
             M0 45 
             H16
         " 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"/>
     <circle 
         cx="93.5" 
         cy="30" 
         r="3" 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"
         />
 </svg>
-
-
 
 //xor
 <svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -196,6 +193,6 @@
             M0 45 
             H16
         " 
-        stroke="black" 
+        stroke="white" 
         stroke-linecap="round"/>
 </svg>
