@@ -10,13 +10,13 @@ export default class Toolbar {
     createButtons = () => {
         const buttonsHTML = 
             `
-            <button id="ANDButton">AND</button>
-            <button id="ORButton">OR</button>
-            <button id="NOTButton">NOT</button>
-            <button id="NANDButton">NAND</button>
-            <button id="NORButton">NOR</button>
-            <button id="XORButton">XOR</button>
-            <button id="XNORButton">XNOR</button>
+            <button class="toolbarButton" id="ANDButton">AND</button>
+            <button class="toolbarButton" id="ORButton">OR</button>
+            <button class="toolbarButton" id="NOTButton">NOT</button>
+            <button class="toolbarButton" id="NANDButton">NAND</button>
+            <button class="toolbarButton" id="NORButton">NOR</button>
+            <button class="toolbarButton" id="XORButton">XOR</button>
+            <button class="toolbarButton" id="XNORButton">XNOR</button>
             `;
         this.container.innerHTML = buttonsHTML;
 

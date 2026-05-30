@@ -103,23 +103,26 @@ function createLevelButtons() {
                 <p>${level.description}</p>
                 <button id="backButton">Back to Levels</button>`;
             
-            
             console.log(`Starting: ${level.name}`);
-            if (levelId === 2) {
-                addNewANDGateTEST();
-            }
             
-            updateToolbar();
+            const toolbar = new Toolbar();
+
             document.getElementById("toolbar").style.display = "flex";
 
             const backButton = document.getElementById("backButton");
             backButton.addEventListener("click", () => {
+                
                 markLevelCompleted(levelId);
+                
                 mainContent.innerHTML =
                     `<h2>Please select a level</h2>
-                    <div>${createLevelButtonRow()}</div>`;
+                    <div>${createLevelButtonRow()}</div>
+                `;
+                        
                 createLevelButtons();
+                
                 document.getElementById("toolbar").style.display = "none";
+                document.getElementById("inPageViewer").innerHTML = "";
             });
         });
     }
@@ -137,18 +140,3 @@ function markLevelCompleted(levelId) {
     }
 }
 
-
-function updateToolbar() {
-    const toolbar = new Toolbar();
-}
-
-
-function addNewANDGateTEST() {
-    inPageViewer.innerHTML =
-        `<button id="newANDButton">Create New AND Gate</button>`;
-        const newANDButton = document.getElementById("newANDButton");
-        newANDButton.addEventListener("click", () => {
-            const andGate = new LogicGate('AND');
-            inPageViewer.appendChild(andGate.createHTML());
-        });
-}

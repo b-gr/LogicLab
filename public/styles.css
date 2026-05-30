@@ -24,6 +24,17 @@ main {
     background-color: #111;
     border-radius: 8px;
 }
+
+
+
+footer {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #111;
+    border-radius: 8px;
+}
+
 button {
     display: block;
     margin: 20px auto;
@@ -94,13 +105,27 @@ button:hover {
     min-width: 80%;
     justify-content: center;
     align-items: center;
-    margin-top: 4px;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 1px;
     background-color: #666666;
     position: fixed;
     bottom: 10px;
     height: 4%;
-    border-radius: 8px;
+    left: 5%;
+    right: 5%;
+}
+
+.toolbarButton {
+    width: 100%;
+    height:100%;
+    margin: 1%;
+    background-color: #8c8c8c;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    text-align: center;
+    text-justify: center;
+}
+
+.inPageViewer {
+    overflow-y:auto;
+    height: 50vh;
 }

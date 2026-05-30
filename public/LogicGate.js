@@ -13,9 +13,6 @@ export default class LogicGate {
         return container;
     }
 
-
-
-
     booleanOperation = () => {
         switch (this.type) {
             case 'AND':
@@ -36,9 +33,6 @@ export default class LogicGate {
                 throw new Error('Invalid logic gate type');
         }
     }
-
-
-
 
     // SVGs for different logic gates
     getSVG = (type) => {
