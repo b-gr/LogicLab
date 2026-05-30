@@ -1,5 +1,8 @@
 to do:
     create next button
+        as part of this change HTML layout to place this at the top right
+        change HTML "back to levels" to place top right
+        better yet - icon or menu button (three lines) with additional options. 
     create sub levels
     create schema
     create viewer / sandbox mode / line connector
@@ -28,6 +31,9 @@ to do:
         - add correct solution etc
         - check output is correct before next or 'home' buton comes up
     create JSON level schema
+    for sandbox mode, create a drag background tool to move background so that more can be added. 
+    
+
 
     test visually
     test through code (Boolean results in console)
