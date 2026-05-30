@@ -19,7 +19,6 @@ p {
 }
 main {
     max-width: 90%;
-    min-height: 400px;
     margin: 0 auto;
     padding: 20px;
     background-color: #111;
@@ -87,4 +86,11 @@ button:hover {
     margin: 5px;
     text-align: center;
     color: white;
+}
+
+toolbar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    
 }
