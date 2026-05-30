@@ -88,9 +88,19 @@ button:hover {
     color: white;
 }
 
-toolbar {
-    display: flex;
+.toolbar {
+    display: none;
+    max-width: 90%;
+    min-width: 80%;
     justify-content: center;
-    margin-top: 20px;
-    
+    align-items: center;
+    margin-top: 4px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 1px;
+    background-color: #666666;
+    position: fixed;
+    bottom: 10px;
+    height: 4%;
+    border-radius: 8px;
 }

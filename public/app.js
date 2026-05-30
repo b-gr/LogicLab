@@ -1,4 +1,5 @@
 import LogicGate from "./logicGate.js";
+import Toolbar from "./Toolbar.js";
 
 
 const mainContent = document.getElementById("mainContent");
@@ -13,10 +14,10 @@ startButton.addEventListener("click", () => {
     <div>${createLevelButtonRow()}</div>`;
     
     createLevelButtons()
-    evaluateBooleanLogicTest();
+//    evaluateBooleanLogicTest();
 });
 
-
+/*
 function evaluateBooleanLogicTest() {
     const andGate = new LogicGate('AND');
     andGate.inputs = [true, false];
@@ -46,6 +47,8 @@ function evaluateBooleanLogicTest() {
     xnorGate.inputs = [true, true];
     console.log('XNOR Gate Output (true XNOR true):', xnorGate.booleanOperation());
 }
+*/
+
 
 //Define levels for the game v1
 const levels = [
@@ -100,10 +103,14 @@ function createLevelButtons() {
                 <p>${level.description}</p>
                 <button id="backButton">Back to Levels</button>`;
             
+            
             console.log(`Starting: ${level.name}`);
             if (levelId === 2) {
                 addNewANDGateTEST();
             }
+            
+            updateToolbar();
+            document.getElementById("toolbar").style.display = "flex";
 
             const backButton = document.getElementById("backButton");
             backButton.addEventListener("click", () => {
@@ -112,6 +119,7 @@ function createLevelButtons() {
                     `<h2>Please select a level</h2>
                     <div>${createLevelButtonRow()}</div>`;
                 createLevelButtons();
+                document.getElementById("toolbar").style.display = "none";
             });
         });
     }
@@ -127,6 +135,11 @@ function markLevelCompleted(levelId) {
             nextLevel.unlocked = true;
         }
     }
+}
+
+
+function updateToolbar() {
+    const toolbar = new Toolbar();
 }
 
 
