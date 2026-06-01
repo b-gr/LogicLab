@@ -1,9 +1,9 @@
-import LogicGate from "./logicGate.js";
+import LogicGate from "./LogicGate.js";
 import Toolbar from "./Toolbar.js";
+import InPageViewer from "./InPageViewer.js";
 
 
 const mainContent = document.getElementById("mainContent");
-const inPageViewer = document.getElementById("inPageViewer");
 const startButton = document.getElementById("startButton");
 const levelTable = document.getElementById("levelTable");
 
@@ -104,10 +104,10 @@ function createLevelButtons() {
             
             console.log(`Starting: ${level.name}`);
             
-            //const inPageViewer = new InPageViewer();
+            const inPageViewer = new InPageViewer("inPageViewer");
             document.getElementById("inPageViewer").style.display = "flex";
 
-            const toolbar = new Toolbar();
+            const toolbar = new Toolbar(inPageViewer);
 
             document.getElementById("toolbar").style.display = "flex";
 
@@ -124,7 +124,7 @@ function createLevelButtons() {
                 createLevelButtons();
                 
                 document.getElementById("toolbar").style.display = "none";
-                document.getElementById("inPageViewer").innerHTML = "";
+                document.getElementById("inPageViewer").style.display = "none";
             });
         });
     }

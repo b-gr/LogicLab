@@ -31,6 +31,12 @@ to do:
         - add correct solution etc
         - check output is correct before next or 'home' buton comes up
     create JSON level schema
+        - include things like how many (and coordinates) of current gates are on viewer
+        - include the starting parameters for challenges
+        - include limit on lines
+        - include limit on each type of gate
+        - if gate is 0 then blank out the toolbar in that position
+        
     for sandbox mode, create a drag background tool to move background so that more can be added. 
     
 

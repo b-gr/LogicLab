@@ -1,8 +1,10 @@
-import LogicGate from "./logicGate.js";
+import LogicGate from "./LogicGate.js";
+import InPageViewer from "./InPageViewer.js";
 
 
 export default class Toolbar {
-    constructor() {
+    constructor(viewer) {
+        this.viewer = viewer;
         this.container = document.getElementById('toolbar');
         this.createButtons();
     }
@@ -24,43 +26,43 @@ export default class Toolbar {
         document.getElementById("ANDButton").addEventListener("click", () => {
             console.log("AND button clicked");
             const andGate = new LogicGate('AND');
-            inPageViewer.appendChild(andGate.createHTML());
+            this.viewer.addGate(andGate);
         });    
         
         document.getElementById("ORButton").addEventListener("click", () => {
             console.log("OR button clicked");
             const orGate = new LogicGate('OR');
-            inPageViewer.appendChild(orGate.createHTML());
+            this.viewer.addGate(orGate);
         });
         
         document.getElementById("NOTButton").addEventListener("click", () => {
             console.log("NOT button clicked");
             const notGate = new LogicGate('NOT');
-            inPageViewer.appendChild(notGate.createHTML());
+            this.viewer.addGate(notGate);
         });
 
         document.getElementById("NANDButton").addEventListener("click", () => {
             console.log("NAND button clicked");
             const nandGate = new LogicGate('NAND');
-            inPageViewer.appendChild(nandGate.createHTML());
+            this.viewer.addGate(nandGate);
         });
         
         document.getElementById("NORButton").addEventListener("click", () => {
             console.log("NOR button clicked");
             const norGate = new LogicGate('NOR');
-            inPageViewer.appendChild(norGate.createHTML());
+            this.viewer.addGate(norGate);
         });
         
         document.getElementById("XORButton").addEventListener("click", () => {
             console.log("XOR button clicked");
             const xorGate = new LogicGate('XOR');
-            inPageViewer.appendChild(xorGate.createHTML());
+            this.viewer.addGate(xorGate);
         });
         
         document.getElementById("XNORButton").addEventListener("click", () => {
             console.log("XNOR button clicked");
             const xnorGate = new LogicGate('XNOR');
-            inPageViewer.appendChild(xnorGate.createHTML());
+            this.viewer.addGate(xnorGate);
         });
     }
 }
