@@ -126,6 +126,12 @@ button:hover {
 }
 
 .inPageViewer {
+    display: none;
     overflow-y:auto;
     height: 50vh;
-}
+    min-height: 0;
+    background-color: #000000;
+    background-image: 
+        linear-gradient(to right, rgba(60, 255, 0, 0.3) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(60, 255, 0,0.3) 1px, transparent 1px);
+    background-size: 5px 5px;}

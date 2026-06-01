@@ -14,7 +14,6 @@ startButton.addEventListener("click", () => {
     <div>${createLevelButtonRow()}</div>`;
     
     createLevelButtons()
-//    evaluateBooleanLogicTest();
 });
 
 /*
@@ -105,6 +104,9 @@ function createLevelButtons() {
             
             console.log(`Starting: ${level.name}`);
             
+            //const inPageViewer = new InPageViewer();
+            document.getElementById("inPageViewer").style.display = "flex";
+
             const toolbar = new Toolbar();
 
             document.getElementById("toolbar").style.display = "flex";
