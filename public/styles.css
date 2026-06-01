@@ -137,3 +137,10 @@ button:hover {
     background-size: 5px 5px;
     position: relative;
 }
+
+.gate-dragged {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 3px;
+
+}

@@ -7,8 +7,6 @@ export default class Viewer {
         window.addEventListener('resize', () => {this.updateViewerDimensions()});
     }
 
-
-
     updateViewerDimensions() {
         const viewerRectangle = this.container.getBoundingClientRect();
         this.width = viewerRectangle.width;
@@ -20,6 +18,10 @@ export default class Viewer {
     }
 
 
+    removeGate(gate) {
+        this.container.removeChild(gate.html);
+        this.gates = this.gates.filter(g => g !== gate);
+    }
 
 
     addGate(gate) {
@@ -58,6 +60,9 @@ export default class Viewer {
                 this.mouseToViewerCoordinates(event).x, 
                 this.mouseToViewerCoordinates(event).y
             );
+
+            gate.html.classList.add('gate-dragged');
+
         }
 
         this.container.addEventListener('mousemove', onmousemove);
@@ -66,7 +71,7 @@ export default class Viewer {
             
             const position = this.mouseToViewerCoordinates(event);
 
-            console.log(`Moved gate to position (${position.x}, ${position.y})`);
+            //console.log(`Moved gate to position (${position.x}, ${position.y})`);
             this.container.removeEventListener('mousemove', onmousemove);
             
             this.updateGateCoordinates(
@@ -76,6 +81,7 @@ export default class Viewer {
             );            
             
             this.updateGatePosition(gate);
+            gate.html.classList.remove('gate-dragged');
             gate.onMouseUp = null;
 
         }
@@ -101,7 +107,6 @@ export default class Viewer {
 
     updateGateCoordinates(gate, x, y) {
         const viewerRectangle = this.container.getBoundingClientRect();
-        console.log(`Viewer dimensions: width=${viewerRectangle.width}, height=${viewerRectangle.height}`);
         if (x < 0) {
                 gate.coordinates.x = 0;
             } else if (x > viewerRectangle.width - gate.size.width) {
@@ -125,7 +130,7 @@ export default class Viewer {
         gateElement.style.position = 'absolute';
         gateElement.style.left = `${gate.coordinates.x}px`;
         gateElement.style.top = `${gate.coordinates.y}px`;
-        console.log(`Updated ${gate.type} gate position to (${gate.coordinates.x}, ${gate.coordinates.y})`);
+        //console.log(`Updated ${gate.type} gate position to (${gate.coordinates.x}, ${gate.coordinates.y})`);
     }
 
 

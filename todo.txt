@@ -6,14 +6,15 @@ to do:
     create sub levels
     create schema
     create viewer / sandbox mode / line connector
-        create a menu or toolbar
-            - add AND button etc for 'unlocked' gates
+    
+    toolbar
+            - add in option to lock / 'unlocked' gates
             - add bin to remove
             - if clicked it adds (to centre or top right?)
             - on hover it comes up with the four arrows to show its been moved
             - on removal it removes wires? 
             - toolbar could also include how many could be added (in sandbox unlimited (1000s) in level mode or exam mode (1-10?))
-        make gates dragable
+    make gates dragable
             store positional data? - update LogicGate class if necessary
             store how many there are? Maybe in array
             change css to make grabbale through cursor and mouse movements
@@ -36,6 +37,7 @@ to do:
         - include limit on lines
         - include limit on each type of gate
         - if gate is 0 then blank out the toolbar in that position
+        - add a connectAutomatically option in json so it would autocomplete wires in certain levels
 
     for sandbox mode, create a drag background tool to move background so that more can be added. 
     - and recenter option for input and output
