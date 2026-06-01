@@ -36,22 +36,21 @@ export default class Viewer {
         return { x, y };
     }
 
-    //connections
-
-
-    dragGate(event, gate) {       
+    dragGate(event, gate) {
+        this.updateViewerDimensions(event);     
         gate.html.style.zIndex = 1000;
         this.container.appendChild(gate.html);
 
-        const moveAt = (pageX, pageY) => {
-            gate.html.style.left = pageX - gate.size.width / 2 + 'px';
-            gate.html.style.top = pageY - gate.size.height / 2 + 'px';
-        }
 
-        moveAt(
-            this.mouseToViewerCoordinates(event).x,
-            this.mouseToViewerCoordinates(event).y
-        );
+        const mousePosition = this.mouseToViewerCoordinates(event);
+
+        const offsetX = mousePosition.x - gate.coordinates.x;
+        const offsetY = mousePosition.y - gate.coordinates.y;
+
+        const moveAt = (x, y) => {
+            gate.html.style.left = x - offsetX + 'px';
+            gate.html.style.top = y - offsetY + 'px';
+        }
 
         const onmousemove = (event) => {
             moveAt(
@@ -62,18 +61,17 @@ export default class Viewer {
 
         this.container.addEventListener('mousemove', onmousemove);
 
-        gate.html.onmouseup = () => {
+        gate.html.onmouseup = (event) => {
             
-            const position = this.mouseToViewerCoordinates(onmousemove);
+            const position = this.mouseToViewerCoordinates(event);
 
-            console.log(`Moved gate to position (${gate.coordinates.x}, ${gate.coordinates.y})`);
-            
+            console.log(`Moved gate to position (${position.x}, ${position.y})`);
             this.container.removeEventListener('mousemove', onmousemove);
             
             this.updateGateCoordinates(
                 gate, 
-                position.x - gate.size.width / 2,
-                position.y - gate.size.height / 2
+                position.x - offsetX,
+                position.y - offsetY
             );            
             
             this.updateGatePosition(gate);
@@ -81,7 +79,7 @@ export default class Viewer {
 
         }
 
-        gate.onDragStart = () => {
+        gate.html.onDragStart = () => {
             return false;
         }
         
@@ -103,22 +101,16 @@ export default class Viewer {
     updateGateCoordinates(gate, x, y) {
         if (x < 0) {
                 gate.coordinates.x = 0;
-            } else {
-                gate.coordinates.x = x;
-            }
-        if (x > this.width) {
-                gate.coordinates.x = this.width - gate.size.width/2;
+            } else if (x > this.width) {
+                gate.coordinates.x = this.width - gate.size.width;
             } else {
                 gate.coordinates.x = x;
             }
 
         if (y < 0) {
                 gate.coordinates.y = 0;
-            } else { 
-                gate.coordinates.y = y;
-            }
-        if (y > this.height) {
-                gate.coordinates.y = this.height - gate.size.height/2;
+            } else if (y > this.height) {
+                gate.coordinates.y = this.height - gate.size.height;
             } else {
                 gate.coordinates.y = y;
             }
@@ -126,7 +118,7 @@ export default class Viewer {
 
     updateGatePosition(gate) {
         const gateElement = gate.html;
-        gateElement.zIndex = 2;
+        gateElement.style.zIndex = 2;
         gateElement.style.position = 'absolute';
         gateElement.style.left = `${gate.coordinates.x}px`;
         gateElement.style.top = `${gate.coordinates.y}px`;
