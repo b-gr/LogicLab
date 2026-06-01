@@ -140,7 +140,7 @@ button:hover {
 
 .gate-dragged {
     fill: none;
-    stroke: #ffffff;
+    stroke: rgb(255, 255, 255);
     stroke-width: 3px;
 
 }
