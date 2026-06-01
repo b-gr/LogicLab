@@ -5,7 +5,7 @@ export default class LogicGate {
         this.svg = this.getSVG(type);
         this.html = this.createHTML();
         this.coordinates = { x: 0, y: 0 };
-        
+        this.size = { width: 110, height: 60 };
     }
 
     createHTML = () => {
