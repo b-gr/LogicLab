@@ -4,18 +4,19 @@ export default class Viewer {
         this.gates = [];
         this.connections = [];
         this.updateViewerDimensions();
-        window.addEventListener('resize', this.updateViewerDimensions);
+        window.addEventListener('resize', () => {this.updateViewerDimensions()});
     }
 
 
 
-    updateViewerDimensions(event) {
-        this.width = this.container.getBoundingClientRect().width;
-        this.height = this.container.getBoundingClientRect().height;
-        this.startX = this.container.getBoundingClientRect().left;
-        this.endX = this.container.getBoundingClientRect().right;
-        this.startY = this.container.getBoundingClientRect().top;
-        this.endY = this.container.getBoundingClientRect().bottom;
+    updateViewerDimensions() {
+        const viewerRectangle = this.container.getBoundingClientRect();
+        this.width = viewerRectangle.width;
+        this.height = viewerRectangle.height;
+        this.startX = viewerRectangle.left;
+        this.endX = viewerRectangle.right;
+        this.startY = viewerRectangle.top;
+        this.endY = viewerRectangle.bottom;
     }
 
 
@@ -37,7 +38,7 @@ export default class Viewer {
     }
 
     dragGate(event, gate) {
-        this.updateViewerDimensions(event);     
+        this.updateViewerDimensions();     
         gate.html.style.zIndex = 1000;
         this.container.appendChild(gate.html);
 
@@ -99,18 +100,20 @@ export default class Viewer {
     //removeGate
 
     updateGateCoordinates(gate, x, y) {
+        const viewerRectangle = this.container.getBoundingClientRect();
+        console.log(`Viewer dimensions: width=${viewerRectangle.width}, height=${viewerRectangle.height}`);
         if (x < 0) {
                 gate.coordinates.x = 0;
-            } else if (x > this.width) {
-                gate.coordinates.x = this.width - gate.size.width;
+            } else if (x > viewerRectangle.width - gate.size.width) {
+                gate.coordinates.x = viewerRectangle.width - gate.size.width;
             } else {
                 gate.coordinates.x = x;
             }
 
         if (y < 0) {
                 gate.coordinates.y = 0;
-            } else if (y > this.height) {
-                gate.coordinates.y = this.height - gate.size.height;
+            } else if (y > viewerRectangle.height - gate.size.height) {
+                gate.coordinates.y = viewerRectangle.height - gate.size.height;
             } else {
                 gate.coordinates.y = y;
             }
