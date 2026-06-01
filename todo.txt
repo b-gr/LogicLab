@@ -1,36 +1,40 @@
 to do:
     create next button
-        as part of this change HTML layout to place this at the top right
-        change HTML "back to levels" to place top right
-        better yet - icon or menu button (three lines) with additional options. 
-    create sub levels
-    create schema
-    create viewer / sandbox mode / line connector
+        - as part of this change HTML layout to place this at the top right
+        - add to header
+        - change HTML "back to levels" to place top right - again header
+        - better yet - icon or menu button (three lines) with additional options. 
+        - hide elements of header that are not necessary
+        - update shema or update logic to ensure that the next / end level / buttons work (including backwards)
+    
+    create sub levels? 
+        - test to see how decimaled levels might work
+        - change on schema so that levels have hiraichy
+        - implement in future levels so it is standardised across the board.     
     
     toolbar
-            - add in option to lock / 'unlocked' gates
-            - add bin to remove
-            - if clicked it adds (to centre or top right?)
-            - on hover it comes up with the four arrows to show its been moved
-            - on removal it removes wires? 
-            - toolbar could also include how many could be added (in sandbox unlimited (1000s) in level mode or exam mode (1-10?))
-    make gates dragable
-            store positional data? - update LogicGate class if necessary
-            store how many there are? Maybe in array
-            change css to make grabbale through cursor and mouse movements
-        make a connector that joins/binds to inputs and output
-            include this as coordinates relative to the SVG?
-            add a cute way to visualise this - maybe electric purple lines with small circles at either end
-            dragable from the start and once connected the gate changes colour to purple too
-            Once connected and correct the purple is replaced by green or red
-                - ideally this would be along the route of the line but unlikely
-            update as gates are removed or moved
-            Store connection in array of coordinates?
+        - add in option to lock / 'unlocked' gates
+        - add bin to remove
+        - if clicked it adds (to centre or top left?)
+        - on hover it comes up with the four arrows to show its been moved
+        - on removal it removes wires? 
+        - toolbar could also include how many could be added (in sandbox unlimited (1000s) in level mode or exam mode (1-10?))
+    
+    make a connector that joins/binds to inputs and output
+        - include this as coordinates relative to the SVG?
+        - add a cute way to visualise this - maybe electric purple lines with small circles at either end
+        - dragable from the start and once connected the gate changes colour to purple too
+        - Once connected and correct the purple is replaced by green or red
+            - ideally this would be along the route of the line but unlikely
+        - update as gates are removed or moved
+        - Store connection in array of coordinates?
+    
     create first level
         - add instructions
         - add AND to toolbar
         - add correct solution etc
         - check output is correct before next or 'home' buton comes up
+    
     create JSON level schema
         - include things like how many (and coordinates) of current gates are on viewer
         - include the starting parameters for challenges
@@ -38,15 +42,16 @@ to do:
         - include limit on each type of gate
         - if gate is 0 then blank out the toolbar in that position
         - add a connectAutomatically option in json so it would autocomplete wires in certain levels
-
+        - when completing level, save state so that user can return to level
+    
     for sandbox mode, create a drag background tool to move background so that more can be added. 
-    - and recenter option for input and output
-    - and ability to move them
-    - and ability to export the sandbox level layout (as JSON)
-
+        - and recenter option for input and output
+        - and ability to move them
+        - and ability to export the sandbox level layout (as JSON)
 
     test visually
     test through code (Boolean results in console)
     test through unit testing
 
-
+    expansion
+    - user accounts
