@@ -1,6 +1,6 @@
 import LogicGate from "./LogicGate.js";
 import Toolbar from "./Toolbar.js";
-import InPageViewer from "./InPageViewer.js";
+import Viewer from "./Viewer.js";
 
 
 const mainContent = document.getElementById("mainContent");
@@ -97,38 +97,44 @@ function createLevelButtons() {
                 return;
             }
 
-            mainContent.innerHTML =
-                `<h2>${level.name} Level</h2>
-                <p>${level.description}</p>
-                <button id="backButton">Back to Levels</button>`;
+            loadLevel(level);
+
             
-            console.log(`Starting: ${level.name}`);
-            
-            const inPageViewer = new InPageViewer("inPageViewer");
-            document.getElementById("inPageViewer").style.display = "flex";
-
-            const toolbar = new Toolbar(inPageViewer);
-
-            document.getElementById("toolbar").style.display = "flex";
-
-            const backButton = document.getElementById("backButton");
-            backButton.addEventListener("click", () => {
-                
-                markLevelCompleted(levelId);
-                
-                mainContent.innerHTML =
-                    `<h2>Please select a level</h2>
-                    <div>${createLevelButtonRow()}</div>
-                `;
-                        
-                createLevelButtons();
-                
-                document.getElementById("toolbar").style.display = "none";
-                document.getElementById("inPageViewer").style.display = "none";
-            });
         });
     }
 }
+
+function loadLevel(level) {
+                mainContent.innerHTML =
+                    `<h2>${level.name} Level</h2>
+                <p>${level.description}</p>
+                <button id="backButton">Back to Levels</button>`;
+
+                console.log(`Starting: ${level.name}`);
+
+                const inPageViewer = new Viewer("inPageViewer");
+                document.getElementById("inPageViewer").style.display = "flex";
+
+                const toolbar = new Toolbar(inPageViewer);
+
+                document.getElementById("toolbar").style.display = "flex";
+
+                const backButton = document.getElementById("backButton");
+                backButton.addEventListener("click", () => {
+
+                    markLevelCompleted(level.id);
+
+                    mainContent.innerHTML =
+                        `<h2>Please select a level</h2>
+                    <div>${createLevelButtonRow()}</div>
+                `;
+
+                    createLevelButtons();
+
+                    document.getElementById("toolbar").style.display = "none";
+                    document.getElementById("inPageViewer").style.display = "none";
+                });
+            }
 
 function markLevelCompleted(levelId) {
     const level = levels.find(l => l.id === levelId);

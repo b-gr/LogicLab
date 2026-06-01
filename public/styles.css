@@ -134,4 +134,6 @@ button:hover {
     background-image: 
         linear-gradient(to right, rgba(60, 255, 0, 0.3) 1px, transparent 1px),
         linear-gradient(to bottom, rgb(60, 255, 0,0.3) 1px, transparent 1px);
-    background-size: 5px 5px;}
+    background-size: 5px 5px;
+    position: relative;
+}

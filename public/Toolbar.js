@@ -1,5 +1,5 @@
 import LogicGate from "./LogicGate.js";
-import InPageViewer from "./InPageViewer.js";
+import Viewer from "./Viewer.js";
 
 
 export default class Toolbar {

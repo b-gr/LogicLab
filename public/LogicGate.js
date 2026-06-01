@@ -4,6 +4,8 @@ export default class LogicGate {
         this.inputs = [];
         this.svg = this.getSVG(type);
         this.html = this.createHTML();
+        this.coordinates = { x: 0, y: 0 };
+        
     }
 
     createHTML = () => {

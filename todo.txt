@@ -36,9 +36,11 @@ to do:
         - include limit on lines
         - include limit on each type of gate
         - if gate is 0 then blank out the toolbar in that position
-        
+
     for sandbox mode, create a drag background tool to move background so that more can be added. 
-    
+    - and recenter option for input and output
+    - and ability to move them
+    - and ability to export the sandbox level layout (as JSON)
 
 
     test visually
