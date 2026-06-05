@@ -88,13 +88,13 @@ function loadLevel(level) {
     mainContent.innerHTML =
         `<h2>${level.name} Level</h2>
     <p>${level.description}</p>`;
-    //<button id="backButton">Back to Levels</button>`;
 
     console.log(`Starting: ${level.name}`);
 
     const inPageViewer = new Viewer("inPageViewer");
     document.getElementById("inPageViewer").style.display = "flex";
-
+    inPageViewer.init();
+    
     const toolbar = new Toolbar(inPageViewer);
 
     document.getElementById("toolbar").style.display = "flex";

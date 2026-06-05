@@ -1,15 +1,21 @@
+import ViewerObject from './ViewerObject.js';
+
 export default class Viewer {
     constructor(viewerId) {
         this.container = document.getElementById(viewerId);
         this.gates = [];
         this.connections = [];
-        this.updateViewerDimensions();
         window.addEventListener('resize', () => {this.updateViewerDimensions()});
         this.startPoints = [];
         this.endPoints = [];
+        }
+
+    init() {
+        this.updateViewerDimensions()
+        this.createStartPoint(true, 50, this.height/2);
+        this.createEndPoint(false, this.width - 100, this.height/2);
+    
     }
-
-
 
     updateViewerDimensions() {
         const viewerRectangle = this.container.getBoundingClientRect();
@@ -19,6 +25,8 @@ export default class Viewer {
         this.endX = viewerRectangle.right;
         this.startY = viewerRectangle.top;
         this.endY = viewerRectangle.bottom;
+        console.log(`Height is... ${this.height}`)
+        console.log(`width is... ${this.width}`)
     }
 
 
@@ -34,6 +42,7 @@ export default class Viewer {
         this.addEventListenersToGate(gate);
         this.gates.push(gate);
         console.log(`Added ${gate.type} gate to viewer at position (${gate.coordinates.x}, ${gate.coordinates.y})`);
+        this.updateViewerDimensions();
     }
 
     mouseToViewerCoordinates(event) {
@@ -107,19 +116,29 @@ export default class Viewer {
     //evaluateCircuit
 
     //build start points
-    createStartPoint(){
-        this.startPoints.push({x: 0, y: 0});
-        
-        this.container.appendChild(gate.html);
-        this.updateGatePosition(gate);
-        this.addEventListenersToGate(gate);
-        this.gates.push(gate);
-        console.log(`Added ${gate.type} gate to viewer at position (${gate.coordinates.x}, ${gate.coordinates.y})`);
-    
+    createStartPoint(state, x, y) {
+        console.log("Creating start point... at position (" + x + ", " + y + ")");
+        const startPoint = new ViewerObject('start',state);
+        startPoint.coordinates = {x: x, y: y};
+        startPoint.html.style.position = 'absolute';
+        startPoint.html.style.left = `${x}px`;
+        startPoint.html.style.top = `${y}px`;
+        this.container.appendChild(startPoint.html);
+        this.startPoints.push(startPoint);
     }
 
 
     //build end points
+    createEndPoint(state, x, y) {
+        console.log("Creating end point... at position (" + x + ", " + y + ")");
+        const endPoint = new ViewerObject('end',state);
+        endPoint.coordinates = {x: x, y: y};
+        endPoint.html.style.position = 'absolute';
+        endPoint.html.style.left = `${x}px`;
+        endPoint.html.style.top = `${y}px`;
+        this.container.appendChild(endPoint.html);
+        this.endPoints.push(endPoint);
+    }
 
     //removeGate
 

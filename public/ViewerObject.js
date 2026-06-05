@@ -13,6 +13,10 @@ export default class ViewerObject {
             container.innerHTML = this.startSVGtrue();
         } else if (this.type === 'start' && !this.state) {
             container.innerHTML = this.startSVGfalse();
+        } else if (this.type === 'end' && this.state) {
+            container.innerHTML = this.endSVGtrue();
+        } else if (this.type === 'end' && !this.state) {
+            container.innerHTML = this.endSVGfalse()
         }
         return container;
     }
