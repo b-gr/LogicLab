@@ -6,6 +6,7 @@ import Viewer from "./Viewer.js";
 const mainContent = document.getElementById("mainContent");
 const startButton = document.getElementById("startButton");
 const levelTable = document.getElementById("levelTable");
+const backButton = document.getElementById("backButton");
 
 startButton.addEventListener("click", () => {
     console.log("Start button clicked");
@@ -15,39 +16,6 @@ startButton.addEventListener("click", () => {
     
     createLevelButtons()
 });
-
-/*
-function evaluateBooleanLogicTest() {
-    const andGate = new LogicGate('AND');
-    andGate.inputs = [true, false];
-    console.log('AND Gate Output (true AND false):', andGate.booleanOperation());
-
-    const orGate = new LogicGate('OR');
-    orGate.inputs = [true, false];
-    console.log('OR Gate Output (true OR false):', orGate.booleanOperation());
-
-    const notGate = new LogicGate('NOT');
-    notGate.inputs = [true];
-    console.log('NOT Gate Output (NOT true):', notGate.booleanOperation());
-
-    const nandGate = new LogicGate('NAND');
-    nandGate.inputs = [true, true];
-    console.log('NAND Gate Output (true NAND true):', nandGate.booleanOperation());
-
-    const norGate = new LogicGate('NOR');
-    norGate.inputs = [false, false];
-    console.log('NOR Gate Output (false NOR false):', norGate.booleanOperation());
-
-    const xorGate = new LogicGate('XOR');
-    xorGate.inputs = [true, false];
-    console.log('XOR Gate Output (true XOR false):', xorGate.booleanOperation());
-
-    const xnorGate = new LogicGate('XNOR');
-    xnorGate.inputs = [true, true];
-    console.log('XNOR Gate Output (true XNOR true):', xnorGate.booleanOperation());
-}
-*/
-
 
 //Define levels for the game v1
 const levels = [
@@ -81,6 +49,11 @@ function createLevelButtonRow() {
 
 //Function to add event listeners to level buttons and handle level selection
 function createLevelButtons() {
+    
+    const backButton = document.getElementById("backButton");
+    backButton.style.display = "none";
+
+
     const levelButtons = document.getElementsByClassName("levelButton");
     
     for (let levelButton of document.getElementsByClassName("levelButton")) {
@@ -105,36 +78,44 @@ function createLevelButtons() {
 }
 
 function loadLevel(level) {
-                mainContent.innerHTML =
-                    `<h2>${level.name} Level</h2>
-                <p>${level.description}</p>
-                <button id="backButton">Back to Levels</button>`;
+    const backButton = document.getElementById("backButton");
 
-                console.log(`Starting: ${level.name}`);
+    backButton.innerHTML =
+        `<button id="backButton">Back to Levels</button>`;
 
-                const inPageViewer = new Viewer("inPageViewer");
-                document.getElementById("inPageViewer").style.display = "flex";
+    backButton.style.display = "flex";
+    
+    mainContent.innerHTML =
+        `<h2>${level.name} Level</h2>
+    <p>${level.description}</p>`;
+    //<button id="backButton">Back to Levels</button>`;
 
-                const toolbar = new Toolbar(inPageViewer);
+    console.log(`Starting: ${level.name}`);
 
-                document.getElementById("toolbar").style.display = "flex";
+    const inPageViewer = new Viewer("inPageViewer");
+    document.getElementById("inPageViewer").style.display = "flex";
 
-                const backButton = document.getElementById("backButton");
-                backButton.addEventListener("click", () => {
+    const toolbar = new Toolbar(inPageViewer);
 
-                    markLevelCompleted(level.id);
+    document.getElementById("toolbar").style.display = "flex";
 
-                    mainContent.innerHTML =
-                        `<h2>Please select a level</h2>
-                    <div>${createLevelButtonRow()}</div>
-                `;
+    backButton.addEventListener("click", () => {
 
-                    createLevelButtons();
+        markLevelCompleted(level.id);
 
-                    document.getElementById("toolbar").style.display = "none";
-                    document.getElementById("inPageViewer").style.display = "none";
-                });
-            }
+        mainContent.innerHTML =
+            `<h2>Please select a level</h2>
+        <div>${createLevelButtonRow()}</div>
+    `;
+
+        createLevelButtons();
+
+        document.getElementById("toolbar").style.display = "none";
+        document.getElementById("inPageViewer").style.display = "none";
+    
+        inPageViewer.resetViewer();
+    });
+}
 
 function markLevelCompleted(levelId) {
     const level = levels.find(l => l.id === levelId);

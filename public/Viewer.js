@@ -5,6 +5,8 @@ export default class Viewer {
         this.connections = [];
         this.updateViewerDimensions();
         window.addEventListener('resize', () => {this.updateViewerDimensions()});
+        this.startPoints = [];
+        this.endPoints = [];
     }
 
     updateViewerDimensions() {
@@ -101,7 +103,20 @@ export default class Viewer {
     }
     //evaluateCircuit
 
+    //build start points
+
+    //build end points
+
     //clearViewer
+    resetViewer(){
+        for (let gate of this.gates) {
+            this.container.removeChild(gate.html);
+        }
+        this.gates = [];
+        this.connections = [];
+        this.startPoints = [];
+        this.endPoints = [];
+    }
 
     //removeGate
 
