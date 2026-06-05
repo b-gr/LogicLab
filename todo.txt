@@ -2,10 +2,9 @@ to do:
     create next button
         - as part of this change HTML layout to place this at the top right
         - add to header
-        - change HTML "back to levels" to place top right - again header
         - better yet - icon or menu button (three lines) with additional options. 
         - hide elements of header that are not necessary
-        - update shema or update logic to ensure that the next / end level / buttons work (including backwards)
+        - update schema or update logic to ensure that the next / end level / buttons work (including backwards)
     
     create sub levels? 
         - test to see how decimaled levels might work
@@ -14,9 +13,6 @@ to do:
     
     toolbar
         - add in option to lock / 'unlocked' gates
-        - add bin to remove
-        - if clicked it adds (to centre or top left?)
-        - on hover it comes up with the four arrows to show its been moved
         - on removal it removes wires? 
         - toolbar could also include how many could be added (in sandbox unlimited (1000s) in level mode or exam mode (1-10?))
     
