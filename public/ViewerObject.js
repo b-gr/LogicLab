@@ -16,14 +16,28 @@ export default class ViewerObject {
         } else if (this.type === 'end' && this.state) {
             container.innerHTML = this.endSVGtrue();
         } else if (this.type === 'end' && !this.state) {
-            container.innerHTML = this.endSVGfalse()
+            container.innerHTML = this.endSVGfalse();
+        } else if (this.type === 'bin' && this.state) {
+            container.innerHTML = this.binClosedSVG();
+        } else if (this.type === 'bin' && !this.state) {
+            container.innerHTML = this.binOpenSVG();
         }
         return container;
+    }
+
+    openBin() {
+        this.html.innerHTML = this.binOpenSVG();
+    }
+
+    closeBin() {
+        this.html.innerHTML = this.binClosedSVG();
     }
 
     binOpenSVG = () => {
         return `
         <svg 
+            width="100" 
+            height="100"    
             viewBox="0 0 100 100" 
             xmlns="http://www.w3.org/2000/svg">
             fill="white"
@@ -46,14 +60,14 @@ export default class ViewerObject {
             stroke-linecap="round"/>
             <path 
                 d="
-                M35 40
-                L37.5 80
-                M50 40
-                L50 80
-                M65 40
-                L62.5 80
+                    M35 40
+                    L37.5 80
+                    M50 40
+                    L50 80
+                    M65 40
+                    L62.5 80
                 "
-            stroke="black"
+            stroke="white"
             stroke-width="5"
             stroke-linecap="round"/>
         </svg>
@@ -62,9 +76,11 @@ export default class ViewerObject {
 
 
 
-    binclosedSVG = () => {
+    binClosedSVG = () => {
         return `
         <svg 
+            width="100" 
+            height="100"             
             viewBox="0 0 100 100" 
             xmlns="http://www.w3.org/2000/svg">
             fill="white"
@@ -94,7 +110,7 @@ export default class ViewerObject {
                 M65 40
                 L62.5 80
                 "
-            stroke="black"
+            stroke="white"
             stroke-width="5"
             stroke-linecap="round"/>
         </svg>

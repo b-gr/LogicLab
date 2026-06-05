@@ -6,15 +6,14 @@ export default class Viewer {
         this.gates = [];
         this.connections = [];
         window.addEventListener('resize', () => {this.updateViewerDimensions()});
-        this.startPoints = [];
-        this.endPoints = [];
+        this.viewerObjects = [];
         }
 
     init() {
-        this.updateViewerDimensions()
+        this.updateViewerDimensions();
+        this.createBin();
         this.createStartPoint(true, 50, this.height/2);
         this.createEndPoint(false, this.width - 100, this.height/2);
-    
     }
 
     updateViewerDimensions() {
@@ -25,8 +24,6 @@ export default class Viewer {
         this.endX = viewerRectangle.right;
         this.startY = viewerRectangle.top;
         this.endY = viewerRectangle.bottom;
-        console.log(`Height is... ${this.height}`)
-        console.log(`width is... ${this.width}`)
     }
 
 
@@ -41,7 +38,6 @@ export default class Viewer {
         this.updateGatePosition(gate);
         this.addEventListenersToGate(gate);
         this.gates.push(gate);
-        console.log(`Added ${gate.type} gate to viewer at position (${gate.coordinates.x}, ${gate.coordinates.y})`);
         this.updateViewerDimensions();
     }
 
@@ -75,6 +71,19 @@ export default class Viewer {
             );
 
             gate.html.classList.add('gate-dragged');
+            const bin = this.viewerObjects.find(obj => obj.type === 'bin');
+            
+            if (
+                this.mouseToViewerCoordinates(event).x < this.width/2 + 50
+                &&
+                this.mouseToViewerCoordinates(event).x > this.width/2 - 50
+                &&
+                this.mouseToViewerCoordinates(event).y < 100
+            ) {
+                bin.openBin();
+            } else {
+                bin.closeBin();
+            }
 
         }
 
@@ -84,7 +93,6 @@ export default class Viewer {
             
             const position = this.mouseToViewerCoordinates(event);
 
-            //console.log(`Moved gate to position (${position.x}, ${position.y})`);
             this.container.removeEventListener('mousemove', onmousemove);
             
             this.updateGateCoordinates(
@@ -97,12 +105,26 @@ export default class Viewer {
             gate.html.classList.remove('gate-dragged');
             gate.onMouseUp = null;
 
+            if (
+                position.x < this.width/2 + 50
+                &&
+                position.x > this.width/2 - 50
+                &&
+                position.y < 100
+            ) {
+                this.removeGate(gate)
+                this.viewerObjects.find(obj => obj.type === 'bin').closeBin();
+
+            }
+
         }
 
         gate.html.onDragStart = () => {
             return false;
         }
         
+
+
 
     }
 
@@ -115,33 +137,41 @@ export default class Viewer {
 
     //evaluateCircuit
 
+    //createBin
+    createBin(){
+        console.log(`creating bin`)
+        const bin = new ViewerObject('bin', true);
+        bin.coordinates = {x: (this.width/2)-50, y: 0};
+        bin.html.style.position = 'absolute';
+        bin.html.style.left = `${bin.coordinates.x}px`;
+        bin.html.style.top = `${bin.coordinates.y}px`;
+        this.container.appendChild(bin.html);
+        this.viewerObjects.push(bin);
+    }
+
     //build start points
     createStartPoint(state, x, y) {
-        console.log("Creating start point... at position (" + x + ", " + y + ")");
         const startPoint = new ViewerObject('start',state);
         startPoint.coordinates = {x: x, y: y};
         startPoint.html.style.position = 'absolute';
         startPoint.html.style.left = `${x}px`;
         startPoint.html.style.top = `${y}px`;
         this.container.appendChild(startPoint.html);
-        this.startPoints.push(startPoint);
+        this.viewerObjects.push(startPoint);
     }
 
 
     //build end points
     createEndPoint(state, x, y) {
-        console.log("Creating end point... at position (" + x + ", " + y + ")");
         const endPoint = new ViewerObject('end',state);
         endPoint.coordinates = {x: x, y: y};
         endPoint.html.style.position = 'absolute';
         endPoint.html.style.left = `${x}px`;
         endPoint.html.style.top = `${y}px`;
         this.container.appendChild(endPoint.html);
-        this.endPoints.push(endPoint);
+        this.viewerObjects.push(endPoint);
     }
-
-    //removeGate
-
+    
     //connector
 
 
@@ -149,10 +179,10 @@ export default class Viewer {
         for (let gate of this.gates) {
             this.container.removeChild(gate.html);
         }
+        this.container.removeChild(bin.html);
         this.gates = [];
         this.connections = [];
-        this.startPoints = [];
-        this.endPoints = [];
+        this.viewerObjects = [];
     }
 
 
