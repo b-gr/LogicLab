@@ -9,6 +9,8 @@ export default class Viewer {
         this.endPoints = [];
     }
 
+
+
     updateViewerDimensions() {
         const viewerRectangle = this.container.getBoundingClientRect();
         this.width = viewerRectangle.width;
@@ -101,13 +103,29 @@ export default class Viewer {
         });
     
     }
+
     //evaluateCircuit
 
     //build start points
+    createStartPoint(){
+        this.startPoints.push({x: 0, y: 0});
+        
+        this.container.appendChild(gate.html);
+        this.updateGatePosition(gate);
+        this.addEventListenersToGate(gate);
+        this.gates.push(gate);
+        console.log(`Added ${gate.type} gate to viewer at position (${gate.coordinates.x}, ${gate.coordinates.y})`);
+    
+    }
+
 
     //build end points
 
-    //clearViewer
+    //removeGate
+
+    //connector
+
+
     resetViewer(){
         for (let gate of this.gates) {
             this.container.removeChild(gate.html);
@@ -118,7 +136,6 @@ export default class Viewer {
         this.endPoints = [];
     }
 
-    //removeGate
 
     updateGateCoordinates(gate, x, y) {
         const viewerRectangle = this.container.getBoundingClientRect();
@@ -145,7 +162,6 @@ export default class Viewer {
         gateElement.style.position = 'absolute';
         gateElement.style.left = `${gate.coordinates.x}px`;
         gateElement.style.top = `${gate.coordinates.y}px`;
-        //console.log(`Updated ${gate.type} gate position to (${gate.coordinates.x}, ${gate.coordinates.y})`);
     }
 
 
