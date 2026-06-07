@@ -173,13 +173,16 @@ export default class Viewer {
     }
     
     //connector
+    
 
 
     resetViewer(){
         for (let gate of this.gates) {
             this.container.removeChild(gate.html);
         }
-        this.container.removeChild(bin.html);
+        for (let object of this.viewerObjects) {
+            this.container.removeChild(object.html)
+        }
         this.gates = [];
         this.connections = [];
         this.viewerObjects = [];
