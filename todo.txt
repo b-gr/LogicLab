@@ -45,6 +45,9 @@ to do:
         - and ability to move them
         - and ability to export the sandbox level layout (as JSON)
 
+
+    add a clean up button to the sandbox
+    
     test visually
     test through code (Boolean results in console)
     test through unit testing

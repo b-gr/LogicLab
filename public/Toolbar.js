@@ -8,6 +8,7 @@ export default class Toolbar {
         this.viewer = viewer;
         this.container = document.getElementById('toolbar');
         this.createButtons();
+        this.connectorOn = false;
     }
 
     createButtons = () => {
@@ -25,7 +26,7 @@ export default class Toolbar {
         this.container.innerHTML = buttonsHTML;
 
         document.getElementById("penButton").addEventListener("click", () => {
-            cursor:crosshair;
+            this.penClick()
         })
 
         // Add event listeners for each button
@@ -64,4 +65,23 @@ export default class Toolbar {
             this.viewer.addGate(xnorGate);
         });
     }
+
+
+
+    disableOtherButtons(){
+        
+    }
+
+    penClick(){
+            const penButton = document.getElementById("penButton");
+            if (!this.connectorOn) {
+                penButton.style.backgroundColor = "#ff8585";
+                this.connectorOn = true;
+                return;
+            } else {
+                penButton.style.backgroundColor = "#8c8c8c";
+                this.connectorOn = false;
+                return;
+            }
+        }
 }

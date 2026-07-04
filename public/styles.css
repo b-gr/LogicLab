@@ -163,3 +163,37 @@ button:hover {
 .header > div {
     width: calc(100% / 3)
 }
+
+.buttonToggle {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height:100%;
+    margin: 1%;
+    background-color: #8c8c8c;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    text-align: center;
+    text-justify: center;
+}
+
+.buttonToggleChecked {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height:100%;
+    margin: 1%;
+    background-color: #ff8585;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    text-align: center;
+    text-justify: center;
+}
+
+.buttonToggle input {
+    opacity:0;
+    width: 0;
+    height: 0;
+}
