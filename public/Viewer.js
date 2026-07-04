@@ -1,3 +1,4 @@
+import Connector from './Connector.js';
 import ViewerObject from './ViewerObject.js';
 
 export default class Viewer {
@@ -172,8 +173,21 @@ export default class Viewer {
         this.viewerObjects.push(endPoint);
     }
     
+
+
     //connector
     
+    /*
+    connectorModeOn(boolean){
+        if(boolean){
+            const connector = new Connector(
+                outputPort,
+                inputPort
+            )
+        }
+    }
+        */
+
 
 
     resetViewer(){

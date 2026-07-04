@@ -1,18 +1,16 @@
-import Connector from "./Connector.js";
 import LogicGate from "./LogicGate.js";
-import Viewer from "./Viewer.js";
 
 
 export default class Toolbar {
     constructor(viewer) {
+        this.connectorOn = false;
         this.viewer = viewer;
         this.container = document.getElementById('toolbar');
         this.createButtons();
-        this.connectorOn = false;
     }
 
     createButtons = () => {
-        const buttonsHTML = 
+        const buttonsHTML =
             `
             <button class="toolbarButton" id="penButton">✏️</button>
             <button class="toolbarButton" id="ANDButton">AND</button>
@@ -29,47 +27,46 @@ export default class Toolbar {
             this.penClick()
         })
 
-        // Add event listeners for each button
-        document.getElementById("ANDButton").addEventListener("click", () => {
-            const andGate = new LogicGate('AND');
-            this.viewer.addGate(andGate);
-        });    
-        
-        document.getElementById("ORButton").addEventListener("click", () => {
-            const orGate = new LogicGate('OR');
-            this.viewer.addGate(orGate);
-        });
-        
-        document.getElementById("NOTButton").addEventListener("click", () => {
-            const notGate = new LogicGate('NOT');
-            this.viewer.addGate(notGate);
-        });
 
-        document.getElementById("NANDButton").addEventListener("click", () => {
-            const nandGate = new LogicGate('NAND');
-            this.viewer.addGate(nandGate);
-        });
+            // Add event listeners for each button
+            document.getElementById("ANDButton").addEventListener("click", () => {
+                this.addGate(new LogicGate("AND")); 
+            });
+
+            document.getElementById("ORButton").addEventListener("click", () => {
+                this.addGate(new LogicGate('OR'));
+            });
+
+            document.getElementById("NOTButton").addEventListener("click", () => {
+                this.addGate(new LogicGate('NOT'));
+            });
+
+            document.getElementById("NANDButton").addEventListener("click", () => {
+                this.addGate(new LogicGate('NAND'));
+            });
+
+            document.getElementById("NORButton").addEventListener("click", () => {
+                this.addGate(new LogicGate('NOR'));
+            });
+
+            document.getElementById("XORButton").addEventListener("click", () => {
+                this.addGate(new LogicGate('XOR'));
+            });
+
+            document.getElementById("XNORButton").addEventListener("click", () => {
+                this.addGate(new LogicGate('XNOR'));
+            });
         
-        document.getElementById("NORButton").addEventListener("click", () => {
-            const norGate = new LogicGate('NOR');
-            this.viewer.addGate(norGate);
-        });
-        
-        document.getElementById("XORButton").addEventListener("click", () => {
-            const xorGate = new LogicGate('XOR');
-            this.viewer.addGate(xorGate);
-        });
-        
-        document.getElementById("XNORButton").addEventListener("click", () => {
-            const xnorGate = new LogicGate('XNOR');
-            this.viewer.addGate(xnorGate);
-        });
     }
 
+    addGate(gate) {
+        if (this.connectorOn) {
+            window.alert("Please finish drawing your connection or unclick the draw button to add more gates.")
+        } else {
+            console.log(`adding ${gate.type}`);
+            this.viewer.addGate(gate);
 
-
-    disableOtherButtons(){
-        
+        }
     }
 
     penClick(){
@@ -84,4 +81,6 @@ export default class Toolbar {
                 return;
             }
         }
+
+        
 }
