@@ -1,4 +1,5 @@
 import Connector from './Connector.js';
+import Toolbar from './Toolbar.js';
 import ViewerObject from './ViewerObject.js';
 
 export default class Viewer {
@@ -8,6 +9,8 @@ export default class Viewer {
         this.connections = [];
         window.addEventListener('resize', () => {this.updateViewerDimensions()});
         this.viewerObjects = [];
+        this.connectionMode = false;
+        this.selectedOutputGate = null;
         }
 
     init() {
@@ -50,6 +53,10 @@ export default class Viewer {
     }
 
     dragGate(event, gate) {
+        if(this.connectionMode){
+            return;
+        }
+
         this.updateViewerDimensions();     
         gate.html.style.zIndex = 1000;
         this.container.appendChild(gate.html);
@@ -132,9 +139,51 @@ export default class Viewer {
     addEventListenersToGate(gate) {
         gate.html.addEventListener('mousedown', (event) => {
             this.dragGate(event, gate);
+            this.clickGate(event, gate);
         });
+    }
+
+    clickGate(event, gate){
+        if(!this.connectionMode){
+            return;
+        }
+
+
+        this.updateViewerDimensions();     
+        gate.html.style.zIndex = 1000;
+        this.container.appendChild(gate.html);
+
+
+        const mousePosition = this.mouseToViewerCoordinates(event);
+
+        gate.html.onmouseup = (event) => {
+            
+            const position = this.mouseToViewerCoordinates(event);
+            
+            if (this.selectedOutputGate != null){
+                this.linkGates(gate);            
+            } else {
+                this.selectedOutputGate = gate;
+            }
+
+            gate.onMouseUp = null;
+
+        }
     
     }
+
+    linkGates(gate){
+        const gate1 = this.selectedOutputGate;
+        const gate2 = gate;
+
+        if (gate1 = gate2){
+            this.selectedOutputGate = null;
+        }
+
+        if (gate1.input)
+    }
+
+
 
     //evaluateCircuit
 
@@ -177,16 +226,17 @@ export default class Viewer {
 
     //connector
     
-    /*
-    connectorModeOn(boolean){
-        if(boolean){
-            const connector = new Connector(
-                outputPort,
-                inputPort
-            )
-        }
+    
+    connectionModeOn(boolean){
+        this.connectionMode = boolean;
+        console.log(`pen on is ${boolean}`)
+        if(!boolean){
+            this.selectedOutputGate = null;
+            console.log("Pen cancelled");
+            return;
+        } 
     }
-        */
+    
 
 
 
