@@ -145,6 +145,12 @@ button:hover {
 
 }
 
+.gate-selected {
+    fill: none;
+    stroke: #ff8585;
+    stroke-width: 3px;
+}
+
 .header {
     background-color: #111;
     text-align: center;
