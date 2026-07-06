@@ -7,17 +7,17 @@ export default class Viewer {
         this.container = document.getElementById(viewerId);
         this.gates = [];
         this.connections = [];
-        window.addEventListener('resize', () => {this.updateViewerDimensions()});
+        window.addEventListener('resize', () => { this.updateViewerDimensions() });
         this.viewerObjects = [];
         this.connectionMode = false;
         this.selectedOutputGate = null;
-        }
+    }
 
     init() {
         this.updateViewerDimensions();
         this.createBin();
-        this.createStartPoint(true, 50, this.height/2);
-        this.createEndPoint(false, this.width - 100, this.height/2);
+        this.createStartPoint(true, 50, this.height / 2);
+        this.createEndPoint(false, this.width - 100, this.height / 2);
     }
 
     updateViewerDimensions() {
@@ -38,6 +38,9 @@ export default class Viewer {
 
 
     addGate(gate) {
+        if (gate.type === 'NOT') {
+            gate.inputMax = 1;
+        }
         this.container.appendChild(gate.html);
         this.updateGatePosition(gate);
         this.addEventListenersToGate(gate);
@@ -53,11 +56,11 @@ export default class Viewer {
     }
 
     dragGate(event, gate) {
-        if(this.connectionMode){
+        if (this.connectionMode) {
             return;
         }
 
-        this.updateViewerDimensions();     
+        this.updateViewerDimensions();
         gate.html.style.zIndex = 1000;
         this.container.appendChild(gate.html);
 
@@ -74,17 +77,17 @@ export default class Viewer {
 
         const onmousemove = (event) => {
             moveAt(
-                this.mouseToViewerCoordinates(event).x, 
+                this.mouseToViewerCoordinates(event).x,
                 this.mouseToViewerCoordinates(event).y
             );
 
             gate.html.classList.add('gate-dragged');
             const bin = this.viewerObjects.find(obj => obj.type === 'bin');
-            
+
             if (
-                this.mouseToViewerCoordinates(event).x < this.width/2 + 50
+                this.mouseToViewerCoordinates(event).x < this.width / 2 + 50
                 &&
-                this.mouseToViewerCoordinates(event).x > this.width/2 - 50
+                this.mouseToViewerCoordinates(event).x > this.width / 2 - 50
                 &&
                 this.mouseToViewerCoordinates(event).y < 100
             ) {
@@ -98,25 +101,25 @@ export default class Viewer {
         this.container.addEventListener('mousemove', onmousemove);
 
         gate.html.onmouseup = (event) => {
-            
+
             const position = this.mouseToViewerCoordinates(event);
 
             this.container.removeEventListener('mousemove', onmousemove);
-            
+
             this.updateGateCoordinates(
-                gate, 
+                gate,
                 position.x - offsetX,
                 position.y - offsetY
-            );            
-            
+            );
+
             this.updateGatePosition(gate);
             gate.html.classList.remove('gate-dragged');
             gate.onMouseUp = null;
 
             if (
-                position.x < this.width/2 + 50
+                position.x < this.width / 2 + 50
                 &&
-                position.x > this.width/2 - 50
+                position.x > this.width / 2 - 50
                 &&
                 position.y < 100
             ) {
@@ -130,7 +133,7 @@ export default class Viewer {
         gate.html.onDragStart = () => {
             return false;
         }
-        
+
 
 
 
@@ -143,13 +146,13 @@ export default class Viewer {
         });
     }
 
-    clickGate(event, gate){
-        if(!this.connectionMode){
+    clickGate(event, gate) {
+        if (!this.connectionMode) {
             return;
         }
 
 
-        this.updateViewerDimensions();     
+        this.updateViewerDimensions();
         gate.html.style.zIndex = 1000;
         this.container.appendChild(gate.html);
 
@@ -157,41 +160,68 @@ export default class Viewer {
         const mousePosition = this.mouseToViewerCoordinates(event);
 
         gate.html.onmouseup = (event) => {
-            
+
             const position = this.mouseToViewerCoordinates(event);
-            
-            if (this.selectedOutputGate != null){
-                this.linkGates(gate);            
+
+            if (this.selectedOutputGate != null) {
+                this.linkGates(gate);
             } else {
+                gate.html.classList.add('gate-selected');
                 this.selectedOutputGate = gate;
             }
 
             gate.onMouseUp = null;
 
         }
-    
+
     }
 
-    linkGates(gate){
+    linkGates(gate) {
         const gate1 = this.selectedOutputGate;
         const gate2 = gate;
 
-        if (gate1 = gate2){
+        if (gate1 === gate2) {
+            //deselect gate
             this.selectedOutputGate = null;
+            gate1.html.classList.remove('gate-selected');
+            return;
         }
 
-        if (gate1.input)
+        if (gate1.outputs.size >= gate1.outputMax) {
+            console.log("Not possible: gate already connected to another gate")
+            gate1.html.classList.remove('gate-selected');
+            this.selectedOutputGate = null;
+            return;
+        }
+
+        if (gate2.inputs.size >= gate2.inputMax) {
+            console.log("not possible: no available inputs")
+            return;
+        }
+
+
+        gate1.html.classList.remove('gate-selected');
+        console.log("Success between two gates/ports")
+
+
+
+
     }
 
 
+
+    clearGateSelection() {
+        for (let i = 0; i < this.gates.length; i++) {
+            this.gates[i].html.classList.remove('gate-selected');
+        }
+    }
 
     //evaluateCircuit
 
     //createBin
-    createBin(){
-        console.log(`creating bin`)
+    createBin() {
         const bin = new ViewerObject('bin', true);
-        bin.coordinates = {x: (this.width/2)-50, y: 0};
+        bin.coordinates = { x: (this.width / 2) - 50, y: 0 };
         bin.html.style.position = 'absolute';
         bin.html.style.left = `${bin.coordinates.x}px`;
         bin.html.style.top = `${bin.coordinates.y}px`;
@@ -201,8 +231,8 @@ export default class Viewer {
 
     //build start points
     createStartPoint(state, x, y) {
-        const startPoint = new ViewerObject('start',state);
-        startPoint.coordinates = {x: x, y: y};
+        const startPoint = new ViewerObject('start', state);
+        startPoint.coordinates = { x: x, y: y };
         startPoint.html.style.position = 'absolute';
         startPoint.html.style.left = `${x}px`;
         startPoint.html.style.top = `${y}px`;
@@ -213,34 +243,32 @@ export default class Viewer {
 
     //build end points
     createEndPoint(state, x, y) {
-        const endPoint = new ViewerObject('end',state);
-        endPoint.coordinates = {x: x, y: y};
+        const endPoint = new ViewerObject('end', state);
+        endPoint.coordinates = { x: x, y: y };
         endPoint.html.style.position = 'absolute';
         endPoint.html.style.left = `${x}px`;
         endPoint.html.style.top = `${y}px`;
         this.container.appendChild(endPoint.html);
         this.viewerObjects.push(endPoint);
     }
-    
+
 
 
     //connector
-    
-    
-    connectionModeOn(boolean){
+
+
+    connectionModeOn(boolean) {
         this.connectionMode = boolean;
-        console.log(`pen on is ${boolean}`)
-        if(!boolean){
+        if (!boolean) {
             this.selectedOutputGate = null;
-            console.log("Pen cancelled");
             return;
-        } 
+        }
     }
-    
 
 
 
-    resetViewer(){
+
+    resetViewer() {
         for (let gate of this.gates) {
             this.container.removeChild(gate.html);
         }
@@ -256,21 +284,21 @@ export default class Viewer {
     updateGateCoordinates(gate, x, y) {
         const viewerRectangle = this.container.getBoundingClientRect();
         if (x < 0) {
-                gate.coordinates.x = 0;
-            } else if (x > viewerRectangle.width - gate.size.width) {
-                gate.coordinates.x = viewerRectangle.width - gate.size.width;
-            } else {
-                gate.coordinates.x = x;
-            }
+            gate.coordinates.x = 0;
+        } else if (x > viewerRectangle.width - gate.size.width) {
+            gate.coordinates.x = viewerRectangle.width - gate.size.width;
+        } else {
+            gate.coordinates.x = x;
+        }
 
         if (y < 0) {
-                gate.coordinates.y = 0;
-            } else if (y > viewerRectangle.height - gate.size.height) {
-                gate.coordinates.y = viewerRectangle.height - gate.size.height;
-            } else {
-                gate.coordinates.y = y;
-            }
+            gate.coordinates.y = 0;
+        } else if (y > viewerRectangle.height - gate.size.height) {
+            gate.coordinates.y = viewerRectangle.height - gate.size.height;
+        } else {
+            gate.coordinates.y = y;
         }
+    }
 
     updateGatePosition(gate) {
         const gateElement = gate.html;

@@ -6,6 +6,7 @@ export default class Toolbar {
         this.viewer = viewer;
         this.container = document.getElementById('toolbar');
         this.createButtons();
+        this.firstClickPen = true;
     }
 
     createButtons = () => {
@@ -63,14 +64,16 @@ export default class Toolbar {
         if (this.connectorOn) {
             window.alert("Please finish drawing your connection or unclick the draw button to add more gates.")
         } else {
-            console.log(`adding ${gate.type}`);
             this.viewer.addGate(gate);
-
         }
     }
 
     penClick(){
             const penButton = document.getElementById("penButton");
+            if(this.firstClickPen){
+                window.alert("To use the connector tool, first click the starting node, then the final node.")
+                this.firstClickPen = false;
+            }
             if (!this.connectorOn) {
                 penButton.style.backgroundColor = "#ff8585";
                 this.connectorOn = true;
@@ -79,6 +82,7 @@ export default class Toolbar {
             } else {
                 penButton.style.backgroundColor = "#8c8c8c";
                 this.connectorOn = false;
+                this.viewer.clearGateSelection();
                 this.viewer.connectionModeOn(this.connectorOn);                
                 return;
             }
