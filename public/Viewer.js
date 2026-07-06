@@ -130,6 +130,8 @@ export default class Viewer {
 
         }
 
+        this.reDrawConnectors(gate);
+
         gate.html.onDragStart = () => {
             return false;
         }
@@ -202,12 +204,18 @@ export default class Viewer {
 
         gate1.html.classList.remove('gate-selected');
         console.log("Success between two gates/ports")
-
-
+        
+        
+        const connector = new Connector(gate1,gate2);
+        this.container.appendChild(connector.html);
+        this.connections.push(connector);
 
 
     }
 
+    reDrawConnectors(){
+        //somecode
+    }
 
 
     clearGateSelection() {
