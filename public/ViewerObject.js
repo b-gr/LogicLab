@@ -4,18 +4,25 @@ export default class ViewerObject {
         this.type = type;
         this.html = this.createHTML(state);
         this.state = state;
+        this.acceptingInput = false;
+        this.creatingOutput = false;
     }
 
     createHTML(newState) {
         this.state = newState;
         const container = document.createElement('div');
         if (this.type === 'start' && this.state) {
+            this.creatingOutput = true;
             container.innerHTML = this.startSVGtrue();
-        } else if (this.type === 'start' && !this.state) {
+        /*} else if (this.type === 'start' && !this.state) {
+            this.output = 0;
             container.innerHTML = this.startSVGfalse();
+        */
         } else if (this.type === 'end' && this.state) {
+            this.acceptingInput = true;
             container.innerHTML = this.endSVGtrue();
         } else if (this.type === 'end' && !this.state) {
+            this.acceptingInput = false;
             container.innerHTML = this.endSVGfalse();
         } else if (this.type === 'bin' && this.state) {
             container.innerHTML = this.binClosedSVG();

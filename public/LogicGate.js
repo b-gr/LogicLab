@@ -1,11 +1,13 @@
 export default class LogicGate {
     constructor(type) {
+       this.coordinates = { x: 0, y: 0 };
         this.type = type;
         this.inputs = [];
+        this.outputs = [];
         this.svg = this.getSVG(type);
         this.html = this.createHTML();
-        this.coordinates = { x: 0, y: 0 };
         this.size = { width: 110, height: 60 };
+        this.inputMax = 2;
     }
 
     createHTML = () => {
