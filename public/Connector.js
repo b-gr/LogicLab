@@ -34,7 +34,7 @@ export default class Connector {
 
 
     checkLinePossible(){
-        if(this.node1.outputs.length >= 1){
+        if(this.node1.outputs.length >= this.node1.maxOutputs){
             console.log("Cannot add. Output already in use");
             return false;
         }
@@ -46,54 +46,45 @@ export default class Connector {
         }
 
         //if node inputs are full then retry. 
-        if (this.node2.inputs.length >= this.node2.inputMax) {
+        if (this.node2.inputs.length >= this.node2.maxInputs) {
             console.log("Cannot add. Inputs already in use")
             return false;
         }
         
+        if(!this.node1.creatingOutput) {
+            return false;
+        }
+
+        if(!this.node2.acceptingInput) {
+            return false;
+        }
+
+
         return true;
     }
 
-    getbCoord(){
-        if(this.node2.inputMax === 1) {
-            return {
-                x: this.node2.coordinates.x,
-                y: this.node2.coordinates.y +30
-            };
-        } else {
-            let yAdd = 0;
-            if (this.inputSlot === 0){
-                yAdd = 15;
+
+
+    setInputSlot(){
+        if(this.node2.maxInputs === 1){
+            this.inputSlot = 0;
+            return;
+        }
+
+        if(this.node2.inputs.length === 0){
+            const top = this.node2.getInputCoord(0);
+            const bottom = this.node2.getInputCoord(1);
+            if (Math.abs(top.y - this.aCoord.y) >= Math.abs(bottom.y - this.aCoord.y)) {
+                this.inputSlot = 1;
             } else {
-                yAdd = 45;
+                this.inputSlot = 0;
             }
-
-            return {
-                x: this.node2.coordinates.x,
-                y: this.node2.coordinates.y + yAdd
-            }
-        }        
-    }
-
-    setUpLine(){
-        this.aCoord = {
-            x: this.node1.coordinates.x + this.node1.size.width,
-            y: this.node1.coordinates.y + this.node1.size.height / 2
+            return;
         }
 
-        //find the closest node input when both nods are empty
-        if (this.node2.inputs.length === 0 && this.node2.inputMax === 2) {
-            this.inputSlot = 0
-            this.bCoord = this.getbCoord();
-        }
-
-        //partially filled (reasses the proximity and then nearby)
-        if (this.node2.inputs.length === 1 && this.node2.inputMax === 2) {
-
-            //the other node in the inputs
+        if(this.node2.inputs.length === 1){
             const existingConnector = this.node2.inputs[0]
-            
-            const existingConnectorOutputCoordY = existingConnector.node1.coordinates.y + (existingConnector.node1.size.height / 2);
+            const existingConnectorOutputCoordY = existingConnector.node1.coordinates.y + (existingConnector.node1.getOutputCoord().y);
 
             if(existingConnectorOutputCoordY < this.aCoord.y){
                 this.inputSlot = 1;
@@ -102,33 +93,26 @@ export default class Connector {
                 existingConnector.inputSlot = 1;
                 this.inputSlot = 0
             }
-
-            //redraw line for existing
-            //todo: extract as method existingConnector.redraw() ? or something similar
-            existingConnector.bCoord = existingConnector.getbCoord();
-            existingConnector.html.innerHTML = existingConnector.drawSVGLine();
-            this.bCoord = this.getbCoord();
+            
+            existingConnector.redrawLine();
+            return;
         }
+    }
 
 
-
-        if (this.node2.inputMax === 1) {
-            this.inputSlot = 0;
-            this.bCoord = this.getbCoord();
-        }
+    setUpLine(){
+        this.aCoord = this.node1.getOutputCoord();
+        this.setInputSlot();
+        this.bCoord = this.node2.getInputCoord(this.inputSlot);
         
-
-
-
-        console.log(`for first node, x: ${this.aCoord.x}, y: ${this.aCoord.y}`);
-
-        console.log(`for second node, x: ${this.bCoord.x}, y: ${this.bCoord.y}`)
-        
-
-        
-        //add to input and output arrays
         this.node1.outputs.push(this);
         this.node2.inputs.push(this);
+    }
+
+    redrawLine() {
+        this.aCoord = this.node1.getOutputCoord();
+        this.bCoord = this.node2.getInputCoord(this.inputSlot);
+        this.html.innerHTML = this.drawSVGLine();
     }
 
 
@@ -158,8 +142,10 @@ export default class Connector {
     }
 
     remove() {
-        this.html.remove();
-        this.html = null;
+        if (this.html !== null) {
+            this.html.remove();
+            this.html = null;
+        }
         this.node1.outputs = this.node1.outputs.filter(connector => connector !== this);
         this.node2.inputs = this.node2.inputs.filter(connector => connector !== this);
     }

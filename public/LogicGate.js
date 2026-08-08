@@ -4,10 +4,17 @@ export default class LogicGate {
         this.type = type;
         this.inputs = [];
         this.outputs = [];
+
+        if (type === "NOT") {
+            this.maxInputs = 1;
+        } else {
+            this.maxInputs = 2;
+        }
+        this.maxOutputs = 1;
+
         this.svg = this.getSVG(type);
         this.html = this.createHTML();
         this.size = { width: 110, height: 60 };
-        this.inputMax = 2;
     }
 
     createHTML = () => {
@@ -15,6 +22,36 @@ export default class LogicGate {
         container.classList.add('logic-gate');
         container.innerHTML = this.svg;
         return container;
+    }
+
+    getInputCoord(inputSlot){
+        if (this.maxInputs === 1 ){
+            return {
+                x: this.coordinates.x,
+                y: this.coordinates.y + (this.size.height / 2) 
+            };
+        }
+
+        if (inputSlot === 0) {
+            return {
+                x: this.coordinates.x,
+                y: this.coordinates.y + (this.size.height*0.25) 
+            }
+        }
+
+        if (inputSlot === 1) {
+            return {
+                x: this.coordinates.x,
+                y: this.coordinates.y + (this.size.height*0.75) 
+            }
+        }
+    }
+
+    getOutputCoord() {
+        return {
+            x: this.coordinates.x + this.size.width,
+            y: this.coordinates.y + (this.size.height / 2) 
+        };
     }
 
     booleanOperation = () => {

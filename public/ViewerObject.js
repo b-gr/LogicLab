@@ -2,33 +2,86 @@ export default class ViewerObject {
     constructor(type, state) {
         this.coordinates = { x: 0, y: 0 };
         this.type = type;
-        this.html = this.createHTML(state);
         this.state = state;
+
         this.acceptingInput = false;
         this.creatingOutput = false;
+        
+        this.maxOutputs = 0;
+        this.maxInputs = 0;
+
+        if(type === "start") {
+            this.creatingOutput = true;
+            this.outputs = [];
+            this.maxOutputs = 1;
+        }
+
+        if(type === "end") {
+            this.acceptingInput = true;
+            this.inputs = [];
+            this.maxInputs = 1;
+        }
+
+        this.html = this.createHTML();
+
     }
 
-    createHTML(newState) {
-        this.state = newState;
+    getOutputCoord(){
+        if (!this.creatingOutput) {
+            return null;
+        } else {
+            return {
+                x: this.coordinates.x + 50,
+                y: this.coordinates.y + 25
+            };
+        }
+    }
+
+    getInputCoord() {
+        if (!this.acceptingInput){
+            return null;
+        } else {
+            return {
+                x: this.coordinates.x,
+                y: this.coordinates.y + 25
+            };
+        }
+    }
+
+
+    removeHTML(){
+        if (this.html !== null) {
+            this.html.remove();
+            this.html = null;
+        }
+    }
+
+    createHTML() {
         const container = document.createElement('div');
+        
+        //start
         if (this.type === 'start' && this.state) {
             this.creatingOutput = true;
             container.innerHTML = this.startSVGtrue();
-        /*} else if (this.type === 'start' && !this.state) {
-            this.output = 0;
-            container.innerHTML = this.startSVGfalse();
-        */
-        } else if (this.type === 'end' && this.state) {
+        } 
+        
+        //end
+        else if (this.type === 'end' && this.state) {
             this.acceptingInput = true;
             container.innerHTML = this.endSVGtrue();
         } else if (this.type === 'end' && !this.state) {
-            this.acceptingInput = false;
+            this.acceptingInput = true;
             container.innerHTML = this.endSVGfalse();
-        } else if (this.type === 'bin' && this.state) {
+        } 
+        
+        //bin
+        else if (this.type === 'bin' && this.state) {
             container.innerHTML = this.binClosedSVG();
         } else if (this.type === 'bin' && !this.state) {
             container.innerHTML = this.binOpenSVG();
         }
+
+
         return container;
     }
 
