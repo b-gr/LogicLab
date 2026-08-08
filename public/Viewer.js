@@ -10,7 +10,7 @@ export default class Viewer {
         window.addEventListener('resize', () => { this.updateViewerDimensions() });
         this.viewerObjects = [];
         this.connectionMode = false;
-        this.selectedOutputGate = null;
+        this.selectedOutputNode = null;
     }
 
     init() {
@@ -46,9 +46,6 @@ export default class Viewer {
 
 
     addGate(gate) {
-        if (gate.type === 'NOT') {
-            gate.inputMax = 1;
-        }
         this.container.appendChild(gate.html);
         this.updateGatePosition(gate);
         this.addEventListenersToGate(gate);
@@ -160,6 +157,11 @@ export default class Viewer {
         });
     }
 
+
+    //todo: change click gate to click node
+
+    //todo: seaprate out the logic of the listenner for clicking and drgging
+    //todo: when separating the logic, add a separate 'click' listener
     clickGate(event, gate) {
         if (!this.connectionMode) {
             return;
@@ -196,7 +198,7 @@ export default class Viewer {
 
         if (gate1 === gate2) {
             //deselect gate
-            this.selectedOutputGate = null;
+            this.selectedOutputNode = null;
             gate1.html.classList.remove('gate-selected');
             return;
         }
@@ -204,11 +206,11 @@ export default class Viewer {
         if (gate1.outputs.length >= gate1.outputMax) {
             console.log("Not possible: gate already connected to another gate")
             gate1.html.classList.remove('gate-selected');
-            this.selectedOutputGate = null;
+            this.selectedOutputNode = null;
             return;
         }
 
-        if (gate2.inputs.length >= gate2.inputMax) {
+        if (gate2.inputs.length >= gate2.maxInputs) {
             console.log("not possible: no available inputs")
             return;
         }
@@ -224,10 +226,10 @@ export default class Viewer {
             console.log("Success between two gates/ports")
         }
         
-        this.selectedOutputGate = null;
+        this.selectedOutputNode = null;
 
     }
-
+//todo: write the code
     reDrawConnectors(){
         //somecode - purhaps put this in connector
     }
@@ -284,7 +286,7 @@ export default class Viewer {
     connectionModeOn(boolean) {
         this.connectionMode = boolean;
         if (!boolean) {
-            this.selectedOutputGate = null;
+            this.selectedOutputNode = null;
             return;
         }
     }
