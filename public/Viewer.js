@@ -32,8 +32,16 @@ export default class Viewer {
 
 
     removeGate(gate) {
+        this.removeConnections(gate);
         this.container.removeChild(gate.html);
         this.gates = this.gates.filter(g => g !== gate);
+    }
+
+    removeConnections(gate){
+        const lines = this.connections.filter(connector => connector.node1 === gate || connector.node2 === gate);
+        for(let connector of lines) {
+            connector.remove();
+        }
     }
 
 
@@ -95,6 +103,11 @@ export default class Viewer {
             } else {
                 bin.closeBin();
             }
+            
+            
+            //todo: update coordinates as dragged to ensure line moves when dragged
+            //this.reDrawConnectors(gate);
+
 
         }
 
@@ -113,8 +126,12 @@ export default class Viewer {
             );
 
             this.updateGatePosition(gate);
+
+            this.reDrawConnectors(gate);
+
             gate.html.classList.remove('gate-dragged');
-            gate.onMouseUp = null;
+
+            gate.html.onMouseUp = null;
 
             if (
                 position.x < this.width / 2 + 50
@@ -130,14 +147,9 @@ export default class Viewer {
 
         }
 
-        this.reDrawConnectors(gate);
-
         gate.html.onDragStart = () => {
             return false;
         }
-
-
-
 
     }
 
@@ -189,32 +201,39 @@ export default class Viewer {
             return;
         }
 
-        if (gate1.outputs.size >= gate1.outputMax) {
+        if (gate1.outputs.length >= gate1.outputMax) {
             console.log("Not possible: gate already connected to another gate")
             gate1.html.classList.remove('gate-selected');
             this.selectedOutputGate = null;
             return;
         }
 
-        if (gate2.inputs.size >= gate2.inputMax) {
+        if (gate2.inputs.length >= gate2.inputMax) {
             console.log("not possible: no available inputs")
             return;
         }
 
 
         gate1.html.classList.remove('gate-selected');
-        console.log("Success between two gates/ports")
         
         
-        const connector = new Connector(gate1,gate2);
-        this.container.appendChild(connector.html);
-        this.connections.push(connector);
-
+        const connector = new Connector(gate1,gate2,this);
+        if(connector.valid) {
+            this.container.appendChild(connector.html);
+            this.connections.push(connector);
+            console.log("Success between two gates/ports")
+        }
+        
+        this.selectedOutputGate = null;
 
     }
 
     reDrawConnectors(){
-        //somecode
+        //somecode - purhaps put this in connector
+    }
+
+    deleteConnectors(){
+        //somecode - pehrps put this in connector class?
     }
 
 
@@ -261,10 +280,7 @@ export default class Viewer {
     }
 
 
-
-    //connector
-
-
+    //is the pen clicked? 
     connectionModeOn(boolean) {
         this.connectionMode = boolean;
         if (!boolean) {
@@ -276,13 +292,25 @@ export default class Viewer {
 
 
 
+
+
+
+
+
+
+
     resetViewer() {
         for (let gate of this.gates) {
             this.container.removeChild(gate.html);
         }
         for (let object of this.viewerObjects) {
-            this.container.removeChild(object.html)
+            this.container.removeChild(object.html);
         }
+
+        for (let connector of this.connections) {
+            connector.remove();
+        }
+        
         this.gates = [];
         this.connections = [];
         this.viewerObjects = [];

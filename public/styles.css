@@ -203,3 +203,14 @@ button:hover {
     width: 0;
     height: 0;
 }
+
+.connector {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+#viewer {
+    position: relative;
+}
