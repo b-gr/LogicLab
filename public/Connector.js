@@ -84,7 +84,7 @@ export default class Connector {
 
         if(this.node2.inputs.length === 1){
             const existingConnector = this.node2.inputs[0]
-            const existingConnectorOutputCoordY = existingConnector.node1.coordinates.y + (existingConnector.node1.getOutputCoord().y);
+            const existingConnectorOutputCoordY = existingConnector.node1.getOutputCoord().y;
 
             if(existingConnectorOutputCoordY < this.aCoord.y){
                 this.inputSlot = 1;
@@ -114,6 +114,7 @@ export default class Connector {
         this.bCoord = this.node2.getInputCoord(this.inputSlot);
         this.html.innerHTML = this.drawSVGLine();
     }
+
 
 
     drawSVGLine() {
