@@ -2,8 +2,12 @@ export default class LogicGate {
     constructor(type) {
        this.coordinates = { x: 0, y: 0 };
         this.type = type;
+        
         this.inputs = [];
         this.outputs = [];
+                
+        this.acceptingInput = true;
+        this.creatingOutput = true;
 
         if (type === "NOT") {
             this.maxInputs = 1;
