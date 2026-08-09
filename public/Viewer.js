@@ -77,35 +77,34 @@ export default class Viewer {
         const offsetY = mousePosition.y - gate.coordinates.y;
 
         const moveAt = (x, y) => {
-            gate.html.style.left = x - offsetX + 'px';
-            gate.html.style.top = y - offsetY + 'px';
+            this.updateGateCoordinates(gate, x - offsetX, y - offsetY);
+            this.updateGatePosition(gate);
+            this.reDrawConnectors(gate);
         }
 
         const onmousemove = (event) => {
+            const position = this.mouseToViewerCoordinates(event);
+            
             moveAt(
-                this.mouseToViewerCoordinates(event).x,
-                this.mouseToViewerCoordinates(event).y
+                position.x,
+                position.y
             );
 
             gate.html.classList.add('gate-dragged');
+
             const bin = this.viewerObjects.find(obj => obj.type === 'bin');
 
             if (
-                this.mouseToViewerCoordinates(event).x < this.width / 2 + 50
+                position.x < this.width / 2 + bin.size.width/2
                 &&
-                this.mouseToViewerCoordinates(event).x > this.width / 2 - 50
+                position.x > this.width / 2 - bin.size.width/2
                 &&
-                this.mouseToViewerCoordinates(event).y < 100
+                position.y < bin.size.height
             ) {
                 bin.openBin();
             } else {
                 bin.closeBin();
             }
-
-
-            //todo: update coordinates as dragged to ensure line moves when dragged
-            //this.reDrawConnectors(gate);
-
 
         }
 
@@ -131,17 +130,22 @@ export default class Viewer {
 
             gate.html.onmouseup = null;
 
+            const bin = this.viewerObjects.find(obj => obj.type === 'bin');
+
             if (
-                position.x < this.width / 2 + 50
+                position.x < this.width / 2 + bin.size.width/2
                 &&
-                position.x > this.width / 2 - 50
+                position.x > this.width / 2 - bin.size.width/2
                 &&
-                position.y < 100
+                position.y < bin.size.height
             ) {
                 this.removeGate(gate)
                 this.viewerObjects.find(obj => obj.type === 'bin').closeBin();
 
             }
+
+
+            gate.html.style.zIndex = 1;
 
         }
 
@@ -167,10 +171,7 @@ export default class Viewer {
 
     }
 
-    //todo: change click gate to click node
 
-    //todo: seaprate out the logic of the listenner for clicking and drgging
-    //todo: when separating the logic, add a separate 'click' listener
     clickNode(node) {
         if (!this.connectionMode) {
             return;
@@ -234,15 +235,14 @@ export default class Viewer {
         this.selectedOutputNode = null;
 
     }
-    //todo: write the code
-    reDrawConnectors() {
-        //somecode - purhaps put this in connector
-    }
 
-    deleteConnectors() {
-        //somecode - pehrps put this in connector class?
+    //when user moves the gate - redraw wires  
+    reDrawConnectors(gate) {
+        const connectors = this.connections.filter( connector => connector.node1 === gate || connector.node2 === gate);
+        for(let connector of connectors) {
+            connector.redrawLine();
+        }
     }
-
 
     clearGateSelection() {
         for (let i = 0; i < this.gates.length; i++) {
@@ -347,7 +347,7 @@ export default class Viewer {
 
     updateGatePosition(gate) {
         const gateElement = gate.html;
-        gateElement.style.zIndex = 2;
+        gateElement.style.zIndex = 1000;
         gateElement.style.position = 'absolute';
         gateElement.style.left = `${gate.coordinates.x}px`;
         gateElement.style.top = `${gate.coordinates.y}px`;
