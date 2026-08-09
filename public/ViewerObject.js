@@ -10,6 +10,8 @@ export default class ViewerObject {
         this.maxOutputs = 0;
         this.maxInputs = 0;
 
+        this.size = { width: 50, height: 50 }
+
         if(type === "start") {
             this.creatingOutput = true;
             this.outputs = [];
@@ -20,6 +22,10 @@ export default class ViewerObject {
             this.acceptingInput = true;
             this.inputs = [];
             this.maxInputs = 1;
+        }
+
+        if(type === "bin") {
+            this.size = { width: 100, height: 100 }
         }
 
         this.html = this.createHTML();
@@ -96,8 +102,8 @@ export default class ViewerObject {
     binOpenSVG = () => {
         return `
         <svg 
-            width="100" 
-            height="100"    
+            width="${this.size.width}" 
+            height="${this.size.height}"    
             viewBox="0 0 100 100" 
             xmlns="http://www.w3.org/2000/svg">
             fill="white"
