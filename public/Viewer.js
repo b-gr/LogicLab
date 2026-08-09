@@ -37,11 +37,12 @@ export default class Viewer {
         this.gates = this.gates.filter(g => g !== gate);
     }
 
-    removeConnections(gate){
+    removeConnections(gate) {
         const lines = this.connections.filter(connector => connector.node1 === gate || connector.node2 === gate);
-        for(let connector of lines) {
+        for (let connector of lines) {
             connector.remove();
         }
+        this.connections = this.connections.filter(connector => connector.node1 !== gate && connector.node2 !== gate)
     }
 
 
@@ -100,8 +101,8 @@ export default class Viewer {
             } else {
                 bin.closeBin();
             }
-            
-            
+
+
             //todo: update coordinates as dragged to ensure line moves when dragged
             //this.reDrawConnectors(gate);
 
@@ -128,7 +129,7 @@ export default class Viewer {
 
             gate.html.classList.remove('gate-dragged');
 
-            gate.html.onMouseUp = null;
+            gate.html.onmouseup = null;
 
             if (
                 position.x < this.width / 2 + 50
@@ -144,7 +145,7 @@ export default class Viewer {
 
         }
 
-        gate.html.onDragStart = () => {
+        gate.html.ondragstart = () => {
             return false;
         }
 
@@ -153,88 +154,92 @@ export default class Viewer {
     addEventListenersToGate(gate) {
         gate.html.addEventListener('mousedown', (event) => {
             this.dragGate(event, gate);
-            this.clickGate(event, gate);
         });
+
+        this.addConnectionListener(gate);
     }
 
+
+    addConnectionListener(node) {
+        node.html.addEventListener('click', () => {
+            this.clickNode(node)
+        });
+
+    }
 
     //todo: change click gate to click node
 
     //todo: seaprate out the logic of the listenner for clicking and drgging
     //todo: when separating the logic, add a separate 'click' listener
-    clickGate(event, gate) {
+    clickNode(node) {
         if (!this.connectionMode) {
             return;
         }
 
-
-        this.updateViewerDimensions();
-        gate.html.style.zIndex = 1000;
-        this.container.appendChild(gate.html);
-
-
-        const mousePosition = this.mouseToViewerCoordinates(event);
-
-        gate.html.onmouseup = (event) => {
-
-            const position = this.mouseToViewerCoordinates(event);
-
-            if (this.selectedOutputGate != null) {
-                this.linkGates(gate);
-            } else {
-                gate.html.classList.add('gate-selected');
-                this.selectedOutputGate = gate;
+        if (this.selectedOutputNode != null) {
+            
+            if(!node.acceptingInput){
+                console.log("Cannot accept input");
+                return;
             }
+            
+            this.linkNodes(node);
 
-            gate.onMouseUp = null;
-
+        } else {
+            if(node.creatingOutput){
+                node.html.classList.add('node-selected');
+                this.selectedOutputNode = node;
+            }
         }
 
+        return;
     }
 
-    linkGates(gate) {
-        const gate1 = this.selectedOutputGate;
-        const gate2 = gate;
 
-        if (gate1 === gate2) {
-            //deselect gate
-            this.selectedOutputNode = null;
-            gate1.html.classList.remove('gate-selected');
-            return;
-        }
+    linkNodes(node) {
+        const node1 = this.selectedOutputNode;
+        const node2 = node;
 
-        if (gate1.outputs.length >= gate1.outputMax) {
-            console.log("Not possible: gate already connected to another gate")
-            gate1.html.classList.remove('gate-selected');
-            this.selectedOutputNode = null;
-            return;
-        }
-
-        if (gate2.inputs.length >= gate2.maxInputs) {
-            console.log("not possible: no available inputs")
-            return;
-        }
-
-
-        gate1.html.classList.remove('gate-selected');
         
-        
-        const connector = new Connector(gate1,gate2,this);
-        if(connector.valid) {
+        //deselects current node
+        if (node1 === node2) {
+            this.selectedOutputNode = null;
+            node1.html.classList.remove('node-selected');
+            return;
+        }
+
+        //if already connected then not possible
+        if (node1.outputs.length >= node1.maxOutputs) {
+            console.log("Not possible: node already connected to another node")
+            node1.html.classList.remove('node-selected');
+            this.selectedOutputNode = null;
+            return;
+        }
+
+        //if node2 is already connected then not allowed
+        if (node2.inputs.length >= node2.maxInputs) {
+            console.log("not possible: no available inputs check 2")
+            return;
+        }
+
+        //passed checks - continue to create connection
+        const connector = new Connector(node1, node2, this);
+        if (connector.valid) {
             this.container.appendChild(connector.html);
             this.connections.push(connector);
-            console.log("Success between two gates/ports")
+            console.log("Success between two nodes/ports")
         }
-        
+
+        node1.html.classList.remove('node-selected');
         this.selectedOutputNode = null;
 
     }
-//todo: write the code
-    reDrawConnectors(){
+    //todo: write the code
+    reDrawConnectors() {
         //somecode - purhaps put this in connector
     }
 
-    deleteConnectors(){
+    deleteConnectors() {
         //somecode - pehrps put this in connector class?
     }
 
@@ -267,6 +272,7 @@ export default class Viewer {
         startPoint.html.style.top = `${y}px`;
         this.container.appendChild(startPoint.html);
         this.viewerObjects.push(startPoint);
+        this.addConnectionListener(startPoint);
     }
 
 
@@ -279,6 +285,7 @@ export default class Viewer {
         endPoint.html.style.top = `${y}px`;
         this.container.appendChild(endPoint.html);
         this.viewerObjects.push(endPoint);
+        this.addConnectionListener(endPoint);
     }
 
 
@@ -312,7 +319,7 @@ export default class Viewer {
         for (let connector of this.connections) {
             connector.remove();
         }
-        
+
         this.gates = [];
         this.connections = [];
         this.viewerObjects = [];
