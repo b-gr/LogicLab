@@ -16,7 +16,7 @@ export default class Viewer {
     init() {
         this.updateViewerDimensions();
         this.createBin();
-        this.createStartPoint(true, 50, this.height / 2);
+        this.createMultipleStartPoints(1);
         this.createEndPoint(false, this.width - 100, this.height / 2);
     }
 
@@ -262,6 +262,22 @@ export default class Viewer {
         this.container.appendChild(bin.html);
         this.viewerObjects.push(bin);
     }
+
+    increaseStartPoints(){
+        //when run the number of start points increases
+        //automatically adjusts so that the current start point shifts upwards
+    }
+
+
+    createMultipleStartPoints(integer){
+        //for use in level mode
+        const heightDivision = this.height/(integer+1)
+        for(let i = 0; i < integer; i++) {
+            const y = heightDivision * (i+1)
+            this.createStartPoint(true, 50, y)
+        }
+    }
+
 
     //build start points
     createStartPoint(state, x, y) {
