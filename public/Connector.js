@@ -2,7 +2,6 @@
 
 export default class Connector {
 
-    //todo: change the code in connector to pass points from clicked objects (gates or nodes) in the area and create a connection between them. 
     constructor(node1, node2, viewer) {
         this.node1 = node1;
         this.node2 = node2;
@@ -116,11 +115,51 @@ export default class Connector {
     }
 
 
+    calculateRoutePoints(){
+        let arrayOfCoords = [];
+        const a = this.aCoord
+        const b = this.bCoord
+        const clearance = 10;
+
+        if(b.x >= a.x) {
+            const midX = a.x + ((b.x - a.x)/2);
+            arrayOfCoords = [a, {x: midX, y: a.y}, {x: midX, y: b.y}, b];
+        } else {
+            const midX = a.x + ((b.x - a.x)/2);
+            const midY = a.y + ((b.y - a.y)/2);
+            arrayOfCoords = [
+                a, //1 
+                {x:a.x + clearance, y: a.y}, //2
+                {x: a.x +clearance, y: midY},  //3
+                {x: b.x -clearance, y: midY},  //4
+                {x: b.x -clearance, y: b.y}, //5
+                b //6
+            ];
+        }
+        return arrayOfCoords;
+    }
+
+
+
+    getPath(){
+        const points = this.calculateRoutePoints();
+        
+        let path = "";
+
+        for (let coords of points){
+            if (coords === points[0]) {
+                path = `M${coords.x} ${coords.y} ` + path
+            } else { 
+                path = path + `L${coords.x} ${coords.y} `
+            }
+        };
+
+
+        return path;
+    }
+
 
     drawSVGLine() {
-
-        const difx = Math.abs(this.aCoord.x - this.bCoord.x);
-        const dify = Math.abs(this.aCoord.y - this.bCoord.y);
         return `
         <svg
             width="${this.viewer.width}"
@@ -129,10 +168,7 @@ export default class Connector {
             xmlns="http://www.w3.org/2000/svg">
             <path
                 d="
-                    M${this.aCoord.x} ${this.aCoord.y}
-                    L${((difx) / 2) + this.aCoord.x} ${this.aCoord.y}
-                    L${((difx) / 2) + this.aCoord.x} ${this.bCoord.y}
-                    L${this.bCoord.x} ${this.bCoord.y}    
+                    ${this.getPath()}
                 "
             fill="none"
             stroke="white"
