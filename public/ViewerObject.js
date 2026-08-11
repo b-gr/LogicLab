@@ -69,7 +69,10 @@ export default class ViewerObject {
         if (this.type === 'start' && this.state) {
             this.creatingOutput = true;
             container.innerHTML = this.startSVGtrue();
-        } 
+        } else if (this.type === 'start' && !this.state) {
+            this.creatingOutput = true;
+            container.innerHTML = this.startSVGfalse();
+        }
         
         //end
         else if (this.type === 'end' && this.state) {
