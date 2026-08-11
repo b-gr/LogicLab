@@ -19,10 +19,11 @@ p {
 }
 main {
     max-width: 90%;
-    margin: 0 auto;
-    padding: 20px;
     background-color: #111;
-    border-radius: 8px;
+    margin: 0 auto;
+    padding: 2px;
+    border-radius: 1px;
+    margin-bottom: 4px;
 }
 
 
@@ -164,9 +165,9 @@ button:hover {
     text-align: center;
     color: #fff;
     font-size: 20px;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    padding: 2px;
+    border-radius: 1px;
+    margin-bottom: 4px;
 }
 
 .header {

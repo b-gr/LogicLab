@@ -17,13 +17,10 @@ to do:
         - toolbar could also include how many could be added (in sandbox unlimited (1000s) in level mode or exam mode (1-10?))
     
     make a connector that joins/binds to inputs and output
-        - include this as coordinates relative to the SVG?
-        - add a cute way to visualise this - maybe electric purple lines with small circles at either end
-        - dragable from the start and once connected the gate changes colour to purple too
-        - Once connected and correct the purple is replaced by green or red
+        - add in boolean check
+        - Once connected and correct the white line is replaced by green or red
             - ideally this would be along the route of the line but unlikely
-        - update as gates are removed or moved
-        - Store connection in array of coordinates?
+
     
     create first level
         - add instructions
