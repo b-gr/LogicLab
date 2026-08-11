@@ -58,6 +58,8 @@ export default class LogicGate {
         };
     }
 
+
+    //todo: change this to accept boolean objects instead of the inputs (as these are connectors not the boolean results)
     booleanOperation = () => {
         switch (this.type) {
             case 'AND':
