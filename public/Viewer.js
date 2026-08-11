@@ -40,9 +40,13 @@ export default class Viewer {
     removeConnections(gate) {
         const lines = this.connections.filter(connector => connector.node1 === gate || connector.node2 === gate);
         for (let connector of lines) {
-            connector.remove();
+            this.removeOneConnection(connector);
         }
-        this.connections = this.connections.filter(connector => connector.node1 !== gate && connector.node2 !== gate)
+    }
+
+    removeOneConnection(connector) {
+        connector.remove();
+        this.connections = this.connections.filter(connection => connection !== connector);
     }
 
 
@@ -66,7 +70,6 @@ export default class Viewer {
             return;
         }
 
-        this.updateViewerDimensions();
         gate.html.style.zIndex = 1000;
         this.container.appendChild(gate.html);
 
@@ -147,6 +150,7 @@ export default class Viewer {
 
             gate.html.style.zIndex = 1;
 
+            this.redoAllLines();
         }
 
         gate.html.ondragstart = () => {
@@ -239,10 +243,64 @@ export default class Viewer {
     //when user moves the gate - redraw wires  
     reDrawConnectors(gate) {
         const connectors = this.connections.filter( connector => connector.node1 === gate || connector.node2 === gate);
+        //this.redoInputSlots(gate)
         for(let connector of connectors) {
             connector.redrawLine();
         }
     }
+
+    //for all
+    redoAllLines(){
+        for(let gate of this.gates){
+            this.redoInputSlots(gate)
+        }
+    }
+
+    //on gate drop, recalculate/check which input is closest
+    redoInputSlots(node) {
+        if (!node.acceptingInput || node.inputs.length === 0 || node.maxInputs === 1) {
+            return;
+        }
+
+        if(node.inputs.length === 1) {
+            const input = node.inputs[0];
+            let inputCoords = input.node1.getInputCoord(input.inputSlot);
+            if (inputCoords == null) {
+                inputCoords = input.node2.getInputCoord(input.inputSlot);
+            }
+            const inputY = inputCoords.y;
+            const diffY = node.coordinates.y + (node.size.height / 2) - inputY;
+            if (diffY > 0) {
+                input.inputSlot = 0;
+            } else {
+                input.inputSlot = 1;
+            }
+            input.redrawLine();
+            return;
+        }
+
+        if(node.inputs.length === 2) {
+            const input1 = node.inputs[0];
+            const input2 = node.inputs[1];
+            const y1 = input1.node1.getOutputCoord().y;
+            const y2 = input2.node1.getOutputCoord().y;
+
+            if (y1>=y2) {
+                input1.inputSlot = 1;
+                input2.inputSlot = 0;
+            } else {
+                input1.inputSlot = 0;
+                input2.inputSlot = 1;
+            }
+
+            input1.redrawLine();
+            input2.redrawLine();
+
+        }
+
+
+    }
+
 
     clearGateSelection() {
         for (let i = 0; i < this.gates.length; i++) {
@@ -309,7 +367,12 @@ export default class Viewer {
     connectionModeOn(boolean) {
         this.connectionMode = boolean;
         if (!boolean) {
+            if (this.selectedOutputNode !== null) {
+                this.selectedOutputNode.html.classList.remove('node-selected');
+            }
+
             this.selectedOutputNode = null;
+
             return;
         }
     }
@@ -363,7 +426,6 @@ export default class Viewer {
 
     updateGatePosition(gate) {
         const gateElement = gate.html;
-        gateElement.style.zIndex = 1000;
         gateElement.style.position = 'absolute';
         gateElement.style.left = `${gate.coordinates.x}px`;
         gateElement.style.top = `${gate.coordinates.y}px`;
