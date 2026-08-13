@@ -13,7 +13,7 @@ export default class Viewer {
         this.levelComplete = false;
 
         this.resize = () => {
-            this.updateViewerDimensions();
+            this.resizeHelper();
         }
         window.addEventListener('resize', this.resize);
     }
@@ -22,7 +22,54 @@ export default class Viewer {
         this.updateViewerDimensions();
         this.createBin();
         this.createMultipleStartPoints(2);
-        this.createEndPoint(false, this.width - 100, this.height / 2);
+        this.createMultipleEndPoints(1)
+    }
+
+    resizeHelper(){
+        this.updateViewerDimensions();
+        this.repositionBin();
+        this.repositionEndPoints();
+        this.repositionStartPoints();
+        //this.repositionGates();
+    }
+
+    repositionEndPoints() {
+        const x = this.width - 100;
+        const endPoints = this.viewerObjects.filter(node => node.type === 'end');
+        const count = endPoints.length;
+        const heightDivision = this.height / (count + 1);
+        let i = 1;
+        for (let node of endPoints) {
+            const y = heightDivision * (i);
+            node.coordinates = { x: x, y: y };
+            node.html.style.left = `${x}px`;
+            node.html.style.top = `${y}px`;
+            i++;
+        }
+    }
+
+    repositionStartPoints(){
+        const startPoints = this.viewerObjects.filter(node => node.type === 'start');
+        const count = startPoints.length;
+        const heightDivision = this.height / (count + 1);
+        let i = 1;
+        for (let node of startPoints) {
+            const y = heightDivision * i;
+            node.coordinates.y = y;
+            node.html.style.top = `${y}px`;
+            i++;
+        }
+    }
+
+
+
+
+    repositionBin(){
+        const bin = this.viewerObjects.find(node => node.type === 'bin');
+        
+        bin.coordinates = { x: (this.width / 2) - 50, y: 0 };
+        bin.html.style.left = `${bin.coordinates.x}px`;
+        bin.html.style.top = `${bin.coordinates.y}px`;
     }
 
     updateViewerDimensions() {
@@ -351,7 +398,7 @@ export default class Viewer {
     //createBin
     createBin() {
         const bin = new ViewerObject('bin', true);
-        bin.coordinates = { x: (this.width / 2) - 50, y: 0 };
+        bin.coordinates = { x: (this.width / 2) - (bin.size.width/2), y: 0 };
         bin.html.style.position = 'absolute';
         bin.html.style.left = `${bin.coordinates.x}px`;
         bin.html.style.top = `${bin.coordinates.y}px`;
@@ -359,18 +406,38 @@ export default class Viewer {
         this.viewerObjects.push(bin);
     }
 
+    //todo
     increaseStartPoints(){
         //when run the number of start points increases
         //automatically adjusts so that the current start point shifts upwards
     }
 
+    //todo
+    increaseEndPoints(){
+        //when run the number of end points increases
+        //automatically adjusts so that the current end point shifts upwards
+    }
+
+    //todo
+    decreaseStartPoints(){
+        //when run the number of start points decrease
+        //automatically adjusts so that the bottom start point is removed and 
+        //the remaining start points shifts downwards
+    }
+
+    //todo
+    decreaseEndPoints(){
+        //when run the number of end points decrease
+        //automatically adjusts so that the bottom end point is removed and 
+        //the remaining end points shifts downwards
+    }
 
     createMultipleStartPoints(integer){
         //for use in level mode
         const heightDivision = this.height/(integer+1)
         for(let i = 0; i < integer; i++) {
-            const y = heightDivision * (i+1)
-            this.createStartPoint(true, 50, y)
+            const y = heightDivision * (i+1);
+            this.createStartPoint(true, 50, y);
         }
     }
 
@@ -385,6 +452,15 @@ export default class Viewer {
         this.container.appendChild(startPoint.html);
         this.viewerObjects.push(startPoint);
         this.addConnectionListener(startPoint);
+    }
+
+    createMultipleEndPoints(integer){
+        const xCoord = this.width-50;
+        const heightDivision = this.height/(integer+1)
+        for(let i = 0; i < integer; i++) {
+            const y = heightDivision * (i+1);
+            this.createEndPoint(false, xCoord, y);
+        }
     }
 
 
