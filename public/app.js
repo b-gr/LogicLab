@@ -7,6 +7,7 @@ const mainContent = document.getElementById("mainContent");
 const startButton = document.getElementById("startButton");
 const levelTable = document.getElementById("levelTable");
 const backButton = document.getElementById("backButton");
+const checkButton = document.getElementById("checkButton");
 
 startButton.addEventListener("click", () => {
     mainContent.innerHTML =
@@ -48,8 +49,6 @@ function createLevelButtonRow() {
 
 //Function to add event listeners to level buttons and handle level selection
 function createLevelButtons() {
-    
-    const backButton = document.getElementById("backButton");
     backButton.style.display = "none";
 
 
@@ -77,17 +76,16 @@ function createLevelButtons() {
 }
 
 function loadLevel(level) {
-    const backButton = document.getElementById("backButton");
-
-    backButton.innerHTML =
-        `<button id="backButton">Back to Levels</button>`;
-
     backButton.style.display = "flex";
     
     mainContent.innerHTML =
         `<h2>${level.name} Level</h2>
     <p>${level.description}</p>`;
-    
+
+    if(level.id !== 999){
+        checkButton.style.display = "flex";
+    }
+
     const inPageViewer = new Viewer("inPageViewer");
     document.getElementById("inPageViewer").style.display = "flex";
     inPageViewer.init();
@@ -98,7 +96,10 @@ function loadLevel(level) {
 
     backButton.addEventListener("click", () => {
 
-        markLevelCompleted(level.id);
+
+        if(inPageViewer.levelComplete){
+            markLevelCompleted(level.id);
+        }
 
         mainContent.innerHTML =
             `<h2>Please select a level</h2>
@@ -112,6 +113,10 @@ function loadLevel(level) {
     
         inPageViewer.resetViewer();
     });
+
+    checkButton.addEventListener("click", () => {
+        inPageViewer.evaluateCircuit();
+    })
 }
 
 function markLevelCompleted(levelId) {
