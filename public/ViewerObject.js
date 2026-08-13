@@ -32,6 +32,11 @@ export default class ViewerObject {
 
     }
 
+
+    getState(){
+        return this.state;
+    }
+
     setState(state){
         this.state = state;
 

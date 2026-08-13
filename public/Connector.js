@@ -179,7 +179,7 @@ export default class Connector {
     }
 
     getState() {
-        return this.node1.state;
+        return this.node1.getState();
     }
 
 
