@@ -16,13 +16,16 @@ export default class Viewer {
             this.resizeHelper();
         }
         window.addEventListener('resize', this.resize);
+
+        this.sizeBefore = {x: 0, y:0}
     }
 
     init(level) {
         this.updateViewerDimensions();
         this.createBin();
         this.createMultipleStartPoints(2);
-        this.createMultipleEndPoints(1)
+        this.createMultipleEndPoints(1);
+        this.sizeBefore = {x: this.width, y: this.height};
     }
 
     resizeHelper(){
@@ -30,8 +33,36 @@ export default class Viewer {
         this.repositionBin();
         this.repositionEndPoints();
         this.repositionStartPoints();
-        //this.repositionGates();
+        this.repositionGates();
+        this.reDrawConnectors();
+                
+        //this.sizeBefore = {x: this.width, y: this.height};
+
     }
+
+    repositionGates(){
+        const margin = 100;
+        const usableWidthBefore = this.sizeBefore.x - (margin*2);
+        const usableWidthNow = this.width - (margin *2)
+        const usableHeightBefore = this.sizeBefore.y - (margin*2);
+        const usableHeightNow = this.height - (margin *2)
+        
+        for(let gate of this.gates){
+            const oldPositionX = (gate.coordinates.x + (gate.size.width/2) - margin)/usableWidthBefore;
+            const newX = margin + (oldPositionX * usableWidthNow)
+            gate.coordinates.x = newX - (gate.size.width/2);
+
+            const oldPositionY = (gate.coordinates.y + (gate.size.height/2) - margin)/usableHeightBefore;
+            const newY = margin + (oldPositionY * usableHeightNow)
+            gate.coordinates.y = newY - (gate.size.height/2);
+
+            this.updateGatePosition(gate)
+            
+        }   
+        this.sizeBefore = {x: this.width, y: this.height};
+    }
+
+
 
     repositionEndPoints() {
         const x = this.width - 100;
