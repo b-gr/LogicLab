@@ -7,17 +7,21 @@ export default class Viewer {
         this.container = document.getElementById(viewerId);
         this.gates = [];
         this.connections = [];
-        window.addEventListener('resize', () => { this.updateViewerDimensions() });
         this.viewerObjects = [];
         this.connectionMode = false;
         this.selectedOutputNode = null;
         this.levelComplete = false;
+
+        this.resize = () => {
+            this.updateViewerDimensions();
+        }
+        window.addEventListener('resize', this.resize);
     }
 
-    init() {
+    init(level) {
         this.updateViewerDimensions();
         this.createBin();
-        this.createMultipleStartPoints(1);
+        this.createMultipleStartPoints(2);
         this.createEndPoint(false, this.width - 100, this.height / 2);
     }
 
@@ -308,7 +312,6 @@ export default class Viewer {
         }
     }
 
-    //evaluateCircuit
     evaluateCircuit(){
         const endPoints = [];
         for (let node of this.viewerObjects) {
@@ -338,6 +341,8 @@ export default class Viewer {
                 return;
             }
         }
+
+
 
         this.levelComplete = true;
         
@@ -411,16 +416,10 @@ export default class Viewer {
     }
 
 
+    destroy() {
 
+        window.removeEventListener('resize', this.resize);
 
-
-
-
-
-
-
-
-    resetViewer() {
         for (let gate of this.gates) {
             this.container.removeChild(gate.html);
         }
@@ -435,6 +434,9 @@ export default class Viewer {
         this.gates = [];
         this.connections = [];
         this.viewerObjects = [];
+
+        this.selectedOutputNode = null;
+        this.connectionMode = false;
     }
 
 
