@@ -178,6 +178,13 @@ export default class Connector {
         `
     }
 
+    getState() {
+        return this.node1.state;
+    }
+
+
+
+
     remove() {
         if (this.html !== null) {
             this.html.remove();

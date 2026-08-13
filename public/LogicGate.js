@@ -2,10 +2,11 @@ export default class LogicGate {
     constructor(type) {
        this.coordinates = { x: 0, y: 0 };
         this.type = type;
+        this.state = null;
         
         this.inputs = [];
         this.outputs = [];
-                
+ 
         this.acceptingInput = true;
         this.creatingOutput = true;
 
@@ -26,6 +27,17 @@ export default class LogicGate {
         container.classList.add('logic-gate');
         container.innerHTML = this.svg;
         return container;
+    }
+
+    getInputValues(){
+        return this.inputs.map(connector => connector.getState());
+    }
+
+    getState(){
+        if(this.inputs.length !== this.maxInputs){
+            return null;
+        }
+        return this.booleanOperation();
     }
 
     getInputCoord(inputSlot){
@@ -59,23 +71,24 @@ export default class LogicGate {
     }
 
 
-    //todo: change this to accept boolean objects instead of the inputs (as these are connectors not the boolean results)
     booleanOperation = () => {
+        const inputValues = this.getInputValues();
+
         switch (this.type) {
             case 'AND':
-                return this.inputs[0] && this.inputs[1];
+                return inputValues[0] && inputValues[1];
             case 'OR':
-                return this.inputs[0] || this.inputs[1];
+                return inputValues[0] || inputValues[1];
             case 'NOT':
-                return !this.inputs[0];
+                return !inputValues[0];
             case 'NAND':
-                return !(this.inputs[0] && this.inputs[1]);
+                return !(inputValues[0] && inputValues[1]);
             case 'NOR':
-                return !(this.inputs[0] || this.inputs[1]);
+                return !(inputValues[0] || inputValues[1]);
             case 'XOR':
-                return (this.inputs[0] && !this.inputs[1]) || (!this.inputs[0] && this.inputs[1]);
+                return (inputValues[0] && !inputValues[1]) || (!inputValues[0] && inputValues[1]);
             case 'XNOR':
-                return (this.inputs[0] && this.inputs[1]) || (!this.inputs[0] && !this.inputs[1]);
+                return (inputValues[0] && inputValues[1]) || (!inputValues[0] && !inputValues[1]);
             default:
                 throw new Error('Invalid logic gate type');
         }

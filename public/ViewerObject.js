@@ -14,8 +14,8 @@ export default class ViewerObject {
 
         if(type === "start") {
             this.creatingOutput = true;
-            this.outputs = [];
             this.maxOutputs = 1;
+            this.outputs = [];
         }
 
         if(type === "end") {
@@ -30,6 +30,18 @@ export default class ViewerObject {
 
         this.html = this.createHTML();
 
+    }
+
+    setState(state){
+        this.state = state;
+
+        if (this.type === 'end') {
+            if (this.state) {
+                this.html.innerHTML = this.endSVGtrue();
+            } else {
+                this.html.innerHTML = this.endSVGfalse();
+            }
+        }
     }
 
     getOutputCoord(){

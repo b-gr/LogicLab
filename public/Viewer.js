@@ -11,6 +11,7 @@ export default class Viewer {
         this.viewerObjects = [];
         this.connectionMode = false;
         this.selectedOutputNode = null;
+        this.levelComplete = false;
     }
 
     init() {
@@ -308,6 +309,39 @@ export default class Viewer {
     }
 
     //evaluateCircuit
+    evaluateCircuit(){
+        const endPoints = [];
+        for (let node of this.viewerObjects) {
+            if (node.type === 'end'){
+                endPoints.push(node)
+            }
+        }
+
+        if (endPoints.length === 0) {
+            console.log("No end points")
+        }
+
+        for (let endPoint of endPoints) {
+
+            if (endPoint.inputs.length === 0) {
+                endPoint.setState(false);
+                return;
+            }
+                
+            if(endPoint.inputs[0].getState() === true) {
+                endPoint.setState(true);
+            } else {
+                endPoint.setState(false);
+            }
+
+            if(!endPoint.inputs[0].getState()){
+                return;
+            }
+        }
+
+        this.levelComplete = true;
+        
+    }
 
     //createBin
     createBin() {
