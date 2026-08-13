@@ -8,13 +8,10 @@ const startButton = document.getElementById("startButton");
 const levelTable = document.getElementById("levelTable");
 const backButton = document.getElementById("backButton");
 const checkButton = document.getElementById("checkButton");
+let inPageViewer = null;
 
 startButton.addEventListener("click", () => {
-    mainContent.innerHTML =
-        `<h2>Please select a level</h2>
-    <div>${createLevelButtonRow()}</div>`;
-    
-    createLevelButtons()
+    levelMenuViewLoad();
 });
 
 //Define levels for the game v1
@@ -26,11 +23,29 @@ const levels = [
     { id:5, name: "NOR Gates", description: "Discover the NOR gate and its functions." , unlocked: false, completed: false},
     { id:6, name: "XOR Gates", description: "Delve into the XOR gate and its properties." , unlocked: false, completed: false},
     { id:7, name: "XNOR Gates", description: "Learn about the XNOR gate and its applications." , unlocked: false, completed: false},
-    { id:8, name: "OTHER", description: "Explore other types of logic gates and circuits." , unlocked: false, completed: false}
+    { id:8, name: "OTHER", description: "Explore other types of logic gates and circuits." , unlocked: false, completed: false},
+    { id:999, name: "Sandbox", description: "Play around and see what you can do without any limits.", unlocked: true, completed: false}
 ];
+
+
+function levelMenuViewLoad(){
+        mainContent.innerHTML =
+        `<h2>Please select a level</h2>
+        <div>${createLevelButtonRow()}</div>
+    `;
+    
+    createLevelButtons();
+
+}
+
 
 //Function to create level buttons based on the levels array
 function createLevelButtonRow() {
+    
+    backButton.style.display = "none";
+    document.getElementById("toolbar").style.display = "none";
+    document.getElementById("inPageViewer").style.display = "none";
+    
     let buttonsHTML = "";
     for (let level of levels) {
         buttonsHTML += `
@@ -45,13 +60,12 @@ function createLevelButtonRow() {
         <div class="scrollableX">
             ${buttonsHTML}
         </div>`;
+
+    createLevelButtons();
 }
 
 //Function to add event listeners to level buttons and handle level selection
 function createLevelButtons() {
-    backButton.style.display = "none";
-
-
     const levelButtons = document.getElementsByClassName("levelButton");
     
     for (let levelButton of document.getElementsByClassName("levelButton")) {
@@ -76,47 +90,56 @@ function createLevelButtons() {
 }
 
 function loadLevel(level) {
+    //checks if the viewer exists already. if yes delete
+    if (inPageViewer !== null) {
+        inPageViewer.destroy();
+        inPageViewer = null;
+    }
+
+    //set header buttons: 
+    if(level.id !== 999){
+        checkButton.style.display = "flex";
+    } else {
+        checkButton.style.display = "none";
+    }
+
     backButton.style.display = "flex";
-    
+
+
+    //set main content (name + viewer)
     mainContent.innerHTML =
         `<h2>${level.name} Level</h2>
     <p>${level.description}</p>`;
 
-    if(level.id !== 999){
-        checkButton.style.display = "flex";
-    }
-
-    const inPageViewer = new Viewer("inPageViewer");
-    document.getElementById("inPageViewer").style.display = "flex";
-    inPageViewer.init();
+    inPageViewer = new Viewer("inPageViewer");
     
+    document.getElementById("inPageViewer").style.display = "flex";
+
+    inPageViewer.init(level);
+
+    //set toolbar to on
     const toolbar = new Toolbar(inPageViewer);
 
     document.getElementById("toolbar").style.display = "flex";
 
-    backButton.addEventListener("click", () => {
 
+    //add listeners to back button and 
+    backButton.onclick = () => {
 
         if(inPageViewer.levelComplete){
             markLevelCompleted(level.id);
         }
 
-        mainContent.innerHTML =
-            `<h2>Please select a level</h2>
-        <div>${createLevelButtonRow()}</div>
-    `;
+        inPageViewer.destroy();
+        inPageViewer = null;
 
-        createLevelButtons();
 
-        document.getElementById("toolbar").style.display = "none";
-        document.getElementById("inPageViewer").style.display = "none";
-    
-        inPageViewer.resetViewer();
-    });
+        levelMenuViewLoad();
+    };
 
-    checkButton.addEventListener("click", () => {
+    checkButton.onclick = () => {
         inPageViewer.evaluateCircuit();
-    })
+    }
 }
 
 function markLevelCompleted(levelId) {
