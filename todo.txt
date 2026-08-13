@@ -21,6 +21,12 @@ to do:
         - Once connected and correct the white line is replaced by green or red
             - ideally this would be along the route of the line but unlikely
 
+
+    for all viewers
+        - when resizing make sure bin and end nodes are updated to the maximums
+
+    in sandbox mode: 
+        - calculate the end point everytime
     
     create first level
         - add instructions

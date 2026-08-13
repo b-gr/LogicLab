@@ -133,6 +133,7 @@ function loadLevel(level) {
         inPageViewer.destroy();
         inPageViewer = null;
 
+        checkButton.style.display = "none";
 
         levelMenuViewLoad();
     };
