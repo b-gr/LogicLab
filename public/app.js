@@ -9,7 +9,6 @@ const levelTable = document.getElementById("levelTable");
 const backButton = document.getElementById("backButton");
 
 startButton.addEventListener("click", () => {
-    console.log("Start button clicked");
     mainContent.innerHTML =
         `<h2>Please select a level</h2>
     <div>${createLevelButtonRow()}</div>`;
@@ -88,9 +87,7 @@ function loadLevel(level) {
     mainContent.innerHTML =
         `<h2>${level.name} Level</h2>
     <p>${level.description}</p>`;
-
-    console.log(`Starting: ${level.name}`);
-
+    
     const inPageViewer = new Viewer("inPageViewer");
     document.getElementById("inPageViewer").style.display = "flex";
     inPageViewer.init();

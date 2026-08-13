@@ -232,7 +232,6 @@ export default class Viewer {
         if (connector.valid) {
             this.container.appendChild(connector.html);
             this.connections.push(connector);
-            console.log("Success between two nodes/ports")
         }
 
         node1.html.classList.remove('node-selected');

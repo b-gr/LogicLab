@@ -31,7 +31,7 @@ export default class Connector {
         return container;
     }
 
-
+    //todo: check if this is duplicated in Viewer. Decide where check should happen (here ideally)
     checkLinePossible(){
         if(this.node1.outputs.length >= this.node1.maxOutputs){
             console.log("Cannot add. Output already in use");
