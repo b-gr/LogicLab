@@ -1,0 +1,265 @@
+[
+    {
+        "id": 1,
+        "chapter": 1,
+        "level": 1,
+        "name": "AND Gate",
+        "description": "Learn about the AND gate.",
+        "mode": "build",
+
+        "inputs": [
+            {"state": true, "id": "start1"},
+            {"state": true, "id": "start2"}
+        ],
+
+        "outputs": [
+            {"expectedState": true, "id": "end1"}
+        ],
+
+        "availableGates": {
+            "AND": 1
+        },
+
+        "requiredGates": {
+            "AND": 1
+        },
+
+        "maxConnections": 3,
+
+        "commentCorrect": "Nice! Well done on completing the first level. To recap: The AND gate requires two inputs, that both must be TRUE to give a TRUE output.",
+        "commentWrong": "Unfortunately this doesn't look right. Remember the AND gate needs two inputs, and gives one output which is TRUE when both inputs are TRUE",
+        "commentHint": "Drag an AND gate from the toolbar, then connect the start nodes to it and the end node, using the connection tool ✏️"
+    },
+
+    {
+        "id": 2,
+        "chapter": 1,
+        "level": 2,
+        "name": "AND Gate",
+        "description": "What about when we don't have a TRUE value as an input?",
+        "mode": "build",
+
+        "inputs": [
+            {"state": false, "id": "start1"},
+            {"state": true, "id": "start2"}
+        ],
+
+        "outputs": [
+            {"expectedState": false, "id": "end1"}
+        ],
+
+        "availableGates": {
+            "AND": 1
+        },
+
+        "requiredGates": {
+            "AND":1
+        },
+
+        "maxConnections": 3,
+        "commentCorrect": "So any FALSE inputs will give a FALSE output from an AND gate. Lets test this on the next level.",
+        "commentWrong": "That doesn't look right. In this exercise we are looking to connect everything up like the previous level, but with one FALSE input.",
+        "commentHint": "Drag an AND gate from the toolbar, then connect the start nodes to it and the end node, using the connection tool ✏️"
+
+    
+    },
+
+    {
+        "id": 3,
+        "chapter": 1,
+        "level": 3,
+        "name": "AND Gate",
+        "description": "Try to make one AND gate that outputs a TRUE value, and one that outputs FALSE.",
+        "mode": "build",
+
+        "inputs": [
+            {"state": false, "id": "start1"},
+            {"state": true, "id": "start2"},
+            {"state": false, "id": "start3"},
+            {"state": true, "id": "start4"}
+        ],
+
+        "outputs": [
+            {"expectedState": false},
+            {"expectedState": true}
+
+        ],
+
+        "availableGates": {
+            "AND": 2
+        },
+
+        "requiredGates": {
+            "AND":1
+        },
+
+        "maxConnections": 6,
+
+        "commentCorrect": "Correct! Looks like you are getting the hang of this!",
+        "commentWrong": "Not quite - this level you need to have one output that is FALSE and one that is TRUE.",
+        "commentHint": "Two gates are needed here, with two different input combinations to give one FALSE and one TRUE output."
+    },
+
+    {
+        "id": 4,
+        "chapter": 1,
+        "level": 4,
+        "name": "AND Gate",
+        "description": "",
+        "mode": "predict",
+
+        "inputs": [
+            {"state": true, "id": "start1"},
+            {"state": true, "id": "start2"},
+            {"state": true, "id": "start3"},
+            {"state": true, "id": "start4"}
+        ],
+
+        "outputs": [
+            {"expectedState": true, "id": "end1"}
+        ],
+
+        "availableGates": {
+            "AND": 0
+        },
+
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "AND",
+                "x": 0.3,
+                "y": 0.3,
+                "locked" : true
+            },
+            {
+                "id": "gate2",
+                "type": "AND",
+                "x": 0.35,
+                "y": 0.66,
+                "locked" : true
+            },
+            {
+                "id": "gate3",
+                "type": "AND",
+                "x": 0.66,
+                "y": 0.5,
+                "locked" : true
+            }
+        ],
+
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },            {
+                "from": "start2",
+                "to": "gate1"
+            },            {
+                "from": "start3",
+                "to": "gate2"
+            },            {
+                "from": "start4",
+                "to": "gate2"
+            },            {
+                "from": "gate1",
+                "to": "gate3"
+            },            {
+                "from": "gate2",
+                "to": "gate3"
+            },            {
+                "from": "gate3",
+                "to": "end1"
+            }
+        ],
+
+
+        "maxConnections": 7,
+
+        "commentCorrect": "Well done, yes the output would indeed be TRUE.",
+        "commentWrong": "Sorry no, that doesn't look correct.",
+        "commentHint": "Remember, and AND gate takes two TRUE inputs and returns TRUE, anything else will result in FALSE being returned.",
+
+        "question": "What is the expected output from this circuit?"
+    },
+    {
+        "id": 5,
+        "chapter": 1,
+        "level": 5,
+        "name": "AND Gate",
+        "description": "",
+        "mode": "predict",
+
+        "inputs": [
+            {"state": false, "id": "start1"},
+            {"state": true, "id": "start2"},
+            {"state": true, "id": "start3"},
+            {"state": true, "id": "start4"}
+        ],
+
+        "outputs": [
+            {"expectedState": false, "id": "end1"}
+        ],
+
+        "availableGates": {
+            "AND": 0
+        },
+
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "AND",
+                "x": 0.3,
+                "y": 0.3,
+                "locked" : true
+            },
+            {
+                "id": "gate2",
+                "type": "AND",
+                "x": 0.35,
+                "y": 0.66,
+                "locked" : true
+            },
+            {
+                "id": "gate3",
+                "type": "AND",
+                "x": 0.66,
+                "y": 0.5,
+                "locked" : true
+            }
+        ],
+
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },            {
+                "from": "start2",
+                "to": "gate1"
+            },            {
+                "from": "start3",
+                "to": "gate2"
+            },            {
+                "from": "start4",
+                "to": "gate2"
+            },            {
+                "from": "gate1",
+                "to": "gate3"
+            },            {
+                "from": "gate2",
+                "to": "gate3"
+            },            {
+                "from": "gate3",
+                "to": "end1"
+            }
+        ],
+
+
+        "maxConnections": 7,
+
+        "commentCorrect": "Well done, yes the output would indeed be FALSE.",
+        "commentWrong": "Sorry no, that doesn't look correct.",
+        "commentHint": "Remember, and AND gate takes two TRUE inputs and returns TRUE, anything else will result in FALSE being returned.",
+
+        "question": "What is the expected output from this circuit?"
+    }
+]

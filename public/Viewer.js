@@ -20,6 +20,8 @@ export default class Viewer {
         this.sizeBefore = {x: 0, y:0}
     }
 
+    //sets the starting points on the viewer 
+    // todo: will remove magic numbers when implementing the schema for levels
     init(level) {
         this.updateViewerDimensions();
         this.createBin();
@@ -28,18 +30,17 @@ export default class Viewer {
         this.sizeBefore = {x: this.width, y: this.height};
     }
 
+    //on view resize, carry out the following
     resizeHelper(){
         this.updateViewerDimensions();
         this.repositionBin();
         this.repositionEndPoints();
         this.repositionStartPoints();
         this.repositionGates();
-        this.reDrawConnectors();
-                
-        //this.sizeBefore = {x: this.width, y: this.height};
-
+        this.redoAllLines();
     }
 
+    //used when changing the window size 
     repositionGates(){
         const margin = 100;
         const usableWidthBefore = this.sizeBefore.x - (margin*2);
@@ -63,7 +64,7 @@ export default class Viewer {
     }
 
 
-
+    //used when changing the window size 
     repositionEndPoints() {
         const x = this.width - 100;
         const endPoints = this.viewerObjects.filter(node => node.type === 'end');
@@ -79,6 +80,7 @@ export default class Viewer {
         }
     }
 
+    //used when changing the window size 
     repositionStartPoints(){
         const startPoints = this.viewerObjects.filter(node => node.type === 'start');
         const count = startPoints.length;
@@ -94,7 +96,7 @@ export default class Viewer {
 
 
 
-
+    //used when changing the window size 
     repositionBin(){
         const bin = this.viewerObjects.find(node => node.type === 'bin');
         
@@ -103,6 +105,7 @@ export default class Viewer {
         bin.html.style.top = `${bin.coordinates.y}px`;
     }
 
+    //used when changing the window size 
     updateViewerDimensions() {
         const viewerRectangle = this.container.getBoundingClientRect();
         this.width = viewerRectangle.width;
@@ -113,25 +116,31 @@ export default class Viewer {
         this.endY = viewerRectangle.bottom;
     }
 
+    updateGateCoordinates(gate, x, y) {
+        const viewerRectangle = this.container.getBoundingClientRect();
+        if (x < 0) {
+            gate.coordinates.x = 0;
+        } else if (x > viewerRectangle.width - gate.size.width) {
+            gate.coordinates.x = viewerRectangle.width - gate.size.width;
+        } else {
+            gate.coordinates.x = x;
+        }
 
-    removeGate(gate) {
-        this.removeConnections(gate);
-        this.container.removeChild(gate.html);
-        this.gates = this.gates.filter(g => g !== gate);
-    }
-
-    removeConnections(gate) {
-        const lines = this.connections.filter(connector => connector.node1 === gate || connector.node2 === gate);
-        for (let connector of lines) {
-            this.removeOneConnection(connector);
+        if (y < 0) {
+            gate.coordinates.y = 0;
+        } else if (y > viewerRectangle.height - gate.size.height) {
+            gate.coordinates.y = viewerRectangle.height - gate.size.height;
+        } else {
+            gate.coordinates.y = y;
         }
     }
 
-    removeOneConnection(connector) {
-        connector.remove();
-        this.connections = this.connections.filter(connection => connection !== connector);
+    updateGatePosition(gate) {
+        const gateElement = gate.html;
+        gateElement.style.position = 'absolute';
+        gateElement.style.left = `${gate.coordinates.x}px`;
+        gateElement.style.top = `${gate.coordinates.y}px`;
     }
-
 
     addGate(gate) {
         this.container.appendChild(gate.html);
@@ -325,7 +334,6 @@ export default class Viewer {
     //when user moves the gate - redraw wires  
     reDrawConnectors(gate) {
         const connectors = this.connections.filter( connector => connector.node1 === gate || connector.node2 === gate);
-        //this.redoInputSlots(gate)
         for(let connector of connectors) {
             connector.redrawLine();
         }
@@ -336,7 +344,11 @@ export default class Viewer {
         for(let gate of this.gates){
             this.redoInputSlots(gate)
         }
-    }
+        const endPoints = this.viewerObjects.filter( node => node.type === 'end')
+        for(let endPoint of endPoints){
+            this.reDrawConnectors(endPoint)
+        }
+    }   
 
     //on gate drop, recalculate/check which input is closest
     redoInputSlots(node) {
@@ -486,7 +498,7 @@ export default class Viewer {
     }
 
     createMultipleEndPoints(integer){
-        const xCoord = this.width-50;
+        const xCoord = this.width-100;
         const heightDivision = this.height/(integer+1)
         for(let i = 0; i < integer; i++) {
             const y = heightDivision * (i+1);
@@ -546,33 +558,25 @@ export default class Viewer {
         this.connectionMode = false;
     }
 
+    removeGate(gate) {
+        this.removeConnections(gate);
+        this.container.removeChild(gate.html);
+        this.gates = this.gates.filter(g => g !== gate);
+    }
 
-    updateGateCoordinates(gate, x, y) {
-        const viewerRectangle = this.container.getBoundingClientRect();
-        if (x < 0) {
-            gate.coordinates.x = 0;
-        } else if (x > viewerRectangle.width - gate.size.width) {
-            gate.coordinates.x = viewerRectangle.width - gate.size.width;
-        } else {
-            gate.coordinates.x = x;
-        }
-
-        if (y < 0) {
-            gate.coordinates.y = 0;
-        } else if (y > viewerRectangle.height - gate.size.height) {
-            gate.coordinates.y = viewerRectangle.height - gate.size.height;
-        } else {
-            gate.coordinates.y = y;
+    removeConnections(gate) {
+        const lines = this.connections.filter(connector => connector.node1 === gate || connector.node2 === gate);
+        for (let connector of lines) {
+            this.removeOneConnection(connector);
         }
     }
 
-    updateGatePosition(gate) {
-        const gateElement = gate.html;
-        gateElement.style.position = 'absolute';
-        gateElement.style.left = `${gate.coordinates.x}px`;
-        gateElement.style.top = `${gate.coordinates.y}px`;
+    removeOneConnection(connector) {
+        connector.remove();
+        this.connections = this.connections.filter(connection => connection !== connector);
     }
+
+
 
 
 }
-

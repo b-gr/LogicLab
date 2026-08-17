@@ -23,7 +23,7 @@ to do:
 
 
     for all viewers
-        - when resizing make sure bin and end nodes are updated to the maximums
+        - for all viewers except sandbox, create a "?" state for a level end
 
     in sandbox mode: 
         - calculate the end point everytime anything is changed
@@ -42,7 +42,9 @@ to do:
         - if gate is 0 then blank out the toolbar in that position
         - add a connectAutomatically option in json so it would autocomplete wires in certain levels
         - when completing level, save state so that user can return to level
-    
+        - if level is a question based level, then change the validation away from viewer to question
+        - for levels that are prediction levels check that the gate answer is not shown even when connected
+
     for sandbox mode, create a drag background tool to move background so that more can be added. 
         - and recenter option for input and output
         - and ability to move them
