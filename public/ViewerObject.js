@@ -1,8 +1,9 @@
 export default class ViewerObject {
-    constructor(type, state) {
+    constructor(type, state, id) {
         this.coordinates = { x: 0, y: 0 };
         this.type = type;
         this.state = state;
+        this.id = id;
 
         this.acceptingInput = false;
         this.creatingOutput = false;
@@ -26,6 +27,7 @@ export default class ViewerObject {
 
         if(type === "bin") {
             this.size = { width: 100, height: 100 }
+            this.id = "bin";
         }
 
         this.html = this.createHTML();

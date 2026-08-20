@@ -30,7 +30,17 @@ export default class Viewer {
         this.createStartPointsFromSchema();
         this.createEndPointsFromSchema();
         this.sizeBefore = {x: this.width, y: this.height};
+        //this.printAllIDs();
     }
+/*
+//todo
+//for debugging - remove later...
+    printAllIDs(){
+        for(let node of this.viewerObjects){
+            console.log(`${node.id} has state: ${node.state}`)
+        }
+    }
+*/
 
     createEndPointsFromSchema(){
         const endNodes = this.level.endNodes;
@@ -40,14 +50,14 @@ export default class Viewer {
         let i = 0;
         for (let endNode of endNodes){
             const y = heightDivision * (i+1);
-            this.createEndPoint(endNode.state,xCoord,y)
+            this.createEndPoint(endNode.state,xCoord,y, endNode.id)
             i++;
         }
     }
 
     //build end points
-    createEndPoint(state, x, y) {
-        const endPoint = new ViewerObject('end', state);
+    createEndPoint(state, x, y, id) {
+        const endPoint = new ViewerObject('end', state, id);
         endPoint.coordinates = { x: x, y: y };
         endPoint.html.style.position = 'absolute';
         endPoint.html.style.left = `${x}px`;
@@ -65,14 +75,14 @@ export default class Viewer {
         let i = 0;
         for(let startNode of startNodes) {
             const y = heightDivision * (i+1);
-            this.createStartPoint(startNode.state, 50, y);
+            this.createStartPoint(startNode.state, 50, y, startNode.id);
             i++;
         }
     }
 
     //build start points
-    createStartPoint(state, x, y) {
-        const startPoint = new ViewerObject('start', state);
+    createStartPoint(state, x, y, id) {
+        const startPoint = new ViewerObject('start', state, id);
         startPoint.coordinates = { x: x, y: y };
         startPoint.html.style.position = 'absolute';
         startPoint.html.style.left = `${x}px`;
