@@ -4,7 +4,7 @@
         "chapter": 1,
         "level": 1,
         "name": "AND Gate",
-        "description": "Learn about the AND gate.",
+        "description": "Add an AND gate using the button on the toolbar, then connect the start nodes (left) to it and the end node (right), using the connection tool ✏️.",
         "mode": "build",
 
         "inputs": [
@@ -28,7 +28,7 @@
 
         "commentCorrect": "Nice! Well done on completing the first level. To recap: The AND gate requires two inputs, that both must be TRUE to give a TRUE output.",
         "commentWrong": "Unfortunately this doesn't look right. Remember the AND gate needs two inputs, and gives one output which is TRUE when both inputs are TRUE",
-        "commentHint": "Drag an AND gate from the toolbar, then connect the start nodes to it and the end node, using the connection tool ✏️"
+        "commentHint": "Plop an AND gate from the toolbar, then connect the start nodes to it and the end node, using the connection tool ✏️"
     },
 
     {
@@ -80,8 +80,8 @@
         ],
 
         "outputs": [
-            {"expectedState": false},
-            {"expectedState": true}
+            {"expectedState": false, "id": "end1"},
+            {"expectedState": true, "id": "end2"}
 
         ],
 
@@ -90,7 +90,7 @@
         },
 
         "requiredGates": {
-            "AND":1
+            "AND":2
         },
 
         "maxConnections": 6,

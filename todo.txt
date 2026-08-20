@@ -49,7 +49,7 @@ to do:
         - and recenter option for input and output
         - and ability to move them
         - and ability to export the sandbox level layout (as JSON)
-
+        - add the ability to increase or decrease inputs and outputs from buttons (up and down arrows)
 
     add a clean up button to the sandbox
     

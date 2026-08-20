@@ -1,6 +1,7 @@
 import LogicGate from "./LogicGate.js";
 import Toolbar from "./Toolbar.js";
 import Viewer from "./Viewer.js";
+import Level from "./Level.js";
 
 
 const mainContent = document.getElementById("mainContent");
@@ -8,12 +9,15 @@ const startButton = document.getElementById("startButton");
 const levelTable = document.getElementById("levelTable");
 const backButton = document.getElementById("backButton");
 const checkButton = document.getElementById("checkButton");
+const nextButton = document.getElementById("nextButton");
 let inPageViewer = null;
 
-startButton.addEventListener("click", () => {
+startButton.addEventListener("click", async () => {
+    await importLevels();
     levelMenuViewLoad();
 });
 
+/*
 //Define levels for the game v1
 const levels = [
     { id:1, name: "Intro", description: "Learn the basics of logic gates." , unlocked: true, completed: false},
@@ -26,6 +30,15 @@ const levels = [
     { id:8, name: "OTHER", description: "Explore other types of logic gates and circuits." , unlocked: false, completed: false},
     { id:999, name: "Sandbox", description: "Play around and see what you can do without any limits.", unlocked: true, completed: false}
 ];
+*/
+
+let levels = []
+
+async function importLevels(){
+    const response = await fetch("./levelData.json");
+    const levelData = await response.json();
+    levels = levelData.map(data => new Level(data));
+}
 
 
 function levelMenuViewLoad(){
@@ -41,17 +54,22 @@ function levelMenuViewLoad(){
 
 //Function to create level buttons based on the levels array
 function createLevelButtonRow() {
-    
     backButton.style.display = "none";
     document.getElementById("toolbar").style.display = "none";
     document.getElementById("inPageViewer").style.display = "none";
     
     let buttonsHTML = "";
     for (let level of levels) {
+        if(level.id === 1) {
+            level.unlocked = true;
+        } else {
+            level.unlocked = false;
+        }
         buttonsHTML += `
             <button 
                 class="levelButton ${!level.unlocked ? "levelButtonLocked": ""} ${level.completed ? "levelButtonCompleted": ""}"
                 id="${level.id}">
+                ${level.chapter}.${level.level} <br>
                 ${level.name}
             </button>`;
     }
@@ -140,6 +158,24 @@ function loadLevel(level) {
 
     checkButton.onclick = () => {
         inPageViewer.evaluateCircuit();
+        if(inPageViewer.levelComplete){
+            checkButton.style.display = "none";
+            nextButton.style.display = "flex";
+            document.getElementById("toolbar").style.display = "none";
+        }
+    }
+
+    nextButton.onclick = () => {
+        if(inPageViewer.levelComplete){
+            markLevelCompleted(level.id);
+        }
+        inPageViewer.destroy();
+        inPageViewer = null;
+        const nextLevel = levels.find(l => l.id === level.id + 1);
+        if (nextLevel) {
+            loadLevel(nextLevel)
+        }
+        nextButton.style.display = "none";
     }
 }
 

@@ -18,7 +18,9 @@ export default class Level{
         commentWrong,
         commentHint,
         question,
-        answer
+        answer,
+        unlocked,
+        completed = false
     }){
         this.id = id;
         this.chapter = chapter;
