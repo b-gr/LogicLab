@@ -60,7 +60,7 @@ function createLevelButtonRow() {
     
     let buttonsHTML = "";
     for (let level of levels) {
-        if(level.id === 1) {
+        if(level.id === 1 || level.id === 999) {
             level.unlocked = true;
         } else {
             level.unlocked = false;

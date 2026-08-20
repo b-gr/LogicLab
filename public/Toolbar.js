@@ -13,14 +13,17 @@ export default class Toolbar {
 
     createButtons = () => {
         this.container.innerHTML = `<button class="toolbarButton" id="penButton">✏️</button>`
+        for(let entry of Object.entries(this.level.availableGates)){
+            const gateType = entry[0];
+            this.container.innerHTML = this.container.innerHTML.concat(" ", `<button class = "toolbarButton" id = "${gateType}Button">${gateType}</button>`)
+        }
+
         document.getElementById("penButton").addEventListener("click", () => {
             this.penClick()
         })
 
         for(let entry of Object.entries(this.level.availableGates)){
             const gateType = entry[0];
-            const quantity = entry[1];
-            this.container.innerHTML = this.container.innerHTML.concat(" ", `<button class = "toolbarButton" id = "${gateType}Button">${gateType}</button>`)
             document.getElementById(`${gateType}Button`).addEventListener("click", () => {
                 this.addGate(`${gateType}`);
             });

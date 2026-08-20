@@ -274,5 +274,33 @@
         "commentHint": "Remember, and AND gate takes two TRUE inputs and returns TRUE, anything else will result in FALSE being returned.",
 
         "question": "What is the expected output from this circuit?"
+    }, 
+
+    {
+        "id": 999,
+        "chapter": "",
+        "level": "",
+        "name": "SANDBOX",
+        "description": "Try anything out",
+        "mode": "build",
+
+        "startNodes": [
+            {"state": true, "id": "start1"},
+            {"state": true, "id": "start2"}
+        ],
+
+        "endNodes": [
+            {"state": false, "id": "end1"}
+        ],
+
+        "availableGates": {
+            "AND": "Infinity",
+            "OR": "Infinity",
+            "NOT": "Infinity",
+            "NAND": "Infinity",
+            "NOR": "Infinity",
+            "XOR": "Infinity",
+            "XNOR": "Infinity"
+        }
     }
 ]
