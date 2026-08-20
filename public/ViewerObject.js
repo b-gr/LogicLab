@@ -41,10 +41,12 @@ export default class ViewerObject {
         this.state = state;
 
         if (this.type === 'end') {
-            if (this.state) {
+            if (this.state === true) {
                 this.html.innerHTML = this.endSVGtrue();
-            } else {
+            } else if (this.state === false) {
                 this.html.innerHTML = this.endSVGfalse();
+            } else { 
+                this.html.innerHTML = this.endSVGUnknown();
             }
         }
     }
@@ -92,13 +94,16 @@ export default class ViewerObject {
         }
         
         //end
-        else if (this.type === 'end' && this.state) {
+        else if (this.type === 'end' && this.state === true) {
             this.acceptingInput = true;
             container.innerHTML = this.endSVGtrue();
-        } else if (this.type === 'end' && !this.state) {
+        } else if (this.type === 'end' && this.state === false) {
             this.acceptingInput = true;
             container.innerHTML = this.endSVGfalse();
-        } 
+        } else if (this.type === 'end') {
+            this.acceptingInput = true;
+            container.innerHTML = this.endSVGUnknown();
+        }
         
         //bin
         else if (this.type === 'bin' && this.state) {
@@ -200,6 +205,32 @@ export default class ViewerObject {
             stroke-width="5"
             stroke-linecap="round"/>
         </svg>
+        `;
+    }
+
+    //endUnknown
+    endSVGUnknown = () => {
+        return `
+            <svg 
+                width="50" 
+                height="50" 
+                fill="orange"
+                viewBox="0 0 50 50" 
+                xmlns="http://www.w3.org/2000/svg">
+                <rect 
+                    width="50" 
+                    height="50">
+                </rect>
+                <text 
+                    font-size="45" 
+                    fill="white"
+                    font-family="serif"
+                    x="50%" y="80%" 
+                    text-anchor="middle"
+                    dominant-baseline="inherit">
+                        ?
+                </text>
+            </svg>
         `;
     }
 

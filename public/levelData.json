@@ -7,14 +7,16 @@
         "description": "Add an AND gate using the button on the toolbar, then connect the start nodes (left) to it and the end node (right), using the connection tool ✏️.",
         "mode": "build",
 
-        "inputs": [
+        "startNodes": [
             {"state": true, "id": "start1"},
             {"state": true, "id": "start2"}
         ],
 
-        "outputs": [
-            {"expectedState": true, "id": "end1"}
+        "endNodes": [
+            {"state": "unknown", "id": "end1"}
         ],
+
+        "expectedEndStates": [true],
 
         "availableGates": {
             "AND": 1
@@ -39,14 +41,17 @@
         "description": "What about when we don't have a TRUE value as an input?",
         "mode": "build",
 
-        "inputs": [
+        "startNodes": [
             {"state": false, "id": "start1"},
             {"state": true, "id": "start2"}
         ],
 
-        "outputs": [
-            {"expectedState": false, "id": "end1"}
+        "endNodes": [
+            {"state": "unknown", "id": "end1"}
         ],
+
+        "expectedEndStates": [false],
+
 
         "availableGates": {
             "AND": 1
@@ -57,7 +62,7 @@
         },
 
         "maxConnections": 3,
-        "commentCorrect": "So any FALSE inputs will give a FALSE output from an AND gate. Lets test this on the next level.",
+        "commentCorrect": "So any FALSE input will give a FALSE output from an AND gate. Lets test this on the next level.",
         "commentWrong": "That doesn't look right. In this exercise we are looking to connect everything up like the previous level, but with one FALSE input.",
         "commentHint": "Drag an AND gate from the toolbar, then connect the start nodes to it and the end node, using the connection tool ✏️"
 
@@ -72,18 +77,21 @@
         "description": "Try to make one AND gate that outputs a TRUE value, and one that outputs FALSE.",
         "mode": "build",
 
-        "inputs": [
+        "startNodes": [
             {"state": false, "id": "start1"},
             {"state": true, "id": "start2"},
             {"state": false, "id": "start3"},
             {"state": true, "id": "start4"}
         ],
 
-        "outputs": [
-            {"expectedState": false, "id": "end1"},
-            {"expectedState": true, "id": "end2"}
+        "endNodes": [
+            {"state": "unknown", "id": "end1"},
+            {"state": "unknown", "id": "end2"}
 
         ],
+
+        "expectedEndStates": [true, false],
+
 
         "availableGates": {
             "AND": 2
@@ -108,16 +116,18 @@
         "description": "",
         "mode": "predict",
 
-        "inputs": [
+        "startNodes": [
             {"state": true, "id": "start1"},
             {"state": true, "id": "start2"},
             {"state": true, "id": "start3"},
             {"state": true, "id": "start4"}
         ],
 
-        "outputs": [
-            {"expectedState": true, "id": "end1"}
+        "endNodes": [
+            {"state": "unknown", "id": "end1"}
         ],
+
+        "expectedEndStates": [true],
 
         "availableGates": {
             "AND": 0
@@ -189,16 +199,19 @@
         "description": "",
         "mode": "predict",
 
-        "inputs": [
+        "startNodes": [
             {"state": false, "id": "start1"},
             {"state": true, "id": "start2"},
             {"state": true, "id": "start3"},
             {"state": true, "id": "start4"}
         ],
 
-        "outputs": [
-            {"expectedState": false, "id": "end1"}
+        "endNodes": [
+            {"state": "unknown", "id": "end1"}
         ],
+
+        "expectedEndStates": [false],
+
 
         "availableGates": {
             "AND": 0

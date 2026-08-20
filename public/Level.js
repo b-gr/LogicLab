@@ -6,8 +6,9 @@ export default class Level{
         name, 
         description,
         mode,
-        inputs = [],
-        outputs = [],
+        startNodes = [],
+        endNodes = [],
+        expectedEndStates,
         availableGates = {},
         requiredGates = {},
         maxConnections = Infinity,
@@ -28,8 +29,9 @@ export default class Level{
         this.name = name;
         this.description = description;
         this.mode = mode;
-        this.inputs = inputs;
-        this.outputs = outputs;
+        this.startNodes = startNodes;
+        this.endNodes = endNodes;
+        this.expectedEndStates = expectedEndStates;
         this.availableGates = availableGates;
         this.requiredGates = requiredGates;
         this.maxConnections = maxConnections;

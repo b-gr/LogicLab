@@ -18,17 +18,76 @@ export default class Viewer {
         window.addEventListener('resize', this.resize);
 
         this.sizeBefore = {x: 0, y:0}
+        this.level
     }
 
     //sets the starting points on the viewer 
     // todo: will remove magic numbers when implementing the schema for levels
     init(level) {
+        this.level = level;
         this.updateViewerDimensions();
         this.createBin();
-        this.createMultipleStartPoints(2);
-        this.createMultipleEndPoints(1);
+        this.createStartPointsFromSchema();
+        this.createEndPointsFromSchema();
         this.sizeBefore = {x: this.width, y: this.height};
     }
+
+    createEndPointsFromSchema(){
+        const endNodes = this.level.endNodes;
+        const integer = endNodes.length;
+        const xCoord = this.width-100;
+        const heightDivision = this.height/(integer+1)
+        let i = 0;
+        for (let endNode of endNodes){
+            const y = heightDivision * (i+1);
+            this.createEndPoint(endNode.state,xCoord,y)
+            i++;
+        }
+    }
+
+    //build end points
+    createEndPoint(state, x, y) {
+        const endPoint = new ViewerObject('end', state);
+        endPoint.coordinates = { x: x, y: y };
+        endPoint.html.style.position = 'absolute';
+        endPoint.html.style.left = `${x}px`;
+        endPoint.html.style.top = `${y}px`;
+        this.container.appendChild(endPoint.html);
+        this.viewerObjects.push(endPoint);
+        this.addConnectionListener(endPoint);
+    }
+    
+    createStartPointsFromSchema(){
+        const startNodes = this.level.startNodes;
+        const integer = startNodes.length;
+        const xCoord = 50;        
+        const heightDivision = this.height/(integer+1)
+        let i = 0;
+        for(let startNode of startNodes) {
+            const y = heightDivision * (i+1);
+            this.createStartPoint(startNode.state, 50, y);
+            i++;
+        }
+    }
+
+    //build start points
+    createStartPoint(state, x, y) {
+        const startPoint = new ViewerObject('start', state);
+        startPoint.coordinates = { x: x, y: y };
+        startPoint.html.style.position = 'absolute';
+        startPoint.html.style.left = `${x}px`;
+        startPoint.html.style.top = `${y}px`;
+        this.container.appendChild(startPoint.html);
+        this.viewerObjects.push(startPoint);
+        this.addConnectionListener(startPoint);
+    }
+
+
+
+
+
+
+
 
     //on view resize, carry out the following
     resizeHelper(){
@@ -315,7 +374,7 @@ export default class Viewer {
 
         //if node2 is already connected then not allowed
         if (node2.inputs.length >= node2.maxInputs) {
-            console.log("not possible: no available inputs check 2")
+            console.log("not possible: no available inputs")
             return;
         }
 
@@ -417,8 +476,8 @@ export default class Viewer {
         for (let endPoint of endPoints) {
 
             if (endPoint.inputs.length === 0) {
-                endPoint.setState(false);
-                return;
+                endPoint.setState("unknown");
+                continue;
             }
                 
             if(endPoint.inputs[0].getState() === true) {
@@ -426,15 +485,21 @@ export default class Viewer {
             } else {
                 endPoint.setState(false);
             }
+        }
 
-            if(!endPoint.inputs[0].getState()){
-                return;
+        const actualEndStates = endPoints.map(node => node.state);
+        const expectedEndStates = this.level.expectedEndStates;
+        console.log(`${actualEndStates} \n ${expectedEndStates}`);
+
+        if(this.level.mode === "build"){
+            if(actualEndStates.filter(state => state === true).length === expectedEndStates.filter(state => state === true).length
+                &&
+                actualEndStates.filter(state => state === false).length === expectedEndStates.filter(state => state === false).length
+            ) {
+                this.levelComplete = true;
             }
         }
 
-
-
-        this.levelComplete = true;
         
     }
 
@@ -475,49 +540,6 @@ export default class Viewer {
         //the remaining end points shifts downwards
     }
 
-    createMultipleStartPoints(integer){
-        //for use in level mode
-        const heightDivision = this.height/(integer+1)
-        for(let i = 0; i < integer; i++) {
-            const y = heightDivision * (i+1);
-            this.createStartPoint(true, 50, y);
-        }
-    }
-
-
-    //build start points
-    createStartPoint(state, x, y) {
-        const startPoint = new ViewerObject('start', state);
-        startPoint.coordinates = { x: x, y: y };
-        startPoint.html.style.position = 'absolute';
-        startPoint.html.style.left = `${x}px`;
-        startPoint.html.style.top = `${y}px`;
-        this.container.appendChild(startPoint.html);
-        this.viewerObjects.push(startPoint);
-        this.addConnectionListener(startPoint);
-    }
-
-    createMultipleEndPoints(integer){
-        const xCoord = this.width-100;
-        const heightDivision = this.height/(integer+1)
-        for(let i = 0; i < integer; i++) {
-            const y = heightDivision * (i+1);
-            this.createEndPoint(false, xCoord, y);
-        }
-    }
-
-
-    //build end points
-    createEndPoint(state, x, y) {
-        const endPoint = new ViewerObject('end', state);
-        endPoint.coordinates = { x: x, y: y };
-        endPoint.html.style.position = 'absolute';
-        endPoint.html.style.left = `${x}px`;
-        endPoint.html.style.top = `${y}px`;
-        this.container.appendChild(endPoint.html);
-        this.viewerObjects.push(endPoint);
-        this.addConnectionListener(endPoint);
-    }
 
 
     //is the pen clicked? 
