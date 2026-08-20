@@ -1,62 +1,31 @@
 import LogicGate from "./LogicGate.js";
 
+
 export default class Toolbar {
-    constructor(viewer) {
+    constructor(viewer, level, firstClickPen) {
         this.connectorOn = false;
         this.viewer = viewer;
+        this.level = level;
         this.container = document.getElementById('toolbar');
         this.createButtons();
-        this.firstClickPen = true;
+        this.firstClickPen = firstClickPen;
     }
 
     createButtons = () => {
-        const buttonsHTML =
-            `
-            <button class="toolbarButton" id="penButton">✏️</button>
-            <button class="toolbarButton" id="ANDButton">AND</button>
-            <button class="toolbarButton" id="ORButton">OR</button>
-            <button class="toolbarButton" id="NOTButton">NOT</button>
-            <button class="toolbarButton" id="NANDButton">NAND</button>
-            <button class="toolbarButton" id="NORButton">NOR</button>
-            <button class="toolbarButton" id="XORButton">XOR</button>
-            <button class="toolbarButton" id="XNORButton">XNOR</button>
-            `;
-        this.container.innerHTML = buttonsHTML;
-
+        this.container.innerHTML = `<button class="toolbarButton" id="penButton">✏️</button>`
         document.getElementById("penButton").addEventListener("click", () => {
             this.penClick()
         })
 
-
-            // Add event listeners for each button
-            document.getElementById("ANDButton").addEventListener("click", () => {
-                this.addGate('AND'); 
+        for(let entry of Object.entries(this.level.availableGates)){
+            const gateType = entry[0];
+            const quantity = entry[1];
+            this.container.innerHTML = this.container.innerHTML.concat(" ", `<button class = "toolbarButton" id = "${gateType}Button">${gateType}</button>`)
+            document.getElementById(`${gateType}Button`).addEventListener("click", () => {
+                this.addGate(`${gateType}`);
             });
+        }
 
-            document.getElementById("ORButton").addEventListener("click", () => {
-                this.addGate('OR');
-            });
-
-            document.getElementById("NOTButton").addEventListener("click", () => {
-                this.addGate('NOT');
-            });
-
-            document.getElementById("NANDButton").addEventListener("click", () => {
-                this.addGate('NAND');
-            });
-
-            document.getElementById("NORButton").addEventListener("click", () => {
-                this.addGate('NOR');
-            });
-
-            document.getElementById("XORButton").addEventListener("click", () => {
-                this.addGate('XOR');
-            });
-
-            document.getElementById("XNORButton").addEventListener("click", () => {
-                this.addGate('XNOR');
-            });
-        
     }
 
     addGate(gateString) {
@@ -68,25 +37,32 @@ export default class Toolbar {
         }
     }
 
-    penClick(){
-            const penButton = document.getElementById("penButton");
-            if(this.firstClickPen){
-                window.alert("To use the connector tool, first click the starting node, then the final node.")
-                this.firstClickPen = false;
-            }
-            if (!this.connectorOn) {
-                penButton.style.backgroundColor = "#ff8585";
-                this.connectorOn = true;
-                this.viewer.connectionModeOn(this.connectorOn);
-                return;
-            } else {
-                penButton.style.backgroundColor = "#8c8c8c";
-                this.connectorOn = false;
-                this.viewer.clearGateSelection();
-                this.viewer.connectionModeOn(this.connectorOn);                
-                return;
-            }
+    penClick() {
+        const penButton = document.getElementById("penButton");
+        if (this.firstClickPen) {
+            window.alert("To use the connector tool, first click the starting node, then the final node.")
+            this.firstClickPen = false;
         }
+        if (!this.connectorOn) {
+            penButton.style.backgroundColor = "#ff8585";
+            this.connectorOn = true;
+            this.viewer.connectionModeOn(this.connectorOn);
+            return;
+        } else {
+            penButton.style.backgroundColor = "#8c8c8c";
+            this.connectorOn = false;
+            this.viewer.clearGateSelection();
+            this.viewer.connectionModeOn(this.connectorOn);
+            return;
+        }
+    }
 
-        
+
+    destroy() {
+        document.removeEventListener("click",this.addGate);
+        this.connectorOn = false;
+        this.viewer = null;
+        this.container = document.getElementById('toolbar').remove;
+    }
+
 }

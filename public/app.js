@@ -135,8 +135,16 @@ function loadLevel(level) {
 
     inPageViewer.init(level);
 
+    let firstPenUsage = true;
+
+    if (level.id === 1 || level.id === 999){
+        firstPenUsage = true;
+    } else {
+        firstPenUsage = false;
+    }
+
     //set toolbar to on
-    const toolbar = new Toolbar(inPageViewer);
+    const toolbar = new Toolbar(inPageViewer, level, firstPenUsage);
 
     document.getElementById("toolbar").style.display = "flex";
 
@@ -162,9 +170,12 @@ function loadLevel(level) {
             checkButton.style.display = "none";
             nextButton.style.display = "flex";
             document.getElementById("toolbar").style.display = "none";
+            toolbar.destroy();
         }
     }
 
+
+    //todo: clean up this code - needs to ensure the levels remain unlocked when clicking nextbutton then using back button - should be able to head to any already completed level.
     nextButton.onclick = () => {
         if(inPageViewer.levelComplete){
             markLevelCompleted(level.id);
