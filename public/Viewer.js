@@ -33,10 +33,11 @@ export default class Viewer {
         this.createEndPointsFromSchema();
         this.sizeBefore = {x: this.width, y: this.height};
         this.addStartingGates();
-        this.printAllIDs();
+        //this.printAllIDs();
+        this.createStartingConnections();
         this.initialised = true;
     }
-
+/*
 //todo
 //for debugging - remove later...
     printAllIDs(){
@@ -53,7 +54,7 @@ export default class Viewer {
             console.log(`${gate.id} is ${output}`)
         }
     }
-
+*/
 
     createEndPointsFromSchema(){
         const endNodes = this.level.endNodes;
@@ -448,8 +449,11 @@ export default class Viewer {
     }
 
     createStartingConnections(){
+        const nodesAndGates = this.viewerObjects.concat(this.gates);
         for (const connections of this.level.startingConnections){
-            //somecode
+            const node1 = nodesAndGates.find(nodeOrGate => nodeOrGate.id === connections.from)
+            const node2 = nodesAndGates.find(nodeOrGate => nodeOrGate.id === connections.to)
+            this.makeConnection(node1,node2)
         }
     }
 
