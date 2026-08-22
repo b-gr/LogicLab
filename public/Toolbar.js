@@ -13,7 +13,7 @@ export default class Toolbar {
     }
 
     createButtons = () => {
-        if (this.level.mode === "build") {
+        if (this.level.mode !== "predict") {
 
 
             this.container.innerHTML = `<button class="toolbarButton" id="penButton">✏️</button>`

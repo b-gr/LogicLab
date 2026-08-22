@@ -364,6 +364,9 @@ export default class Viewer {
             gate.html.style.zIndex = 1;
 
             this.redoAllLines();
+            if(this.level.id === 999){
+                this.evaluateCircuit();
+            }
         }
 
         gate.html.ondragstart = () => {
@@ -402,8 +405,9 @@ export default class Viewer {
                 this.selectedOutputNode = node;
             }
         }
-
-        return;
+        if(this.level.id === 999){
+            this.evaluateCircuit();
+        }
     }
 
 
@@ -458,11 +462,9 @@ export default class Viewer {
     }
 
     makeConnection(node1, node2){
-        let newConnectionAllowed = true;
-        if(this.maxConnections !== Infinity){
+        if(this.level.maxConnections !== Infinity){
             const connectorsRemaining = this.level.maxConnections - this.connections.length
             if(connectorsRemaining <= 0){
-                newConnectionAllowed = false;
                 return;
             }
         }
@@ -572,6 +574,10 @@ export default class Viewer {
             }
         }
 
+        if(!this.checkRequiredGatesUsed()){
+            return
+        }
+
         const actualEndStates = endPoints.map(node => node.state);
         const expectedEndStates = this.level.expectedEndStates;
 
@@ -584,7 +590,89 @@ export default class Viewer {
             }
         }
 
-        
+    }
+
+    recurseBack(node, gatesInPath){
+        if(node.inputs.length === 0){
+            return;
+        }
+
+        for (let connector of node.inputs) {
+            const previousNode = connector.node1;
+            if (this.gates.includes(previousNode)){
+                gatesInPath.add(previousNode);
+            }
+            if (!this.viewerObjects.includes(previousNode)){
+                this.recurseBack(previousNode, gatesInPath)
+            }
+        }
+    }
+
+
+    checkRequiredGatesUsed(){
+        let gatesUsed = new Set();
+        const endPoints = this.viewerObjects.filter( node => node.type === 'end')
+        for(let endPoint of endPoints){ 
+            this.recurseBack(endPoint,gatesUsed);
+        }
+        const requiredGates = this.level.requiredGates
+        console.log(gatesUsed);
+        console.log(requiredGates)
+
+        const countGates = {
+            AND: 0,
+            OR: 0,
+            NOT: 0,
+            NAND: 0,
+            NOR: 0,
+            XOR: 0,
+            XNOR: 0
+        };
+
+        for(let gate of gatesUsed) {
+            if (gate.type === "AND") {
+                countGates.AND = countGates.AND + 1
+            }
+
+            if (gate.type === "OR") {
+                countGates.OR = countGates.OR + 1
+            }
+
+            if (gate.type === "NOT") {
+                countGates.NOT = countGates.NOT + 1
+            }
+
+            if (gate.type === "NOR") {
+                countGates.NOR = countGates.NOR + 1
+            }
+
+            if (gate.type === "NAND") {
+                countGates.NAND = countGates.NAND + 1
+            }
+
+            if (gate.type === "XOR") {
+                countGates.XOR = countGates.XOR + 1
+            }
+
+            if (gate.type === "XNOR") {
+                countGates.XNOR = countGates.XNOR + 1
+            }
+        }
+
+
+        for( let gateType in this.level.requiredGates) {
+            const requiredQuantity = this.level.requiredGates[gateType];
+            const usedQuantity = countGates[gateType]
+
+            if(usedQuantity < requiredQuantity) {
+                return false
+            }
+        }
+
+        return true;
+
+
+
     }
 
     //createBin

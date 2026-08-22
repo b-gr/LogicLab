@@ -282,7 +282,7 @@
         "level": "",
         "name": "SANDBOX",
         "description": "Try anything out",
-        "mode": "build",
+        "mode": "sandbox",
 
         "startNodes": [
             {"state": true, "id": "start1"},
