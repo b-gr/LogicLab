@@ -1,6 +1,7 @@
 import Connector from './Connector.js';
 import Toolbar from './Toolbar.js';
 import ViewerObject from './ViewerObject.js';
+import LogicGate from './LogicGate.js'
 
 export default class Viewer {
     constructor(viewerId) {
@@ -19,6 +20,7 @@ export default class Viewer {
 
         this.sizeBefore = {x: 0, y:0}
         this.level
+        this.initialised = false;
     }
 
     //sets the starting points on the viewer 
@@ -30,17 +32,28 @@ export default class Viewer {
         this.createStartPointsFromSchema();
         this.createEndPointsFromSchema();
         this.sizeBefore = {x: this.width, y: this.height};
-        //this.printAllIDs();
+        this.addStartingGates();
+        this.printAllIDs();
+        this.initialised = true;
     }
-/*
+
 //todo
 //for debugging - remove later...
     printAllIDs(){
         for(let node of this.viewerObjects){
             console.log(`${node.id} has state: ${node.state}`)
         }
+        for(let gate of this.gates){
+            let output = "";
+            if(gate.draggable){
+                output = "draggable"
+            } else {
+                output = "static"
+            }
+            console.log(`${gate.id} is ${output}`)
+        }
     }
-*/
+
 
     createEndPointsFromSchema(){
         const endNodes = this.level.endNodes;
@@ -211,12 +224,50 @@ export default class Viewer {
         gateElement.style.top = `${gate.coordinates.y}px`;
     }
 
-    addGate(gate) {
-        this.container.appendChild(gate.html);
-        this.updateGatePosition(gate);
-        this.addEventListenersToGate(gate);
-        this.gates.push(gate);
-        this.updateViewerDimensions();
+    addStartingGates(){
+        if(this.level.startingGates.length === 0){
+            return;
+        }
+        for (let gate of this.level.startingGates){
+            const position = {x: gate.x * this.width, y: gate.y * this.height}
+
+            this.addGate(gate.type);
+
+
+            this.gates.at(-1).coordinates = {x: position.x, y: position.y};
+            
+            this.updateGatePosition(this.gates.at(-1));
+            this.gates.at(-1).draggable = gate.draggable;
+            this.gates.at(-1).id = gate.id;
+        }
+    }
+
+    addGate(gateString) {
+        if (this.initialised) {
+            for (let entry of Object.entries(this.level.availableGates)) {
+                const gateType = entry[0]
+                if (gateType !== gateString) {
+                    continue;
+                }
+                const maxQuantity = entry[1]
+                const alreadyPlaced = this.gates.filter(gate => gate.type === gateType).length
+
+                const numberRemaining = maxQuantity - alreadyPlaced
+                if (numberRemaining === 0) {
+                    return
+                }
+            }
+        }
+
+        const gate = new LogicGate(`${gateString}`)
+        if (this.connectionMode) {
+            window.alert("Please finish drawing your connection or unclick the draw button to add more gates.")
+        } else {
+            this.container.appendChild(gate.html);
+            this.updateGatePosition(gate);
+            this.addEventListenersToGate(gate);
+            this.gates.push(gate);
+        }
     }
 
     mouseToViewerCoordinates(event) {
@@ -227,7 +278,7 @@ export default class Viewer {
     }
 
     dragGate(event, gate) {
-        if (this.connectionMode) {
+        if (this.connectionMode || !gate.draggable) {
             return;
         }
 
@@ -343,14 +394,7 @@ export default class Viewer {
         }
 
         if (this.selectedOutputNode != null) {
-            
-            if(!node.acceptingInput){
-                console.log("Cannot accept input");
-                return;
-            }
-            
             this.linkNodes(node);
-
         } else {
             if(node.creatingOutput){
                 node.html.classList.add('node-selected');
@@ -374,6 +418,14 @@ export default class Viewer {
             return;
         }
 
+        if (this.viewerObjects.includes(node1) && this.viewerObjects.includes(node2) && this.level.id !== 999){
+            this.selectedOutputNode = null;
+            node1.html.classList.remove('node-selected');
+            console.log("Not possible: start and end nodes cannot be connected directly to each other")
+            return;
+        }
+
+
         //if already connected then not possible
         if (node1.outputs.length >= node1.maxOutputs) {
             console.log("Not possible: node already connected to another node")
@@ -388,16 +440,35 @@ export default class Viewer {
             return;
         }
 
-        //passed checks - continue to create connection
-        const connector = new Connector(node1, node2, this);
-        if (connector.valid) {
-            this.container.appendChild(connector.html);
-            this.connections.push(connector);
-        }
+        this.makeConnection(node1, node2);
 
         node1.html.classList.remove('node-selected');
         this.selectedOutputNode = null;
 
+    }
+
+    createStartingConnections(){
+        for (const connections of this.level.startingConnections){
+            //somecode
+        }
+    }
+
+    makeConnection(node1, node2){
+        let newConnectionAllowed = true;
+        if(this.maxConnections !== Infinity){
+            const connectorsRemaining = this.level.maxConnections - this.connections.length
+            if(connectorsRemaining <= 0){
+                newConnectionAllowed = false;
+                return;
+            }
+        }
+        
+        const connector = new Connector(node1, node2, this);
+
+        if (connector.valid && newConnectionAllowed) {
+            this.container.appendChild(connector.html);
+            this.connections.push(connector);
+        }
     }
 
     //when user moves the gate - redraw wires  
@@ -499,7 +570,6 @@ export default class Viewer {
 
         const actualEndStates = endPoints.map(node => node.state);
         const expectedEndStates = this.level.expectedEndStates;
-        console.log(`${actualEndStates} \n ${expectedEndStates}`);
 
         if(this.level.mode === "build"){
             if(actualEndStates.filter(state => state === true).length === expectedEndStates.filter(state => state === true).length

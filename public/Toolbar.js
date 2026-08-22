@@ -9,36 +9,33 @@ export default class Toolbar {
         this.container = document.getElementById('toolbar');
         this.createButtons();
         this.firstClickPen = firstClickPen;
+        this.gatesAvailable = [];
     }
 
     createButtons = () => {
-        this.container.innerHTML = `<button class="toolbarButton" id="penButton">✏️</button>`
-        for(let entry of Object.entries(this.level.availableGates)){
-            const gateType = entry[0];
-            this.container.innerHTML = this.container.innerHTML.concat(" ", `<button class = "toolbarButton" id = "${gateType}Button">${gateType}</button>`)
-        }
+        if (this.level.mode === "build") {
 
-        document.getElementById("penButton").addEventListener("click", () => {
-            this.penClick()
-        })
 
-        for(let entry of Object.entries(this.level.availableGates)){
-            const gateType = entry[0];
-            document.getElementById(`${gateType}Button`).addEventListener("click", () => {
-                this.addGate(`${gateType}`);
-            });
-        }
+            this.container.innerHTML = `<button class="toolbarButton" id="penButton">✏️</button>`
+            for (let entry of Object.entries(this.level.availableGates)) {
+                const gateType = entry[0];
+                this.container.innerHTML = this.container.innerHTML.concat(" ", `<button class = "toolbarButton" id = "${gateType}Button">${gateType}</button>`)
+            }
 
-    }
+            document.getElementById("penButton").addEventListener("click", () => {
+                this.penClick()
+            })
 
-    addGate(gateString) {
-        const gate = new LogicGate(`${gateString}`)
-        if (this.connectorOn) {
-            window.alert("Please finish drawing your connection or unclick the draw button to add more gates.")
-        } else {
-            this.viewer.addGate(gate);
+            for (let entry of Object.entries(this.level.availableGates)) {
+                const gateType = entry[0];
+                document.getElementById(`${gateType}Button`).addEventListener("click", () => {
+                    this.viewer.addGate(`${gateType}`);
+                });
+            }
         }
     }
+
+
 
     penClick() {
         const penButton = document.getElementById("penButton");
@@ -61,8 +58,13 @@ export default class Toolbar {
     }
 
 
+    blankButton(gateType){
+
+
+    }
+
     destroy() {
-        document.removeEventListener("click",this.addGate);
+        document.removeEventListener("click",this.viewer.addGate);
         this.connectorOn = false;
         this.viewer = null;
         this.container = document.getElementById('toolbar').remove;

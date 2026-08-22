@@ -139,21 +139,21 @@
                 "type": "AND",
                 "x": 0.3,
                 "y": 0.3,
-                "locked" : true
+                "draggable" : false
             },
             {
                 "id": "gate2",
                 "type": "AND",
                 "x": 0.35,
                 "y": 0.66,
-                "locked" : true
+                "draggable" : false
             },
             {
                 "id": "gate3",
                 "type": "AND",
                 "x": 0.66,
                 "y": 0.5,
-                "locked" : true
+                "draggable" : false
             }
         ],
 
@@ -223,21 +223,21 @@
                 "type": "AND",
                 "x": 0.3,
                 "y": 0.3,
-                "locked" : true
+                "draggable" : false
             },
             {
                 "id": "gate2",
                 "type": "AND",
                 "x": 0.35,
                 "y": 0.66,
-                "locked" : true
+                "draggable" : false
             },
             {
                 "id": "gate3",
                 "type": "AND",
                 "x": 0.66,
                 "y": 0.5,
-                "locked" : true
+                "draggable" : false
             }
         ],
 

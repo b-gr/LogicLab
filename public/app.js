@@ -3,7 +3,7 @@ import Toolbar from "./Toolbar.js";
 import Viewer from "./Viewer.js";
 import Level from "./Level.js";
 
-
+const adminMode = true;
 const mainContent = document.getElementById("mainContent");
 const startButton = document.getElementById("startButton");
 const levelTable = document.getElementById("levelTable");
@@ -60,7 +60,7 @@ function createLevelButtonRow() {
     
     let buttonsHTML = "";
     for (let level of levels) {
-        if(level.id === 1 || level.id === 999) {
+        if(level.id === 1 || level.id === 999 || adminMode) {
             level.unlocked = true;
         } else {
             level.unlocked = false;
@@ -137,7 +137,7 @@ function loadLevel(level) {
 
     let firstPenUsage = true;
 
-    if (level.id === 1 || level.id === 999){
+    if (level.id === 1 || level.id === 999 || adminMode){
         firstPenUsage = true;
     } else {
         firstPenUsage = false;

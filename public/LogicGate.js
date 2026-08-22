@@ -1,12 +1,15 @@
 export default class LogicGate {
     constructor(type) {
-       this.coordinates = { x: 0, y: 0 };
+        this.coordinates = { x: 0, y: 0 };
         this.type = type;
         this.state = null;
+        this.id = null;
         
         this.inputs = [];
         this.outputs = [];
  
+        this.draggable = true;
+
         this.acceptingInput = true;
         this.creatingOutput = true;
 
@@ -112,7 +115,7 @@ export default class LogicGate {
             case 'XNOR':
                 return this.xnorSVG();
             default:
-                throw new Error('Invalid logic gate type');
+                throw new Error(`Invalid logic gate type: "${type}"`);
         }
     }
 
