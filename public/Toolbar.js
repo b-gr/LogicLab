@@ -13,9 +13,19 @@ export default class Toolbar {
     }
 
     createButtons = () => {
-        if (this.level.mode !== "predict") {
+        if (this.level.mode === "predict") {
 
+            for (let option of this.level.options) {
+                this.container.innerHTML = this.container.innerHTML.concat(" ", `<button class = "toolbarButton" id = "${option}Button">${option}</button>`);
+            }
 
+            for (let option of this.level.options) {
+                document.getElementById(`${option}Button`).addEventListener("click", () => {
+                    this.selectOption(option);
+                });
+            }
+
+        } else {
             this.container.innerHTML = `<button class="toolbarButton" id="penButton">✏️</button>`
             for (let entry of Object.entries(this.level.availableGates)) {
                 const gateType = entry[0];
@@ -35,7 +45,23 @@ export default class Toolbar {
         }
     }
 
-
+    selectOption(option){
+        const optionButton = document.getElementById(`${option}Button`);
+        if (option === this.viewer.answerSelected){
+            optionButton.style.backgroundColor = "#8c8c8c";
+            this.viewer.answerSelected = null;
+            return;
+        }
+        if (option !== this.viewer.answerSelected){
+            if(this.viewer.answerSelected !== null){
+                const oldAnswerSelected = document.getElementById(`${this.viewer.answerSelected}Button`);
+                oldAnswerSelected.style.backgroundColor = "#8c8c8c";
+            }
+            this.viewer.answerSelected = option;
+            optionButton.style.backgroundColor = "#ff8585";
+            return;
+        }
+    }
 
     penClick() {
         const penButton = document.getElementById("penButton");
@@ -57,17 +83,28 @@ export default class Toolbar {
         }
     }
 
+    updateToolbar() {
+        if(this.viewer.highlightCorrectAnswer){
+            const oldAnswerSelected = document.getElementById(`${this.viewer.answerSelected}Button`);
+            oldAnswerSelected.style.backgroundColor = "#56d15a";
+            this.disableButtons()
+        }
+    }
 
-    blankButton(gateType){
+    disableButtons(){
+        const buttons = this.container.querySelectorAll("button");
 
-
+        for (let button of buttons){
+            button.disabled = true
+        }
     }
 
     destroy() {
         document.removeEventListener("click",this.viewer.addGate);
         this.connectorOn = false;
         this.viewer = null;
-        this.container = document.getElementById('toolbar').remove;
+        this.container.innerHTML = "";
+        this.gatesAvailable = [];
     }
 
 }

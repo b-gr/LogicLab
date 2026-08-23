@@ -189,7 +189,9 @@
         "commentWrong": "Sorry no, that doesn't look correct.",
         "commentHint": "Remember, and AND gate takes two TRUE inputs and returns TRUE, anything else will result in FALSE being returned.",
 
-        "question": "What is the expected output from this circuit?"
+        "question": "What is the expected output from this circuit?",
+
+        "options": ["TRUE", "FALSE"]
     },
     {
         "id": 5,
@@ -273,7 +275,10 @@
         "commentWrong": "Sorry no, that doesn't look correct.",
         "commentHint": "Remember, and AND gate takes two TRUE inputs and returns TRUE, anything else will result in FALSE being returned.",
 
-        "question": "What is the expected output from this circuit?"
+        "question": "What is the expected output from this circuit?",
+        
+        "options": ["TRUE", "FALSE"]
+
     }, 
 
     {

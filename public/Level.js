@@ -21,7 +21,8 @@ export default class Level{
         question,
         answer,
         unlocked,
-        completed = false
+        completed = false,
+        options = []
     }){
         this.id = id;
         this.chapter = chapter;
@@ -43,5 +44,8 @@ export default class Level{
         this.commentHint = commentHint;
         this.question = question;
         this.answer = answer;
+        this.unlocked = unlocked;
+        this.completed = completed;
+        this.options = options;
     }
 }

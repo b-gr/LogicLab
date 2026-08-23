@@ -21,10 +21,11 @@ export default class Viewer {
         this.sizeBefore = {x: 0, y:0}
         this.level
         this.initialised = false;
+        this.answerSelected = null;
+        this.highlightCorrectAnswer = false;
     }
 
     //sets the starting points on the viewer 
-    // todo: will remove magic numbers when implementing the schema for levels
     init(level) {
         this.level = level;
         this.updateViewerDimensions();
@@ -471,7 +472,7 @@ export default class Viewer {
         
         const connector = new Connector(node1, node2, this);
 
-        if (connector.valid && newConnectionAllowed) {
+        if (connector.valid) {
             this.container.appendChild(connector.html);
             this.connections.push(connector);
         }
@@ -548,76 +549,127 @@ export default class Viewer {
         }
     }
 
-    evaluateCircuit(){
-        const endPoints = [];
-        for (let node of this.viewerObjects) {
-            if (node.type === 'end'){
-                endPoints.push(node)
+    evaluateCircuit() {
+
+        if (this.level.mode === "predict") {
+            if(this.answerSelected === null){
+                console.log(`${this.level.commentHint}`)
+                return;
             }
-        }
+            console.log(`${this.answerSelected}`)
 
-        if (endPoints.length === 0) {
-            console.log("No end points")
-        }
+            const answerGiven = [];
+            const expectedEndStates = this.level.expectedEndStates;
+            
+            answerGiven.push(this.answerSelected.toString().toLowerCase());
+            console.log(`${answerGiven}`)
 
-        for (let endPoint of endPoints) {
 
-            if (endPoint.inputs.length === 0) {
-                endPoint.setState("unknown");
-                continue;
+            if (answerGiven.filter(state => state === "true").length === expectedEndStates.filter(state => state === true).length
+                &&
+                answerGiven.filter(state => state === "false").length === expectedEndStates.filter(state => state === false).length
+            ) {
+                this.highlightCorrectAnswer = true;
+                this.levelComplete = true;
             }
                 
-            if(endPoint.inputs[0].getState() === true) {
-                endPoint.setState(true);
-            } else {
-                endPoint.setState(false);
+            console.log(`${expectedEndStates.filter(state => state === true)}`)
+            console.log(`${expectedEndStates.filter(state => state === false)}`)
+            console.log(`${this.levelComplete}`)
+            
+        } else if (this.level.mode === "build"){
+            const endPoints = [];
+            for (let node of this.viewerObjects) {
+                if (node.type === 'end') {
+                    endPoints.push(node)
+                }
             }
-        }
 
-        if(!this.checkRequiredGatesUsed()){
-            return
-        }
+            if (endPoints.length === 0) {
+                console.log("No end points")
+            }
 
-        const actualEndStates = endPoints.map(node => node.state);
-        const expectedEndStates = this.level.expectedEndStates;
+            for (let endPoint of endPoints) {
 
-        if(this.level.mode === "build"){
-            if(actualEndStates.filter(state => state === true).length === expectedEndStates.filter(state => state === true).length
+                if (endPoint.inputs.length === 0) {
+                    endPoint.setState("unknown");
+                    continue;
+                }
+
+                if (endPoint.inputs[0].getState() === true) {
+                    endPoint.setState(true);
+                } else {
+                    endPoint.setState(false);
+                }
+            }
+
+            if (!this.checkRequiredGatesUsed()) {
+                return
+            }
+
+            const actualEndStates = endPoints.map(node => node.state);
+            const expectedEndStates = this.level.expectedEndStates;
+
+
+            if (actualEndStates.filter(state => state === true).length === expectedEndStates.filter(state => state === true).length
                 &&
                 actualEndStates.filter(state => state === false).length === expectedEndStates.filter(state => state === false).length
             ) {
                 this.levelComplete = true;
             }
+        } else {
+            const endPoints = [];
+            for (let node of this.viewerObjects) {
+                if (node.type === 'end') {
+                    endPoints.push(node)
+                }
+            }
+
+            if (endPoints.length === 0) {
+                console.log("No end points")
+            }
+
+            for (let endPoint of endPoints) {
+
+                if (endPoint.inputs.length === 0) {
+                    endPoint.setState("unknown");
+                    continue;
+                }
+
+                if (endPoint.inputs[0].getState() === true) {
+                    endPoint.setState(true);
+                } else {
+                    endPoint.setState(false);
+                }
+            }
         }
 
     }
 
-    recurseBack(node, gatesInPath){
-        if(node.inputs.length === 0){
+    recurseBack(node, gatesInPath) {
+        if (node.inputs.length === 0) {
             return;
         }
 
         for (let connector of node.inputs) {
             const previousNode = connector.node1;
-            if (this.gates.includes(previousNode)){
+            if (this.gates.includes(previousNode)) {
                 gatesInPath.add(previousNode);
             }
-            if (!this.viewerObjects.includes(previousNode)){
+            if (!this.viewerObjects.includes(previousNode)) {
                 this.recurseBack(previousNode, gatesInPath)
             }
         }
     }
 
 
-    checkRequiredGatesUsed(){
+    checkRequiredGatesUsed() {
         let gatesUsed = new Set();
-        const endPoints = this.viewerObjects.filter( node => node.type === 'end')
-        for(let endPoint of endPoints){ 
-            this.recurseBack(endPoint,gatesUsed);
+        const endPoints = this.viewerObjects.filter(node => node.type === 'end')
+        for (let endPoint of endPoints) {
+            this.recurseBack(endPoint, gatesUsed);
         }
         const requiredGates = this.level.requiredGates
-        console.log(gatesUsed);
-        console.log(requiredGates)
 
         const countGates = {
             AND: 0,

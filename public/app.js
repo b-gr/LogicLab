@@ -144,7 +144,7 @@ function loadLevel(level) {
     }
 
     //set toolbar to on
-    const toolbar = new Toolbar(inPageViewer, level, firstPenUsage);
+    let toolbar = new Toolbar(inPageViewer, level, firstPenUsage);
 
     document.getElementById("toolbar").style.display = "flex";
 
@@ -152,7 +152,7 @@ function loadLevel(level) {
     //add listeners to back button and 
     backButton.onclick = () => {
 
-        if(inPageViewer.levelComplete){
+        if(inPageViewer !== null || inPageViewer.levelComplete){
             markLevelCompleted(level.id);
         }
 
@@ -166,27 +166,36 @@ function loadLevel(level) {
 
     checkButton.onclick = () => {
         inPageViewer.evaluateCircuit();
-        if(inPageViewer.levelComplete){
+        if(inPageViewer.levelComplete && inPageViewer.level.mode === "build"){
             checkButton.style.display = "none";
             nextButton.style.display = "flex";
             document.getElementById("toolbar").style.display = "none";
-            toolbar.destroy();
+            markLevelCompleted(level.id);
+
         }
+        if(inPageViewer.levelComplete && inPageViewer.level.mode === "predict"){
+            checkButton.style.display = "none";
+            nextButton.style.display = "flex";
+            toolbar.updateToolbar();
+            markLevelCompleted(level.id);
+        }
+
     }
 
 
-    //todo: clean up this code - needs to ensure the levels remain unlocked when clicking nextbutton then using back button - should be able to head to any already completed level.
     nextButton.onclick = () => {
-        if(inPageViewer.levelComplete){
-            markLevelCompleted(level.id);
-        }
+        document.getElementById("toolbar").style.display = "none";
+        toolbar.destroy();
+        toolbar = null;
         inPageViewer.destroy();
         inPageViewer = null;
         const nextLevel = levels.find(l => l.id === level.id + 1);
+        nextButton.style.display = "none";
         if (nextLevel) {
             loadLevel(nextLevel)
+        } else{
+            levelMenuViewLoad();
         }
-        nextButton.style.display = "none";
     }
 }
 
