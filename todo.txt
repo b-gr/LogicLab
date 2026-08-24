@@ -4,20 +4,18 @@ to do:
         - Make use of comments in the schema
         - create more levels
 
+    really should have:
+        - if gate is 0 then blank out the toolbar in that position
+        - predict gates levels (draw complete circuit then add a box over gate used and ask which gate could make it correct)
+        - add the ability to increase or decrease inputs and outputs from buttons (up and down arrows)
 
     nice to have: 
         - for connections in sandbox, Once connected and correct the white line is replaced by green or red - ideally this would be along the route of the line but unlikely
-        - if gate is 0 then blank out the toolbar in that position
         - toolbar could also include how many could be added (in sandbox unlimited (1000s) in level mode or exam mode (1-10?))
         - when completing level, save state so that user can return to level
         - for sandbox mode, create a drag background tool to move background so that more can be added
         - and ability to export the sandbox level layout (as JSON)
-        - add the ability to increase or decrease inputs and outputs from buttons (up and down arrows)
         - add a clean up button to the sandbox
-
-    bugs:
-        - investigate issue involving dragging a gate off and it remaining actively following the mouse and stuck. 
-            Error details: TypeError: undefined is not an object (evaluating 'bin.size')
 
 
     test visually
