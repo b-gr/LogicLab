@@ -1,50 +1,16 @@
 to do:
-    create next button
-        - as part of this change HTML layout to place this at the top right
-        - add to header
-        - better yet - icon or menu button (three lines) with additional options. 
-        - hide elements of header that are not necessary
-        - update schema or update logic to ensure that the next / end level / buttons work (including backwards)
-    
-    create sub levels? 
-        - test to see how decimaled levels might work
-        - change on schema so that levels have hiraichy
-        - implement in future levels so it is standardised across the board.     
-    
-    toolbar
-        - add in option to lock / 'unlocked' gates
-        - on removal it removes wires? 
-        - toolbar could also include how many could be added (in sandbox unlimited (1000s) in level mode or exam mode (1-10?))
-    
-    make a connector that joins/binds to inputs and output
-        - add in boolean check
-        - Once connected and correct the white line is replaced by green or red
-            - ideally this would be along the route of the line but unlikely
+
+    before anything else: 
+        - Make use of comments in the schema
+        - create more levels
 
 
-    for all viewers
-        - for all viewers except sandbox, create a "?" state for a level end
-
-    in sandbox mode: 
-        - calculate the end point everytime anything is changed
-    
-    create first level
-        - add instructions
-        - add AND to toolbar
-        - add correct solution etc
-        - check output is correct before next or 'home' buton comes up
-    
-    create JSON level schema
-        - include limit on lines
+    nice to have: 
+        - for connections in sandbox, Once connected and correct the white line is replaced by green or red - ideally this would be along the route of the line but unlikely
         - if gate is 0 then blank out the toolbar in that position
-        - add a connectAutomatically option in json so it would autocomplete wires in certain levels
+        - toolbar could also include how many could be added (in sandbox unlimited (1000s) in level mode or exam mode (1-10?))
         - when completing level, save state so that user can return to level
-        - if level is a question based level, then change the validation away from viewer to question
-        - for levels that are prediction levels check that the gate answer is not shown even when connected
-
-    for sandbox mode, create a drag background tool to move background so that more can be added. 
-        - and recenter option for input and output
-        - and ability to move them
+        - for sandbox mode, create a drag background tool to move background so that more can be added
         - and ability to export the sandbox level layout (as JSON)
         - add the ability to increase or decrease inputs and outputs from buttons (up and down arrows)
         - add a clean up button to the sandbox

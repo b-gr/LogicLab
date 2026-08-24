@@ -62,8 +62,6 @@ function createLevelButtonRow() {
     for (let level of levels) {
         if(level.id === 1 || level.id === 999 || adminMode) {
             level.unlocked = true;
-        } else {
-            level.unlocked = false;
         }
         buttonsHTML += `
             <button 
@@ -151,16 +149,9 @@ function loadLevel(level) {
 
     //add listeners to back button and 
     backButton.onclick = () => {
-
-        if(inPageViewer !== null || inPageViewer.levelComplete){
-            markLevelCompleted(level.id);
-        }
-
         inPageViewer.destroy();
         inPageViewer = null;
-
         checkButton.style.display = "none";
-
         levelMenuViewLoad();
     };
 

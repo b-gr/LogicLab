@@ -113,7 +113,7 @@
         "chapter": 1,
         "level": 4,
         "name": "AND Gate",
-        "description": "",
+        "description": "What is the expected output from this circuit?",
         "mode": "predict",
 
         "startNodes": [
@@ -189,7 +189,6 @@
         "commentWrong": "Sorry no, that doesn't look correct.",
         "commentHint": "Remember, and AND gate takes two TRUE inputs and returns TRUE, anything else will result in FALSE being returned.",
 
-        "question": "What is the expected output from this circuit?",
 
         "options": ["TRUE", "FALSE"]
     },
@@ -198,7 +197,7 @@
         "chapter": 1,
         "level": 5,
         "name": "AND Gate",
-        "description": "",
+        "description": "What about the expected output from this circuit?",
         "mode": "predict",
 
         "startNodes": [
@@ -274,8 +273,6 @@
         "commentCorrect": "Well done, yes the output would indeed be FALSE.",
         "commentWrong": "Sorry no, that doesn't look correct.",
         "commentHint": "Remember, and AND gate takes two TRUE inputs and returns TRUE, anything else will result in FALSE being returned.",
-
-        "question": "What is the expected output from this circuit?",
         
         "options": ["TRUE", "FALSE"]
 

@@ -325,13 +325,11 @@ export default class Viewer {
 
         }
 
-        this.container.addEventListener('mousemove', onmousemove);
-
-        gate.html.onmouseup = (event) => {
+        const onmouseup = (event) => {
+            document.removeEventListener('mousemove', onmousemove);
+            document.removeEventListener('mouseup', onmouseup);
 
             const position = this.mouseToViewerCoordinates(event);
-
-            this.container.removeEventListener('mousemove', onmousemove);
 
             this.updateGateCoordinates(
                 gate,
@@ -344,8 +342,6 @@ export default class Viewer {
             this.reDrawConnectors(gate);
 
             gate.html.classList.remove('gate-dragged');
-
-            gate.html.onmouseup = null;
 
             const bin = this.viewerObjects.find(obj => obj.type === 'bin');
 
@@ -369,6 +365,10 @@ export default class Viewer {
                 this.evaluateCircuit();
             }
         }
+
+        document.addEventListener('mousemove', onmousemove);
+        document.addEventListener('mouseup', onmouseup);
+
 
         gate.html.ondragstart = () => {
             return false;
@@ -596,10 +596,13 @@ export default class Viewer {
                     continue;
                 }
 
-                if (endPoint.inputs[0].getState() === true) {
+                const state = endPoint.inputs[0].getState();
+                if (state === true) {
                     endPoint.setState(true);
-                } else {
+                } else if (state === false){
                     endPoint.setState(false);
+                } else {
+                    endPoint.setState("unknown");
                 }
             }
 

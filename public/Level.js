@@ -18,8 +18,6 @@ export default class Level{
         commentCorrect,
         commentWrong,
         commentHint,
-        question,
-        answer,
         unlocked,
         completed = false,
         options = []
@@ -42,10 +40,13 @@ export default class Level{
         this.commentCorrect = commentCorrect;
         this.commentWrong = commentWrong;
         this.commentHint = commentHint;
-        this.question = question;
-        this.answer = answer;
         this.unlocked = unlocked;
         this.completed = completed;
         this.options = options;
+        for (let gateType in this.availableGates){
+            if (this.availableGates[gateType] === "Infinity"){
+                this.availableGates[gateType] = Infinity
+            }
+        }
     }
 }
