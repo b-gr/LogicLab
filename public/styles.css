@@ -104,7 +104,35 @@ button:hover {
     display: none;
 }
 
+.popup{
+    display: none;
+    width:50%;
+    background: #000;
+    border-radius: 4px;
+    border-color: #fff;
+    position: absolute;
+    z-index: 10000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 5px 10px;
+    color: #fff;
+}
+
+.popup h2 {
+    font-size: 18px;
+    font-weight: 100;
+    margin: 30px 0 10px;
+}
+
 #checkButton {
+    display: none;
+}
+
+#hintButton {
     display: none;
 }
 

@@ -9,7 +9,9 @@ const startButton = document.getElementById("startButton");
 const levelTable = document.getElementById("levelTable");
 const backButton = document.getElementById("backButton");
 const checkButton = document.getElementById("checkButton");
+const hintButton = document.getElementById("hintButton");
 const nextButton = document.getElementById("nextButton");
+const popup = document.getElementById("popup");
 let inPageViewer = null;
 
 startButton.addEventListener("click", async () => {
@@ -31,6 +33,16 @@ const levels = [
     { id:999, name: "Sandbox", description: "Play around and see what you can do without any limits.", unlocked: true, completed: false}
 ];
 */
+
+window.addEventListener('click', function (event) {
+    console.log(event.target)
+    if (popup.style.display === "flex" && !popup.contains(event.target)) {
+        popup.style.display = "none"
+        checkButton.style.display = "flex"
+        this.document.getElementById("popupText").textContent = "";
+    }
+});
+
 
 let levels = []
 
@@ -149,32 +161,63 @@ function loadLevel(level) {
 
     //add listeners to back button and 
     backButton.onclick = () => {
+        document.getElementById("popupTitle").textContent = "";
+        document.getElementById("popupText").textContent = "";
+        popup.style.display = "none"
+
         inPageViewer.destroy();
         inPageViewer = null;
         checkButton.style.display = "none";
         levelMenuViewLoad();
     };
 
-    checkButton.onclick = () => {
+    hintButton.onclick = () => {
+            document.getElementById("popupTitle").textContent = "";
+            document.getElementById("popupText").textContent = `${level.commentHint}`
+            hintButton.style.display = "none";
+    }
+
+    checkButton.onclick = (event) => {
+        event.stopPropagation();
         inPageViewer.evaluateCircuit();
+
+        if(!inPageViewer.levelComplete){
+            console.log("wrong")
+            document.getElementById("popupTitle").textContent = `${level.commentWrong}`;
+            popup.style.display = "flex";
+            checkButton.style.display = "none"
+            hintButton.style.display = "flex"
+
+        }
         if(inPageViewer.levelComplete && inPageViewer.level.mode === "build"){
             checkButton.style.display = "none";
+            popup.style.display = "flex";
+            document.getElementById("popupTitle").textContent = `${level.commentCorrect}`;
+            hintButton.style.display = "none"
             nextButton.style.display = "flex";
             document.getElementById("toolbar").style.display = "none";
             markLevelCompleted(level.id);
 
         }
         if(inPageViewer.levelComplete && inPageViewer.level.mode === "predict"){
+            popup.style.display = "flex";
+            document.getElementById("popupTitle").textContent = `${level.commentCorrect}`;
+            hintButton.style.display = "none"
             checkButton.style.display = "none";
             nextButton.style.display = "flex";
             toolbar.updateToolbar();
             markLevelCompleted(level.id);
+
         }
 
     }
 
 
     nextButton.onclick = () => {
+        document.getElementById("popupTitle").textContent = "";
+        document.getElementById("popupText").textContent = "";
+        popup.style.display = "none"
+
         document.getElementById("toolbar").style.display = "none";
         toolbar.destroy();
         toolbar = null;
