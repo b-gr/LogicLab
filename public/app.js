@@ -35,7 +35,6 @@ const levels = [
 */
 
 window.addEventListener('click', function (event) {
-    console.log(event.target)
     if (popup.style.display === "flex" && !popup.contains(event.target)) {
         popup.style.display = "none"
         checkButton.style.display = "flex"
@@ -182,7 +181,6 @@ function loadLevel(level) {
         inPageViewer.evaluateCircuit();
 
         if(!inPageViewer.levelComplete){
-            console.log("wrong")
             document.getElementById("popupTitle").textContent = `${level.commentWrong}`;
             popup.style.display = "flex";
             checkButton.style.display = "none"

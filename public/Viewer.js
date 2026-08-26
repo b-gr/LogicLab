@@ -553,16 +553,13 @@ export default class Viewer {
 
         if (this.level.mode === "predict") {
             if(this.answerSelected === null){
-                console.log(`${this.level.commentHint}`)
                 return;
             }
-            console.log(`${this.answerSelected}`)
 
             const answerGiven = [];
             const expectedEndStates = this.level.expectedEndStates;
             
             answerGiven.push(this.answerSelected.toString().toLowerCase());
-            console.log(`${answerGiven}`)
 
 
             if (answerGiven.filter(state => state === "true").length === expectedEndStates.filter(state => state === true).length
@@ -573,9 +570,6 @@ export default class Viewer {
                 this.levelComplete = true;
             }
                 
-            console.log(`${expectedEndStates.filter(state => state === true)}`)
-            console.log(`${expectedEndStates.filter(state => state === false)}`)
-            console.log(`${this.levelComplete}`)
             
         } else if (this.level.mode === "build"){
             const endPoints = [];
@@ -586,7 +580,7 @@ export default class Viewer {
             }
 
             if (endPoints.length === 0) {
-                console.log("No end points")
+                console.log("Error: No end points specified in level")
             }
 
             for (let endPoint of endPoints) {
@@ -629,7 +623,7 @@ export default class Viewer {
             }
 
             if (endPoints.length === 0) {
-                console.log("No end points")
+                console.log("Error: No end points specified")
             }
 
             for (let endPoint of endPoints) {
