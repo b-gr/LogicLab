@@ -695,7 +695,7 @@
     "id": 12,
     "chapter": 3,
     "level": 2,
-    "name": "NOT and AND",
+    "name": "NOT & AND",
     "description": "NOT gates can change the values being sent into other gates. Use a NOT gate and an AND gate to produce a FALSE output from these two TRUE inputs.",
     "mode": "build",
 

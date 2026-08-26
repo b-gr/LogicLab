@@ -19,20 +19,6 @@ startButton.addEventListener("click", async () => {
     levelMenuViewLoad();
 });
 
-/*
-//Define levels for the game v1
-const levels = [
-    { id:1, name: "Intro", description: "Learn the basics of logic gates." , unlocked: true, completed: false},
-    { id:2, name: "AND Gates", description: "Master the AND gate and its applications." , unlocked: true, completed: false},
-    { id:3, name: "OR Gates", description: "Explore the OR gate and its uses." , unlocked: false, completed: false},
-    { id:4, name: "NAND Gates", description: "Understand the NAND gate and its significance." , unlocked: false, completed: false},
-    { id:5, name: "NOR Gates", description: "Discover the NOR gate and its functions." , unlocked: false, completed: false},
-    { id:6, name: "XOR Gates", description: "Delve into the XOR gate and its properties." , unlocked: false, completed: false},
-    { id:7, name: "XNOR Gates", description: "Learn about the XNOR gate and its applications." , unlocked: false, completed: false},
-    { id:8, name: "OTHER", description: "Explore other types of logic gates and circuits." , unlocked: false, completed: false},
-    { id:999, name: "Sandbox", description: "Play around and see what you can do without any limits.", unlocked: true, completed: false}
-];
-*/
 
 window.addEventListener('click', function (event) {
     if (popup.style.display === "flex" && !popup.contains(event.target)) {
@@ -55,40 +41,52 @@ async function importLevels(){
 function levelMenuViewLoad(){
         mainContent.innerHTML =
         `<h2>Please select a level</h2>
-        <div>${createLevelButtonRow()}</div>
+        <div>${createLevelButtonRows()}</div>
     `;
     
     createLevelButtons();
-
 }
 
 
 //Function to create level buttons based on the levels array
-function createLevelButtonRow() {
+function createLevelButtonRows() {
     backButton.style.display = "none";
     document.getElementById("toolbar").style.display = "none";
     document.getElementById("inPageViewer").style.display = "none";
-    
-    let buttonsHTML = "";
+
+
+    const chapters = new Set();
+
     for (let level of levels) {
-        if(level.id === 1 || level.id === 999 || adminMode) {
-            level.unlocked = true;
-        }
-        buttonsHTML += `
-            <button 
-                class="levelButton ${!level.unlocked ? "levelButtonLocked": ""} ${level.completed ? "levelButtonCompleted": ""}"
-                id="${level.id}">
-                ${level.chapter}.${level.level} <br>
-                ${level.name}
-            </button>`;
+        chapters.add(level.chapter)
     }
 
-    return `
-        <div class="scrollableX">
-            ${buttonsHTML}
-        </div>`;
+    let rowOfButtonsHTML = "";
+    for (let chapter of chapters) {
+        let buttonsHTML = "";
 
-    createLevelButtons();
+        for (let level of levels) {
+            if(level.chapter === chapter){
+            if (level.id === 1 || level.id === 999 || adminMode) {
+                level.unlocked = true;
+            }
+            buttonsHTML += `
+                <button 
+                    class="levelButton ${!level.unlocked ? "levelButtonLocked" : ""} ${level.completed ? "levelButtonCompleted" : ""}"
+                    id="${level.id}">
+                    ${level.chapter}.${level.level} <br>
+                    ${level.name}
+                </button>`;
+        }
+        }
+        rowOfButtonsHTML += `
+            <div class="chapterRow" id="chapter${chapter}">
+                    ${buttonsHTML}
+            </div>
+        `;
+    }
+    
+    return rowOfButtonsHTML;
 }
 
 //Function to add event listeners to level buttons and handle level selection

@@ -1,20 +1,24 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 40px;
+    margin: 4px;
     padding: 0;
     background-color: #000;
 }
 h1 {
+    font-size: 20px;
     color: #fff;
     text-align: center;
 }
 h2 {
     color: #fff;
     text-align: center;
+    font-size: 15px;
+    font-weight: 100;
+    margin: 30px 0 10px;
 }
 p {
     color: #fff;
-    font-size: 18px;
+    font-size: 15px;
     text-align: center;
 }
 main {
@@ -29,44 +33,48 @@ main {
 
 
 footer {
-    max-width: 90%;
+    max-width: 95%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
     background-color: #111;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 button {
     display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 16px;
+    margin: 10px auto;
+    padding: 5px 10px;
+    font-size: 10px;
     color: #fff;
     background-color: #007BFF;
     border: none;
-    border-radius: 4px;
+    border-radius: 2px;
     cursor: pointer;
 }
 button:hover {
     background-color: #0056b3;
 }
 
-.scrollableX {
+.chapterRow {
+    margin-bottom: 5px;
     width: 100%;
     overflow-x: auto;
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: 5px;
 }   
 
 .levelButton {
     min-width: 100px;
     height: 100px;
     background-color: black;
-    border: 10px solid white;
-    padding: 5px;
-    margin: 5px;
+    border: 5px solid white;
+    padding: 2px;
+    margin: 2px;
     text-align: center;
     color: white;
+    flex-shrink: 0;
+    font-size: 15px;
 }
 
 .levelButton:hover {
@@ -77,11 +85,13 @@ button:hover {
     min-width: 100px;
     height: 100px;
     background-color: #333;
-    border: 10px solid white;
-    padding: 5px;
-    margin: 5px;
+    border: 5px solid white;
+    padding: 2px;
+    margin: 2px;
     text-align: center;
     color: white;
+    font-size: 15px;
+
 }
 
 .levelButtonLocked:hover {
@@ -93,11 +103,13 @@ button:hover {
     min-width: 100px;
     height: 100px;
     background-color: #61b652;
-    border: 10px solid white;
-    padding: 5px;
-    margin: 5px;
+    border: 5px solid white;
+    padding: 2px;
+    margin: 2px;
     text-align: center;
     color: white;
+    font-size: 15px;
+
 }
 
 #backButton {
@@ -108,7 +120,7 @@ button:hover {
     display: none;
     width:50%;
     background: #000;
-    border-radius: 4px;
+    border: 4px solid white;
     border-color: #fff;
     position: absolute;
     z-index: 10000;
@@ -120,12 +132,6 @@ button:hover {
     text-align: center;
     padding: 0 5px 10px;
     color: #fff;
-}
-
-.popup h2 {
-    font-size: 18px;
-    font-weight: 100;
-    margin: 30px 0 10px;
 }
 
 #checkButton {
@@ -148,7 +154,7 @@ button:hover {
     align-items: center;
     background-color: #666666;
     position: fixed;
-    bottom: 10px;
+    bottom: 5px;
     height: 4%;
     left: 5%;
     right: 5%;
@@ -169,7 +175,7 @@ button:hover {
 .inPageViewer {
     display: none;
     overflow-y:auto;
-    height: 50vh;
+    height: 70vh;
     min-height: 0;
     background-color: #000000;
     background-image: 
@@ -188,31 +194,28 @@ button:hover {
 
 .gate-selected {
     fill: none;
-    stroke: #ff8585;
+    stroke: white;
     stroke-width: 3px;
 }
 
 
 .node-selected {
     fill: none;
-    stroke: #ff8585;
+    stroke: white;
     stroke-width: 3px;
 }
 
 
 .header {
+    display: flex;
+    flex-wrap:wrap; 
     background-color: #111;
     text-align: center;
     color: #fff;
-    font-size: 20px;
-    padding: 2px;
-    border-radius: 1px;
+    font-size: 10px;
+    padding: 4px;
+    border-radius: 2px;
     margin-bottom: 4px;
-}
-
-.header {
-    display: flex;
-    flex-wrap:wrap;
 }
 
 .header > div {
