@@ -6,33 +6,36 @@
         "name": "AND Gate",
         "description": "Add an AND gate using the button on the toolbar, then connect the start nodes (left) to it and the end node (right), using the connection tool ✏️.",
         "mode": "build",
-
         "startNodes": [
-            {"state": true, "id": "start1"},
-            {"state": true, "id": "start2"}
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            }
         ],
-
         "endNodes": [
-            {"state": "unknown", "id": "end1"}
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
         ],
-
-        "expectedEndStates": [true],
-
+        "expectedEndStates": [
+            true
+        ],
         "availableGates": {
             "AND": 1
         },
-
         "requiredGates": {
             "AND": 1
         },
-
         "maxConnections": 3,
-
         "commentCorrect": "Nice! Well done on completing the first level. To recap: The AND gate requires two inputs, that both must be TRUE to give a TRUE output.",
         "commentWrong": "Unfortunately this doesn't look right. Remember the AND gate needs two inputs, and gives one output which is TRUE when both inputs are TRUE",
         "commentHint": "Plop an AND gate from the toolbar, then connect the start nodes to it and the end node, using the connection tool ✏️"
     },
-
     {
         "id": 2,
         "chapter": 1,
@@ -40,35 +43,36 @@
         "name": "AND Gate",
         "description": "What about when we don't have a TRUE value as an input?",
         "mode": "build",
-
         "startNodes": [
-            {"state": false, "id": "start1"},
-            {"state": true, "id": "start2"}
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            }
         ],
-
         "endNodes": [
-            {"state": "unknown", "id": "end1"}
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
         ],
-
-        "expectedEndStates": [false],
-
-
+        "expectedEndStates": [
+            false
+        ],
         "availableGates": {
             "AND": 1
         },
-
         "requiredGates": {
-            "AND":1
+            "AND": 1
         },
-
         "maxConnections": 3,
         "commentCorrect": "So any FALSE input will give a FALSE output from an AND gate. Lets test this on the next level.",
         "commentWrong": "That doesn't look right. In this exercise we are looking to connect everything up like the previous level, but with one FALSE input.",
         "commentHint": "Drag an AND gate from the toolbar, then connect the start nodes to it and the end node, using the connection tool ✏️"
-
-    
     },
-
     {
         "id": 3,
         "chapter": 1,
@@ -76,38 +80,49 @@
         "name": "AND Gate",
         "description": "Try to make one AND gate that outputs a TRUE value, and one that outputs FALSE.",
         "mode": "build",
-
         "startNodes": [
-            {"state": false, "id": "start1"},
-            {"state": true, "id": "start2"},
-            {"state": false, "id": "start3"},
-            {"state": true, "id": "start4"}
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": false,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            }
         ],
-
         "endNodes": [
-            {"state": "unknown", "id": "end1"},
-            {"state": "unknown", "id": "end2"}
-
+            {
+                "state": "unknown",
+                "id": "end1"
+            },
+            {
+                "state": "unknown",
+                "id": "end2"
+            }
         ],
-
-        "expectedEndStates": [true, false],
-
-
+        "expectedEndStates": [
+            true,
+            false
+        ],
         "availableGates": {
             "AND": 2
         },
-
         "requiredGates": {
-            "AND":2
+            "AND": 2
         },
-
         "maxConnections": 6,
-
         "commentCorrect": "Correct! Looks like you are getting the hang of this!",
         "commentWrong": "Not quite - this level you need to have one output that is FALSE and one that is TRUE.",
         "commentHint": "Two gates are needed here, with two different input combinations to give one FALSE and one TRUE output."
     },
-
     {
         "id": 4,
         "chapter": 1,
@@ -115,82 +130,97 @@
         "name": "AND Gate",
         "description": "What is the expected output from this circuit?",
         "mode": "predict",
-
         "startNodes": [
-            {"state": true, "id": "start1"},
-            {"state": true, "id": "start2"},
-            {"state": true, "id": "start3"},
-            {"state": true, "id": "start4"}
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            }
         ],
-
         "endNodes": [
-            {"state": "unknown", "id": "end1"}
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
         ],
-
-        "expectedEndStates": [true],
-
+        "expectedEndStates": [
+            true
+        ],
         "availableGates": {
             "AND": 0
         },
-
         "startingGates": [
             {
                 "id": "gate1",
                 "type": "AND",
                 "x": 0.3,
                 "y": 0.3,
-                "draggable" : false
+                "draggable": false
             },
             {
                 "id": "gate2",
                 "type": "AND",
                 "x": 0.35,
                 "y": 0.66,
-                "draggable" : false
+                "draggable": false
             },
             {
                 "id": "gate3",
                 "type": "AND",
                 "x": 0.66,
                 "y": 0.5,
-                "draggable" : false
+                "draggable": false
             }
         ],
-
         "startingConnections": [
             {
                 "from": "start1",
                 "to": "gate1"
-            },            {
+            },
+            {
                 "from": "start2",
                 "to": "gate1"
-            },            {
+            },
+            {
                 "from": "start3",
                 "to": "gate2"
-            },            {
+            },
+            {
                 "from": "start4",
                 "to": "gate2"
-            },            {
+            },
+            {
                 "from": "gate1",
                 "to": "gate3"
-            },            {
+            },
+            {
                 "from": "gate2",
                 "to": "gate3"
-            },            {
+            },
+            {
                 "from": "gate3",
                 "to": "end1"
             }
         ],
-
-
         "maxConnections": 7,
-
         "commentCorrect": "Well done, yes the output would indeed be TRUE.",
         "commentWrong": "Sorry no, that doesn't look correct.",
         "commentHint": "Remember, and AND gate takes two TRUE inputs and returns TRUE, anything else will result in FALSE being returned.",
-
-
-        "options": ["TRUE", "FALSE"]
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
     },
     {
         "id": 5,
@@ -199,84 +229,665 @@
         "name": "AND Gate",
         "description": "What about the expected output from this circuit?",
         "mode": "predict",
-
         "startNodes": [
-            {"state": false, "id": "start1"},
-            {"state": true, "id": "start2"},
-            {"state": true, "id": "start3"},
-            {"state": true, "id": "start4"}
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            }
         ],
-
         "endNodes": [
-            {"state": "unknown", "id": "end1"}
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
         ],
-
-        "expectedEndStates": [false],
-
-
+        "expectedEndStates": [
+            false
+        ],
         "availableGates": {
             "AND": 0
         },
-
         "startingGates": [
             {
                 "id": "gate1",
                 "type": "AND",
                 "x": 0.3,
                 "y": 0.3,
-                "draggable" : false
+                "draggable": false
             },
             {
                 "id": "gate2",
                 "type": "AND",
                 "x": 0.35,
                 "y": 0.66,
-                "draggable" : false
+                "draggable": false
             },
             {
                 "id": "gate3",
                 "type": "AND",
                 "x": 0.66,
                 "y": 0.5,
-                "draggable" : false
+                "draggable": false
             }
         ],
-
         "startingConnections": [
             {
                 "from": "start1",
                 "to": "gate1"
-            },            {
+            },
+            {
                 "from": "start2",
                 "to": "gate1"
-            },            {
+            },
+            {
                 "from": "start3",
                 "to": "gate2"
-            },            {
+            },
+            {
                 "from": "start4",
                 "to": "gate2"
-            },            {
+            },
+            {
                 "from": "gate1",
                 "to": "gate3"
-            },            {
+            },
+            {
                 "from": "gate2",
                 "to": "gate3"
-            },            {
+            },
+            {
                 "from": "gate3",
                 "to": "end1"
             }
         ],
-
-
         "maxConnections": 7,
-
         "commentCorrect": "Well done, yes the output would indeed be FALSE.",
         "commentWrong": "Sorry no, that doesn't look correct.",
         "commentHint": "Remember, and AND gate takes two TRUE inputs and returns TRUE, anything else will result in FALSE being returned.",
-        
-        "options": ["TRUE", "FALSE"]
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
+    },
+    {
+        "id": 6,
+        "chapter": 2,
+        "level": 1,
+        "name": "OR Gate",
+        "description": "Use the OR gate that outputs TRUE when one input is TRUE, and FALSE for the other times.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "OR": 1
+        },
+        "requiredGates": {
+            "OR": 1
+        },
+        "maxConnections": 3,
+        "commentCorrect": "Correct! An OR gate outputs TRUE when either input, or both inputs are TRUE",
+        "commentWrong": "Not quite. Are you sure you connected everything correctly?",
+        "commentHint": "Place one OR gate between the two start nodes (left) and the end node (right), and connect the gate to the nodes."
+    },
+    {
+        "id": 7,
+        "chapter": 2,
+        "level": 2,
+        "name": "OR Gate",
+        "description": "What happens when neither input is true? Complete the level to find out.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            false
+        ],
+        "availableGates": {
+            "OR": 1
+        },
+        "requiredGates": {
+            "OR": 1
+        },
+        "maxConnections": 3,
+        "commentCorrect": "Correct! An OR gate outputs FALSE when either input, or both inputs are FALSE",
+        "commentWrong": "Not quite. Are you sure you connected everything correctly?",
+        "commentHint": "Place one OR gate between the two start nodes (left) and the end node (right), and connect the gate to the nodes."
+    },
+    {
+        "id": 8,
+        "chapter": 2,
+        "level": 3,
+        "name": "OR Gate",
+        "description": "Using Three OR gates, make two outputs TRUE and the other FALSE.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": false,
+                "id": "start3"
+            },
+            {
+                "state": false,
+                "id": "start4"
+            },
+            {
+                "state": false,
+                "id": "start5"
+            },
+            {
+                "state": true,
+                "id": "start6"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            },
+            {
+                "state": "unknown",
+                "id": "end2"
+            },
+            {
+                "state": "unknown",
+                "id": "end3"
+            }
+        ],
+        "expectedEndStates": [
+            false,
+            true,
+            true
+        ],
+        "availableGates": {
+            "OR": 3
+        },
+        "requiredGates": {
+            "OR": 3
+        },
+        "maxConnections": 9,
+        "commentCorrect": "Correct! Good problem solving skills!",
+        "commentWrong": "Not quite. 2 gates need to output TRUE, one needs to output FALSE.",
+        "commentHint": "Remember that a OR gate will be TRUE if only one of its inputs is TRUE."
+    },
+    {
+        "id": 9,
+        "chapter": 2,
+        "level": 4,
+        "name": "OR Gate",
+        "description": "What is the expected output from this circuit?",
+        "mode": "predict",
+        "startNodes": [
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            },
+            {
+                "state": false,
+                "id": "start4"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "OR": 0
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "OR",
+                "x": 0.3,
+                "y": 0.3,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "OR",
+                "x": 0.35,
+                "y": 0.66,
+                "draggable": false
+            },
+            {
+                "id": "gate3",
+                "type": "OR",
+                "x": 0.66,
+                "y": 0.5,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "start3",
+                "to": "gate2"
+            },
+            {
+                "from": "start4",
+                "to": "gate2"
+            },
+            {
+                "from": "gate1",
+                "to": "gate3"
+            },
+            {
+                "from": "gate2",
+                "to": "gate3"
+            },
+            {
+                "from": "gate3",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 7,
+        "commentCorrect": "Well done! The final output is TRUE. Even though the first OR gate outputs FALSE, the second outputs TRUE, so the final OR gate also outputs TRUE.",
+        "commentWrong": "Sorry, that's not correct. Try working through the circuit one OR gate at a time.",
+        "commentHint": "Work from left to right. Calculate the output of the first two OR gates, then use those values as the inputs to the final OR gate.",
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
+    },
+    {
+        "id": 10,
+        "chapter": 2,
+        "level": 5,
+        "name": "OR Gate",
+        "description": "What about the expected output from this circuit?",
+        "mode": "predict",
+        "startNodes": [
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": false,
+                "id": "start3"
+            },
+            {
+                "state": false,
+                "id": "start4"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            false
+        ],
+        "availableGates": {
+            "OR": 0
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "OR",
+                "x": 0.3,
+                "y": 0.3,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "OR",
+                "x": 0.35,
+                "y": 0.66,
+                "draggable": false
+            },
+            {
+                "id": "gate3",
+                "type": "OR",
+                "x": 0.66,
+                "y": 0.5,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "start3",
+                "to": "gate2"
+            },
+            {
+                "from": "start4",
+                "to": "gate2"
+            },
+            {
+                "from": "gate1",
+                "to": "gate3"
+            },
+            {
+                "from": "gate2",
+                "to": "gate3"
+            },
+            {
+                "from": "gate3",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 7,
+        "commentCorrect": "Correct! Every input is FALSE, so both first-stage OR gates output FALSE. FALSE OR FALSE then gives a final output of FALSE.",
+        "commentWrong": "Not quite. Remember that an OR gate only outputs TRUE when at least one of its inputs is TRUE.",
+        "commentHint": "Start with the two OR gates on the left. Both receive two FALSE values. What will each output? Then combine those results.",
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
+    },
+    {
+    "id": 11,
+    "chapter": 3,
+    "level": 1,
+    "name": "NOT Gate",
+    "description": "A NOT gate reverses its input. Use two NOT gates to turn the TRUE input into FALSE, and the FALSE input into TRUE.",
+    "mode": "build",
 
-    }, 
+    "startNodes": [
+        {"state": true, "id": "start1"},
+        {"state": false, "id": "start2"}
+    ],
+
+    "endNodes": [
+        {"state": "unknown", "id": "end1"},
+        {"state": "unknown", "id": "end2"}
+    ],
+
+    "expectedEndStates": [false, true],
+
+    "availableGates": {
+        "NOT": 2
+    },
+
+    "requiredGates": {
+        "NOT": 2
+    },
+
+    "maxConnections": 4,
+
+    "commentCorrect": "Correct! A NOT gate simply reverses its input: TRUE becomes FALSE, and FALSE becomes TRUE.",
+    "commentWrong": "Not quite. Each input should pass through a NOT gate, reversing its value.",
+    "commentHint": "Connect each start node to its own NOT gate, then connect each NOT gate to an end node."
+},
+
+{
+    "id": 12,
+    "chapter": 3,
+    "level": 2,
+    "name": "NOT and AND",
+    "description": "NOT gates can change the values being sent into other gates. Use a NOT gate and an AND gate to produce a FALSE output from these two TRUE inputs.",
+    "mode": "build",
+
+    "startNodes": [
+        {"state": true, "id": "start1"},
+        {"state": true, "id": "start2"}
+    ],
+
+    "endNodes": [
+        {"state": "unknown", "id": "end1"}
+    ],
+
+    "expectedEndStates": [false],
+
+    "availableGates": {
+        "NOT": 1,
+        "AND": 1
+    },
+
+    "requiredGates": {
+        "NOT": 1,
+        "AND": 1
+    },
+
+    "maxConnections": 4,
+
+    "commentCorrect": "Correct!",
+    "commentWrong": "Not quite. Both gates need to be used. Think about how changing one TRUE input with NOT will affect the AND gate.",
+    "commentHint": "Pass one of the TRUE inputs through NOT before connecting it to the AND gate. Connect the other TRUE input directly to AND."
+},
+
+{
+    "id": 13,
+    "chapter": 3,
+    "level": 3,
+    "name": "NOT and OR",
+    "description": "Now try combining NOT with OR. Use a NOT gate and an OR gate to produce a TRUE output from these two FALSE inputs.",
+    "mode": "build",
+
+    "startNodes": [
+        {"state": false, "id": "start1"},
+        {"state": false, "id": "start2"}
+    ],
+
+    "endNodes": [
+        {"state": "unknown", "id": "end1"}
+    ],
+
+    "expectedEndStates": [true],
+
+    "availableGates": {
+        "NOT": 1,
+        "OR": 1
+    },
+
+    "requiredGates": {
+        "NOT": 1,
+        "OR": 1
+    },
+
+    "maxConnections": 4,
+
+    "commentCorrect": "Well done! Lets see how this works when we put it all togethr in the next level",
+    "commentWrong": "Not quite. Try again!",
+    "commentHint": "Pass one FALSE input through NOT, then use that result and the other FALSE input as the two inputs to OR."
+},
+
+{
+    "id": 14,
+    "chapter": 3,
+    "level": 4,
+    "name": "NOT Gate",
+    "description": "What is the expected output from this circuit? Work through each gate from left to right.",
+    "mode": "predict",
+
+    "startNodes": [
+        {"state": true, "id": "start1"},
+        {"state": false, "id": "start2"},
+        {"state": true, "id": "start3"}
+    ],
+
+    "endNodes": [
+        {"state": "unknown", "id": "end1"}
+    ],
+
+    "expectedEndStates": [true],
+
+    "availableGates": {
+        "NOT": 0,
+        "AND": 0,
+        "OR": 0
+    },
+
+    "startingGates": [
+        {
+            "id": "gate1",
+            "type": "NOT",
+            "x": 0.25,
+            "y": 0.22,
+            "draggable": false
+        },
+        {
+            "id": "gate2",
+            "type": "AND",
+            "x": 0.46,
+            "y": 0.36,
+            "draggable": false
+        },
+        {
+            "id": "gate3",
+            "type": "OR",
+            "x": 0.68,
+            "y": 0.5,
+            "draggable": false
+        }
+    ],
+
+    "startingConnections": [
+        {
+            "from": "start1",
+            "to": "gate1"
+        },
+        {
+            "from": "gate1",
+            "to": "gate2"
+        },
+        {
+            "from": "start2",
+            "to": "gate2"
+        },
+        {
+            "from": "gate2",
+            "to": "gate3"
+        },
+        {
+            "from": "start3",
+            "to": "gate3"
+        },
+        {
+            "from": "gate3",
+            "to": "end1"
+        }
+    ],
+
+    "maxConnections": 6,
+
+    "commentCorrect": "Correct! TRUE becomes FALSE after NOT. FALSE AND FALSE gives FALSE, then FALSE OR TRUE gives a final output of TRUE.",
+    "commentWrong": "Not quite. Try calculating the output from each gate in order, beginning with the NOT gate.",
+    "commentHint": "Start with the TRUE input entering NOT. Use its output as one input to AND, then use the AND output as one input to OR.",
+
+    "options": ["TRUE", "FALSE"]
+},
+
+{
+    "id": 15,
+    "chapter": 3,
+    "level": 5,
+    "name": "NOT Gate",
+    "description": "Make the output TRUE. You must use one of the NOT, AND and OR gates. ",
+    "mode": "build",
+
+    "startNodes": [
+        {"state": false, "id": "start1"},
+        {"state": false, "id": "start2"},
+        {"state": true, "id": "start3"}
+    ],
+
+    "endNodes": [
+        {"state": "unknown", "id": "end1"}
+    ],
+
+    "expectedEndStates": [true],
+
+    "availableGates": {
+        "NOT": 1,
+        "OR": 1,
+        "AND": 1
+    },
+
+    "requiredGates": {
+        "NOT": 1,
+        "OR": 1,
+        "AND": 1
+    },
+
+    "maxConnections": 6,
+
+    "commentCorrect": "Excellent!",
+    "commentWrong": "Not quite. Make sure you are using all the gates and they are connected correctly. ",
+    "commentHint": "Start by connecting A and B to OR. Pass the OR output through NOT. Finally, connect the NOT output and C to AND."
+},
+
 
     {
         "id": 999,
@@ -285,16 +896,22 @@
         "name": "SANDBOX",
         "description": "Try anything out",
         "mode": "sandbox",
-
         "startNodes": [
-            {"state": true, "id": "start1"},
-            {"state": true, "id": "start2"}
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            }
         ],
-
         "endNodes": [
-            {"state": false, "id": "end1"}
+            {
+                "state": false,
+                "id": "end1"
+            }
         ],
-
         "availableGates": {
             "AND": "Infinity",
             "OR": "Infinity",
