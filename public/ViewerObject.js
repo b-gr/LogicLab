@@ -11,7 +11,8 @@ export default class ViewerObject {
         this.maxOutputs = 0;
         this.maxInputs = 0;
 
-        this.size = { width: 50, height: 50 }
+        const scale = 0.7;
+        this.size = { width: 50*scale, height: 50*scale }
 
         if(type === "start") {
             this.creatingOutput = true;
@@ -26,7 +27,7 @@ export default class ViewerObject {
         }
 
         if(type === "bin") {
-            this.size = { width: 100, height: 100 }
+            this.size = { width: 100*scale, height: 100*scale }
             this.id = "bin";
         }
 
@@ -58,8 +59,8 @@ export default class ViewerObject {
             return null;
         } else {
             return {
-                x: this.coordinates.x + 50,
-                y: this.coordinates.y + 25
+                x: this.coordinates.x + this.size.width,
+                y: this.coordinates.y + this.size.height/2
             };
         }
     }
@@ -70,7 +71,7 @@ export default class ViewerObject {
         } else {
             return {
                 x: this.coordinates.x,
-                y: this.coordinates.y + 25
+                y: this.coordinates.y + this.size.height/2
             };
         }
     }
@@ -172,8 +173,8 @@ export default class ViewerObject {
     binClosedSVG = () => {
         return `
         <svg 
-            width="100" 
-            height="100"             
+            width="${this.size.width}" 
+            height="${this.size.height}"        
             viewBox="0 0 100 100" 
             xmlns="http://www.w3.org/2000/svg">
             fill="white"
@@ -214,8 +215,8 @@ export default class ViewerObject {
     endSVGUnknown = () => {
         return `
             <svg 
-                width="50" 
-                height="50" 
+            width="${this.size.width}" 
+            height="${this.size.height}"    
                 fill="orange"
                 viewBox="0 0 50 50" 
                 xmlns="http://www.w3.org/2000/svg">
@@ -240,8 +241,8 @@ export default class ViewerObject {
     endSVGtrue = () => {
         return `
             <svg 
-                width="50" 
-                height="50" 
+            width="${this.size.width}" 
+            height="${this.size.height}"    
                 fill="blue"
                 viewBox="0 0 50 50" 
                 xmlns="http://www.w3.org/2000/svg">
@@ -265,8 +266,8 @@ export default class ViewerObject {
     endSVGfalse = () => {
         return `
             <svg 
-                width="50" 
-                height="50" 
+            width="${this.size.width}" 
+            height="${this.size.height}"    
                 fill="red"
                 viewBox="0 0 50 50" 
                 xmlns="http://www.w3.org/2000/svg">
@@ -291,8 +292,8 @@ export default class ViewerObject {
     startSVGtrue = () => {
         return `
             <svg 
-                width="50" 
-                height="50" 
+            width="${this.size.width}" 
+            height="${this.size.height}"    
                 fill="blue"
                 viewBox="0 0 50 50" 
                 xmlns="http://www.w3.org/2000/svg">
@@ -315,8 +316,8 @@ export default class ViewerObject {
     startSVGfalse = () => {
         return `
             <svg 
-                width="50" 
-                height="50" 
+            width="${this.size.width}" 
+            height="${this.size.height}"    
                 fill="red"
                 viewBox="0 0 50 50" 
                 xmlns="http://www.w3.org/2000/svg">

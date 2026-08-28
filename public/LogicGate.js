@@ -4,10 +4,10 @@ export default class LogicGate {
         this.type = type;
         this.state = null;
         this.id = null;
-        
+
         this.inputs = [];
         this.outputs = [];
- 
+
         this.draggable = true;
 
         this.acceptingInput = true;
@@ -19,10 +19,11 @@ export default class LogicGate {
             this.maxInputs = 2;
         }
         this.maxOutputs = 1;
-
+        const scale = 0.7;
+        this.size = { width: 110 * scale, height: 60 * scale };
         this.svg = this.getSVG(type);
         this.html = this.createHTML();
-        this.size = { width: 110, height: 60 };
+
     }
 
     createHTML = () => {
@@ -32,36 +33,36 @@ export default class LogicGate {
         return container;
     }
 
-    getInputValues(){
+    getInputValues() {
         return this.inputs.map(connector => connector.getState());
     }
 
-    getState(){
-        if(this.inputs.length !== this.maxInputs){
+    getState() {
+        if (this.inputs.length !== this.maxInputs) {
             return null;
         }
         return this.booleanOperation();
     }
 
-    getInputCoord(inputSlot){
-        if (this.maxInputs === 1 ){
+    getInputCoord(inputSlot) {
+        if (this.maxInputs === 1) {
             return {
                 x: this.coordinates.x,
-                y: this.coordinates.y + (this.size.height / 2) 
+                y: this.coordinates.y + (this.size.height / 2)
             };
         }
 
         if (inputSlot === 0) {
             return {
                 x: this.coordinates.x,
-                y: this.coordinates.y + (this.size.height*0.25) 
+                y: this.coordinates.y + (this.size.height * 0.25)
             }
         }
 
         if (inputSlot === 1) {
             return {
                 x: this.coordinates.x,
-                y: this.coordinates.y + (this.size.height*0.75) 
+                y: this.coordinates.y + (this.size.height * 0.75)
             }
         }
     }
@@ -69,7 +70,7 @@ export default class LogicGate {
     getOutputCoord() {
         return {
             x: this.coordinates.x + this.size.width,
-            y: this.coordinates.y + (this.size.height / 2) 
+            y: this.coordinates.y + (this.size.height / 2)
         };
     }
 
@@ -122,8 +123,8 @@ export default class LogicGate {
     andSVG = () => {
         return `
             <svg 
-                width="110" 
-                height="60" 
+                width="${this.size.width}" 
+                height="${this.size.height}" 
                 viewBox="0 0 110 60" 
                 fill="none" 
                 xmlns="http://www.w3.org/2000/svg">
@@ -155,7 +156,12 @@ export default class LogicGate {
 
     nandSVG = () => {
         return `
-        <svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            width="${this.size.width}" 
+            height="${this.size.height}" 
+                viewBox="0 0 110 60" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg">
     <path 
         d="
             M90 30 
@@ -188,8 +194,14 @@ export default class LogicGate {
     }
 
     orSVG = () => {
-        return `<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path 
+        return `
+<svg
+            width="${this.size.width}" 
+            height="${this.size.height}" 
+                viewBox="0 0 110 60" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg">
+                <path 
         d="
             M6 0.5 
             C64 2 82 10 90 30
@@ -212,8 +224,14 @@ export default class LogicGate {
     }
 
     norSVG = () => {
-        return `<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path 
+        return `
+<svg
+            width="${this.size.width}" 
+            height="${this.size.height}" 
+                viewBox="0 0 110 60" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg">
+                <path 
         d="
             M6 0.5 
             C64 2 82 10 90 30
@@ -244,8 +262,13 @@ export default class LogicGate {
 
     notSVG = () => {
         return `
-        <svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path 
+<svg
+            width="${this.size.width}" 
+            height="${this.size.height}" 
+                viewBox="0 0 110 60" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg">
+                <path 
         d="
             M6 0.5 
             L57 30
@@ -271,8 +294,14 @@ export default class LogicGate {
     }
 
     xnorSVG = () => {
-        return `<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path 
+        return `
+<svg
+            width="${this.size.width}" 
+            height="${this.size.height}" 
+                viewBox="0 0 110 60" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg">
+                <path 
         d="
             M6 0.5 
             C64 2 82 10 90 30
@@ -305,8 +334,14 @@ export default class LogicGate {
     }
 
     xorSVG = () => {
-        return `<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path 
+        return `
+<svg
+            width="${this.size.width}" 
+            height="${this.size.height}" 
+                viewBox="0 0 110 60" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg">
+                <path 
         d="
             M6 0.5 
             C64 2 82 10 90 30

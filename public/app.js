@@ -64,17 +64,21 @@ function createLevelButtonRows() {
     let rowOfButtonsHTML = "";
     for (let chapter of chapters) {
         let buttonsHTML = "";
-
         for (let level of levels) {
+            let levelDisplayID = `${level.chapter}.${level.level}`
+
             if(level.chapter === chapter){
             if (level.id === 1 || level.id === 999 || adminMode) {
                 level.unlocked = true;
+            }
+            if(level.id === 999){
+                levelDisplayID = "";
             }
             buttonsHTML += `
                 <button 
                     class="levelButton ${!level.unlocked ? "levelButtonLocked" : ""} ${level.completed ? "levelButtonCompleted" : ""}"
                     id="${level.id}">
-                    ${level.chapter}.${level.level} <br>
+                    ${levelDisplayID} <br>
                     ${level.name}
                 </button>`;
         }
