@@ -657,238 +657,652 @@
         ]
     },
     {
-    "id": 11,
-    "chapter": 3,
-    "level": 1,
-    "name": "NOT Gate",
-    "description": "A NOT gate reverses its input. Use two NOT gates to turn the TRUE input into FALSE, and the FALSE input into TRUE.",
-    "mode": "build",
-
-    "startNodes": [
-        {"state": true, "id": "start1"},
-        {"state": false, "id": "start2"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"},
-        {"state": "unknown", "id": "end2"}
-    ],
-
-    "expectedEndStates": [false, true],
-
-    "availableGates": {
-        "NOT": 2
-    },
-
-    "requiredGates": {
-        "NOT": 2
-    },
-
-    "maxConnections": 4,
-
-    "commentCorrect": "Correct! A NOT gate simply reverses its input: TRUE becomes FALSE, and FALSE becomes TRUE.",
-    "commentWrong": "Not quite. Each input should pass through a NOT gate, reversing its value.",
-    "commentHint": "Connect each start node to its own NOT gate, then connect each NOT gate to an end node."
-},
-
-{
-    "id": 12,
-    "chapter": 3,
-    "level": 2,
-    "name": "NOT & AND",
-    "description": "NOT gates can change the values being sent into other gates. Use a NOT gate and an AND gate to produce a FALSE output from these two TRUE inputs.",
-    "mode": "build",
-
-    "startNodes": [
-        {"state": true, "id": "start1"},
-        {"state": true, "id": "start2"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"}
-    ],
-
-    "expectedEndStates": [false],
-
-    "availableGates": {
-        "NOT": 1,
-        "AND": 1
-    },
-
-    "requiredGates": {
-        "NOT": 1,
-        "AND": 1
-    },
-
-    "maxConnections": 4,
-
-    "commentCorrect": "Correct!",
-    "commentWrong": "Not quite. Both gates need to be used. Think about how changing one TRUE input with NOT will affect the AND gate.",
-    "commentHint": "Pass one of the TRUE inputs through NOT before connecting it to the AND gate. Connect the other TRUE input directly to AND."
-},
-
-{
-    "id": 13,
-    "chapter": 3,
-    "level": 3,
-    "name": "NOT and OR",
-    "description": "Now try combining NOT with OR. Use a NOT gate and an OR gate to produce a TRUE output from these two FALSE inputs.",
-    "mode": "build",
-
-    "startNodes": [
-        {"state": false, "id": "start1"},
-        {"state": false, "id": "start2"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"}
-    ],
-
-    "expectedEndStates": [true],
-
-    "availableGates": {
-        "NOT": 1,
-        "OR": 1
-    },
-
-    "requiredGates": {
-        "NOT": 1,
-        "OR": 1
-    },
-
-    "maxConnections": 4,
-
-    "commentCorrect": "Well done! Lets see how this works when we put it all togethr in the next level",
-    "commentWrong": "Not quite. Try again!",
-    "commentHint": "Pass one FALSE input through NOT, then use that result and the other FALSE input as the two inputs to OR."
-},
-
-{
-    "id": 14,
-    "chapter": 3,
-    "level": 4,
-    "name": "NOT Gate",
-    "description": "What is the expected output from this circuit? Work through each gate from left to right.",
-    "mode": "predict",
-
-    "startNodes": [
-        {"state": true, "id": "start1"},
-        {"state": false, "id": "start2"},
-        {"state": true, "id": "start3"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"}
-    ],
-
-    "expectedEndStates": [true],
-
-    "availableGates": {
-        "NOT": 0,
-        "AND": 0,
-        "OR": 0
-    },
-
-    "startingGates": [
-        {
-            "id": "gate1",
-            "type": "NOT",
-            "x": 0.25,
-            "y": 0.22,
-            "draggable": false
+        "id": 11,
+        "chapter": 3,
+        "level": 1,
+        "name": "NOT Gate",
+        "description": "A NOT gate reverses its input. Use two NOT gates to turn the TRUE input into FALSE, and the FALSE input into TRUE.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            },
+            {
+                "state": "unknown",
+                "id": "end2"
+            }
+        ],
+        "expectedEndStates": [
+            false,
+            true
+        ],
+        "availableGates": {
+            "NOT": 2
         },
-        {
-            "id": "gate2",
-            "type": "AND",
-            "x": 0.46,
-            "y": 0.36,
-            "draggable": false
+        "requiredGates": {
+            "NOT": 2
         },
-        {
-            "id": "gate3",
-            "type": "OR",
-            "x": 0.68,
-            "y": 0.5,
-            "draggable": false
-        }
-    ],
-
-    "startingConnections": [
-        {
-            "from": "start1",
-            "to": "gate1"
-        },
-        {
-            "from": "gate1",
-            "to": "gate2"
-        },
-        {
-            "from": "start2",
-            "to": "gate2"
-        },
-        {
-            "from": "gate2",
-            "to": "gate3"
-        },
-        {
-            "from": "start3",
-            "to": "gate3"
-        },
-        {
-            "from": "gate3",
-            "to": "end1"
-        }
-    ],
-
-    "maxConnections": 6,
-
-    "commentCorrect": "Correct! TRUE becomes FALSE after NOT. FALSE AND FALSE gives FALSE, then FALSE OR TRUE gives a final output of TRUE.",
-    "commentWrong": "Not quite. Try calculating the output from each gate in order, beginning with the NOT gate.",
-    "commentHint": "Start with the TRUE input entering NOT. Use its output as one input to AND, then use the AND output as one input to OR.",
-
-    "options": ["TRUE", "FALSE"]
-},
-
-{
-    "id": 15,
-    "chapter": 3,
-    "level": 5,
-    "name": "NOT Gate",
-    "description": "Make the output TRUE. You must use one of the NOT, AND and OR gates. ",
-    "mode": "build",
-
-    "startNodes": [
-        {"state": false, "id": "start1"},
-        {"state": false, "id": "start2"},
-        {"state": true, "id": "start3"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"}
-    ],
-
-    "expectedEndStates": [true],
-
-    "availableGates": {
-        "NOT": 1,
-        "OR": 1,
-        "AND": 1
+        "maxConnections": 4,
+        "commentCorrect": "Correct! A NOT gate simply reverses its input: TRUE becomes FALSE, and FALSE becomes TRUE.",
+        "commentWrong": "Not quite. Each input should pass through a NOT gate, reversing its value.",
+        "commentHint": "Connect each start node to its own NOT gate, then connect each NOT gate to an end node."
     },
-
-    "requiredGates": {
-        "NOT": 1,
-        "OR": 1,
-        "AND": 1
+    {
+        "id": 12,
+        "chapter": 3,
+        "level": 2,
+        "name": "NOT & AND",
+        "description": "NOT gates can change the values being sent into other gates. Use a NOT gate and an AND gate to produce a FALSE output from these two TRUE inputs.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            false
+        ],
+        "availableGates": {
+            "NOT": 1,
+            "AND": 1
+        },
+        "requiredGates": {
+            "NOT": 1,
+            "AND": 1
+        },
+        "maxConnections": 4,
+        "commentCorrect": "Correct!",
+        "commentWrong": "Not quite. Both gates need to be used. Think about how changing one TRUE input with NOT will affect the AND gate.",
+        "commentHint": "Pass one of the TRUE inputs through NOT before connecting it to the AND gate. Connect the other TRUE input directly to AND."
     },
-
-    "maxConnections": 6,
-
-    "commentCorrect": "Excellent!",
-    "commentWrong": "Not quite. Make sure you are using all the gates and they are connected correctly. ",
-    "commentHint": "Start by connecting A and B to OR. Pass the OR output through NOT. Finally, connect the NOT output and C to AND."
-},
-
-
+    {
+        "id": 13,
+        "chapter": 3,
+        "level": 3,
+        "name": "NOT and OR",
+        "description": "Now try combining NOT with OR. Use a NOT gate and an OR gate to produce a TRUE output from these two FALSE inputs.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "NOT": 1,
+            "OR": 1
+        },
+        "requiredGates": {
+            "NOT": 1,
+            "OR": 1
+        },
+        "maxConnections": 4,
+        "commentCorrect": "Well done! Lets see how this works when we put it all togethr in the next level",
+        "commentWrong": "Not quite. Try again!",
+        "commentHint": "Pass one FALSE input through NOT, then use that result and the other FALSE input as the two inputs to OR."
+    },
+    {
+        "id": 14,
+        "chapter": 3,
+        "level": 4,
+        "name": "NOT Gate",
+        "description": "What is the expected output from this circuit? Work through each gate from left to right.",
+        "mode": "predict",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "NOT": 0,
+            "AND": 0,
+            "OR": 0
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "NOT",
+                "x": 0.25,
+                "y": 0.22,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "AND",
+                "x": 0.46,
+                "y": 0.36,
+                "draggable": false
+            },
+            {
+                "id": "gate3",
+                "type": "OR",
+                "x": 0.68,
+                "y": 0.5,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "gate1",
+                "to": "gate2"
+            },
+            {
+                "from": "start2",
+                "to": "gate2"
+            },
+            {
+                "from": "gate2",
+                "to": "gate3"
+            },
+            {
+                "from": "start3",
+                "to": "gate3"
+            },
+            {
+                "from": "gate3",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 6,
+        "commentCorrect": "Correct! TRUE becomes FALSE after NOT. FALSE AND FALSE gives FALSE, then FALSE OR TRUE gives a final output of TRUE.",
+        "commentWrong": "Not quite. Try calculating the output from each gate in order, beginning with the NOT gate.",
+        "commentHint": "Start with the TRUE input entering NOT. Use its output as one input to AND, then use the AND output as one input to OR.",
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
+    },
+    {
+        "id": 15,
+        "chapter": 3,
+        "level": 5,
+        "name": "NOT Gate",
+        "description": "Make the output TRUE. You must use one of the NOT, AND and OR gates. ",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "NOT": 1,
+            "OR": 1,
+            "AND": 1
+        },
+        "requiredGates": {
+            "NOT": 1,
+            "OR": 1,
+            "AND": 1
+        },
+        "maxConnections": 6,
+        "commentCorrect": "Excellent!",
+        "commentWrong": "Not quite. Make sure you are using all the gates and they are connected correctly. ",
+        "commentHint": "Start by connecting A and B to OR. Pass the OR output through NOT. Finally, connect the NOT output and C to AND."
+    },
+    {
+        "id": 16,
+        "chapter": 4,
+        "level": 1,
+        "name": "NAND Gate",
+        "description": "A NAND gate gives the opposite output to an AND gate. The first circuit uses an AND gate followed by NOT. Add a NAND gate to the second pair of inputs and make its output match the first circuit.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            },
+            {
+                "state": "unknown",
+                "id": "end2"
+            }
+        ],
+        "expectedEndStates": [
+            false,
+            false
+        ],
+        "availableGates": {
+            "NAND": 1
+        },
+        "requiredGates": {
+            "NAND": 1
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "AND",
+                "x": 0.30,
+                "y": 0.25,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "NOT",
+                "x": 0.56,
+                "y": 0.25,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "gate1",
+                "to": "gate2"
+            },
+            {
+                "from": "gate2",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 7,
+        "commentCorrect": "Correct! The NAND gate produces exactly the same result as passing the output of an AND gate through NOT. NAND literally means NOT AND.",
+        "commentWrong": "Not quite. The NAND circuit should give the same output as the AND gate followed by NOT.",
+        "commentHint": "Connect the second pair of TRUE inputs to a NAND gate, then connect the NAND gate to the remaining end node."
+    },
+    {
+        "id": 17,
+        "chapter": 4,
+        "level": 2,
+        "name": "NAND Gate",
+        "description": "Now try using NAND on its own. Connect these inputs through a NAND gate to produce the correct output.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "NAND": 1
+        },
+        "requiredGates": {
+            "NAND": 1
+        },
+        "maxConnections": 3,
+        "commentCorrect": "Correct! TRUE AND FALSE would give FALSE, but NAND reverses the AND result, giving TRUE.",
+        "commentWrong": "Not quite. Remember that NAND gives the opposite result to AND.",
+        "commentHint": "Connect both inputs to one NAND gate. Ask yourself what AND would output first, then reverse it."
+    },
+    {
+        "id": 18,
+        "chapter": 4,
+        "level": 3,
+        "name": "NAND Gate",
+        "description": "What is the expected output from this NAND circuit?",
+        "mode": "predict",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "NAND": 0
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "NAND",
+                "x": 0.31,
+                "y": 0.34,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "NAND",
+                "x": 0.64,
+                "y": 0.50,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "gate1",
+                "to": "gate2"
+            },
+            {
+                "from": "start3",
+                "to": "gate2"
+            },
+            {
+                "from": "gate2",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 5,
+        "commentCorrect": "Correct! The first NAND receives TRUE and TRUE, so it outputs FALSE. The second NAND receives FALSE and TRUE, so the final output is TRUE.",
+        "commentWrong": "Not quite. Work through the two NAND gates one at a time.",
+        "commentHint": "The first NAND receives two TRUE inputs. Calculate its output first, then use that result as an input to the second NAND.",
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
+    },
+    {
+        "id": 19,
+        "chapter": 4,
+        "level": 4,
+        "name": "NAND Gate",
+        "description": "This NAND circuit is more complicated. Work through each part of the circuit and determine the final output.",
+        "mode": "predict",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": false,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            },
+            {
+                "state": true,
+                "id": "start5"
+            },
+            {
+                "state": false,
+                "id": "start6"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            false
+        ],
+        "availableGates": {
+            "NAND": 0
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "NAND",
+                "x": 0.25,
+                "y": 0.16,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "NAND",
+                "x": 0.25,
+                "y": 0.46,
+                "draggable": false
+            },
+            {
+                "id": "gate3",
+                "type": "NAND",
+                "x": 0.25,
+                "y": 0.76,
+                "draggable": false
+            },
+            {
+                "id": "gate4",
+                "type": "NAND",
+                "x": 0.49,
+                "y": 0.31,
+                "draggable": false
+            },
+            {
+                "id": "gate5",
+                "type": "NAND",
+                "x": 0.70,
+                "y": 0.52,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "start3",
+                "to": "gate2"
+            },
+            {
+                "from": "start4",
+                "to": "gate2"
+            },
+            {
+                "from": "start5",
+                "to": "gate3"
+            },
+            {
+                "from": "start6",
+                "to": "gate3"
+            },
+            {
+                "from": "gate1",
+                "to": "gate4"
+            },
+            {
+                "from": "gate2",
+                "to": "gate4"
+            },
+            {
+                "from": "gate3",
+                "to": "gate5"
+            },
+            {
+                "from": "gate4",
+                "to": "gate5"
+            },
+            {
+                "from": "gate5",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 11,
+        "commentCorrect": "Correct! The three NAND gates on the left produce FALSE, TRUE and TRUE. The next NAND therefore produces TRUE, leaving the final NAND with TRUE and TRUE, which gives FALSE.",
+        "commentWrong": "Not quite. With a circuit this size, trying to calculate everything at once can get confusing. Work from left to right.",
+        "commentHint": "Start with the three NAND gates on the left. Their outputs are then used as the inputs to the remaining two gates.",
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
+    },
+    {
+        "id": 20,
+        "chapter": 4,
+        "level": 5,
+        "name": "NAND Gate",
+        "description": "Use all four gates available to build a circuit that produces a FALSE output. There may be more than one way to solve this level.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": false,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": false,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            false
+        ],
+        "availableGates": {
+            "AND": 1,
+            "OR": 1,
+            "NOT": 1,
+            "NAND": 1
+        },
+        "requiredGates": {
+            "AND": 1,
+            "OR": 1,
+            "NOT": 1,
+            "NAND": 1
+        },
+        "maxConnections": 8,
+        "commentCorrect": "Excellent! You have built a circuit using all four gate types learned so far. A OR B gives TRUE. NOT C gives TRUE. TRUE AND D gives TRUE, and finally TRUE NAND TRUE gives FALSE.",
+        "commentWrong": "Not quite. Break the expression into smaller parts rather than trying to build the whole circuit at once.",
+        "commentHint": "Start with the brackets. First build A OR B. Separately, pass C through NOT and combine that result with D using AND. The outputs of those two sections should become the inputs to NAND."
+    },
     {
         "id": 999,
         "chapter": "",
