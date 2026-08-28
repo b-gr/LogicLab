@@ -1,7 +1,9 @@
 to do:
 
     before anything else: 
-        - create more levels
+        - create final levels for XOR/XNOR
+        - change admin mode to OFF
+        - create information "level 0" to introduce the layout and how to use
 
     really should have:
         - if gate is 0 then blank out the toolbar in that position
