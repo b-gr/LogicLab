@@ -100,7 +100,6 @@ export default class Toolbar {
     }
 
     destroy() {
-        document.removeEventListener("click",this.viewer.addGate);
         this.connectorOn = false;
         this.viewer = null;
         this.container.innerHTML = "";

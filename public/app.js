@@ -13,6 +13,7 @@ const hintButton = document.getElementById("hintButton");
 const nextButton = document.getElementById("nextButton");
 const popup = document.getElementById("popup");
 let inPageViewer = null;
+let toolbar = null;
 
 startButton.addEventListener("click", async () => {
     await importLevels();
@@ -125,6 +126,11 @@ function loadLevel(level) {
         inPageViewer = null;
     }
 
+    if (toolbar !== null) {
+        toolbar.destroy();
+        toolbar = null;
+    }
+
     //set header buttons: 
     if(level.id !== 999){
         checkButton.style.display = "flex";
@@ -157,7 +163,7 @@ function loadLevel(level) {
     }
 
     //set toolbar to on
-    let toolbar = new Toolbar(inPageViewer, level, firstPenUsage);
+    toolbar = new Toolbar(inPageViewer, level, firstPenUsage);
 
     document.getElementById("toolbar").style.display = "flex";
 
@@ -167,6 +173,9 @@ function loadLevel(level) {
         document.getElementById("popupTitle").textContent = "";
         document.getElementById("popupText").textContent = "";
         popup.style.display = "none"
+
+        toolbar.destroy();
+        toolbar = null;
 
         inPageViewer.destroy();
         inPageViewer = null;
