@@ -474,6 +474,7 @@ export default class Viewer {
         const connector = new Connector(node1, node2, this);
 
         if (connector.valid) {
+            connector.createHTML();
             this.container.appendChild(connector.html);
             this.connections.push(connector);
         }

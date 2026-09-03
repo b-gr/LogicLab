@@ -19,7 +19,7 @@ export default class Connector {
         }
 
         this.setUpLine();
-        this.html = this.createHTML();
+        this.html = null;
 
     }
 
@@ -28,6 +28,7 @@ export default class Connector {
         const container = document.createElement('div');
         container.classList.add("connector");
         container.innerHTML = this.drawSVGLine();
+        this.html = container;
         return container;
     }
 
