@@ -32,19 +32,19 @@ window.addEventListener('click', function (event) {
 
 let levels = []
 
-async function importLevels(){
+async function importLevels() {
     const response = await fetch("./levelData.json");
     const levelData = await response.json();
     levels = levelData.map(data => new Level(data));
 }
 
 
-function levelMenuViewLoad(){
-        mainContent.innerHTML =
+function levelMenuViewLoad() {
+    mainContent.innerHTML =
         `<h2>Please select a level</h2>
         <div>${createLevelButtonRows()}</div>
     `;
-    
+
     createLevelButtons();
 }
 
@@ -68,21 +68,21 @@ function createLevelButtonRows() {
         for (let level of levels) {
             let levelDisplayID = `${level.chapter}.${level.level}`
 
-            if(level.chapter === chapter){
-            if (level.id === 1 || level.id === 999 || adminMode) {
-                level.unlocked = true;
-            }
-            if(level.id === 999){
-                levelDisplayID = "";
-            }
-            buttonsHTML += `
+            if (level.chapter === chapter) {
+                if (level.id === 1 || level.id === 999 || adminMode) {
+                    level.unlocked = true;
+                }
+                if (level.id === 999) {
+                    levelDisplayID = "";
+                }
+                buttonsHTML += `
                 <button 
                     class="levelButton ${!level.unlocked ? "levelButtonLocked" : ""} ${level.completed ? "levelButtonCompleted" : ""}"
                     id="${level.id}">
                     ${levelDisplayID} <br>
                     ${level.name}
                 </button>`;
-        }
+            }
         }
         rowOfButtonsHTML += `
             <div class="chapterRow" id="chapter${chapter}">
@@ -90,14 +90,14 @@ function createLevelButtonRows() {
             </div>
         `;
     }
-    
+
     return rowOfButtonsHTML;
 }
 
 //Function to add event listeners to level buttons and handle level selection
 function createLevelButtons() {
     const levelButtons = document.getElementsByClassName("levelButton");
-    
+
     for (let levelButton of document.getElementsByClassName("levelButton")) {
         levelButton.addEventListener("click", () => {
             const levelId = Number(levelButton.id);
@@ -114,7 +114,7 @@ function createLevelButtons() {
 
             loadLevel(level);
 
-            
+
         });
     }
 }
@@ -132,7 +132,7 @@ function loadLevel(level) {
     }
 
     //set header buttons: 
-    if(level.id !== 999){
+    if (level.id !== 999) {
         checkButton.style.display = "flex";
     } else {
         checkButton.style.display = "none";
@@ -147,14 +147,14 @@ function loadLevel(level) {
     <p>${level.description}</p>`;
 
     inPageViewer = new Viewer("inPageViewer");
-    
+
     document.getElementById("inPageViewer").style.display = "flex";
 
     inPageViewer.init(level);
 
     let firstPenUsage = true;
 
-    if (level.id === 1 || level.id === 999){
+    if (level.id === 1 || level.id === 999) {
         firstPenUsage = true;
     } else if (adminMode) {
         firstPenUsage = false;
@@ -184,23 +184,23 @@ function loadLevel(level) {
     };
 
     hintButton.onclick = () => {
-            document.getElementById("popupTitle").textContent = "";
-            document.getElementById("popupText").textContent = `${level.commentHint}`
-            hintButton.style.display = "none";
+        document.getElementById("popupTitle").textContent = "";
+        document.getElementById("popupText").textContent = `${level.commentHint}`
+        hintButton.style.display = "none";
     }
 
     checkButton.onclick = (event) => {
         event.stopPropagation();
         inPageViewer.evaluateCircuit();
 
-        if(!inPageViewer.levelComplete){
+        if (!inPageViewer.levelComplete) {
             document.getElementById("popupTitle").textContent = `${level.commentWrong}`;
             popup.style.display = "flex";
             checkButton.style.display = "none"
             hintButton.style.display = "flex"
 
         }
-        if(inPageViewer.levelComplete && inPageViewer.level.mode === "build"){
+        if (inPageViewer.levelComplete && inPageViewer.level.mode === "build") {
             checkButton.style.display = "none";
             popup.style.display = "flex";
             document.getElementById("popupTitle").textContent = `${level.commentCorrect}`;
@@ -210,7 +210,7 @@ function loadLevel(level) {
             markLevelCompleted(level.id);
 
         }
-        if(inPageViewer.levelComplete && inPageViewer.level.mode === "predict"){
+        if (inPageViewer.levelComplete && inPageViewer.level.mode === "predict") {
             popup.style.display = "flex";
             document.getElementById("popupTitle").textContent = `${level.commentCorrect}`;
             hintButton.style.display = "none"
@@ -238,7 +238,7 @@ function loadLevel(level) {
         nextButton.style.display = "none";
         if (nextLevel) {
             loadLevel(nextLevel)
-        } else{
+        } else {
             levelMenuViewLoad();
         }
     }

@@ -1,9 +1,9 @@
-export default class Level{
+export default class Level {
     constructor({
-        id, 
+        id,
         chapter,
         level,
-        name, 
+        name,
         description,
         mode,
         startNodes = [],
@@ -21,7 +21,7 @@ export default class Level{
         unlocked,
         completed = false,
         options = []
-    }){
+    }) {
         this.id = id;
         this.chapter = chapter;
         this.level = level;
@@ -43,8 +43,8 @@ export default class Level{
         this.unlocked = unlocked;
         this.completed = completed;
         this.options = options;
-        for (let gateType in this.availableGates){
-            if (this.availableGates[gateType] === "Infinity"){
+        for (let gateType in this.availableGates) {
+            if (this.availableGates[gateType] === "Infinity") {
                 this.availableGates[gateType] = Infinity
             }
         }

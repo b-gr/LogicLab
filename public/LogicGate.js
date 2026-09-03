@@ -22,7 +22,7 @@ export default class LogicGate {
         const scale = 0.7;
         this.size = { width: 110 * scale, height: 60 * scale };
         this.svg = this.getSVG(type);
-        this.html = this.createHTML();
+        this.html = null;
 
     }
 
@@ -30,6 +30,7 @@ export default class LogicGate {
         const container = document.createElement('div');
         container.classList.add('logic-gate');
         container.innerHTML = this.svg;
+        this.html = container;
         return container;
     }
 

@@ -7,27 +7,27 @@ export default class ViewerObject {
 
         this.acceptingInput = false;
         this.creatingOutput = false;
-        
+
         this.maxOutputs = 0;
         this.maxInputs = 0;
 
         const scale = 0.7;
-        this.size = { width: 50*scale, height: 50*scale }
+        this.size = { width: 50 * scale, height: 50 * scale }
 
-        if(type === "start") {
+        if (type === "start") {
             this.creatingOutput = true;
             this.maxOutputs = 1;
             this.outputs = [];
         }
 
-        if(type === "end") {
+        if (type === "end") {
             this.acceptingInput = true;
             this.inputs = [];
             this.maxInputs = 1;
         }
 
-        if(type === "bin") {
-            this.size = { width: 100*scale, height: 100*scale }
+        if (type === "bin") {
+            this.size = { width: 100 * scale, height: 100 * scale }
             this.id = "bin";
         }
 
@@ -36,11 +36,11 @@ export default class ViewerObject {
     }
 
 
-    getState(){
+    getState() {
         return this.state;
     }
 
-    setState(state){
+    setState(state) {
         this.state = state;
 
         if (this.type === 'end') {
@@ -48,36 +48,36 @@ export default class ViewerObject {
                 this.html.innerHTML = this.endSVGtrue();
             } else if (this.state === false) {
                 this.html.innerHTML = this.endSVGfalse();
-            } else { 
+            } else {
                 this.html.innerHTML = this.endSVGUnknown();
             }
         }
     }
 
-    getOutputCoord(){
+    getOutputCoord() {
         if (!this.creatingOutput) {
             return null;
         } else {
             return {
                 x: this.coordinates.x + this.size.width,
-                y: this.coordinates.y + this.size.height/2
+                y: this.coordinates.y + this.size.height / 2
             };
         }
     }
 
     getInputCoord() {
-        if (!this.acceptingInput){
+        if (!this.acceptingInput) {
             return null;
         } else {
             return {
                 x: this.coordinates.x,
-                y: this.coordinates.y + this.size.height/2
+                y: this.coordinates.y + this.size.height / 2
             };
         }
     }
 
 
-    removeHTML(){
+    removeHTML() {
         if (this.html !== null) {
             this.html.remove();
             this.html = null;
@@ -86,7 +86,7 @@ export default class ViewerObject {
 
     createHTML() {
         const container = document.createElement('div');
-        
+
         //start
         if (this.type === 'start' && this.state) {
             this.creatingOutput = true;
@@ -95,7 +95,7 @@ export default class ViewerObject {
             this.creatingOutput = true;
             container.innerHTML = this.startSVGfalse();
         }
-        
+
         //end
         else if (this.type === 'end' && this.state === true) {
             this.acceptingInput = true;
@@ -107,7 +107,7 @@ export default class ViewerObject {
             this.acceptingInput = true;
             container.innerHTML = this.endSVGUnknown();
         }
-        
+
         //bin
         else if (this.type === 'bin' && this.state) {
             container.innerHTML = this.binClosedSVG();

@@ -45,15 +45,15 @@ export default class Toolbar {
         }
     }
 
-    selectOption(option){
+    selectOption(option) {
         const optionButton = document.getElementById(`${option}Button`);
-        if (option === this.viewer.answerSelected){
+        if (option === this.viewer.answerSelected) {
             optionButton.style.backgroundColor = "#8c8c8c";
             this.viewer.answerSelected = null;
             return;
         }
-        if (option !== this.viewer.answerSelected){
-            if(this.viewer.answerSelected !== null){
+        if (option !== this.viewer.answerSelected) {
+            if (this.viewer.answerSelected !== null) {
                 const oldAnswerSelected = document.getElementById(`${this.viewer.answerSelected}Button`);
                 oldAnswerSelected.style.backgroundColor = "#8c8c8c";
             }
@@ -84,17 +84,17 @@ export default class Toolbar {
     }
 
     updateToolbar() {
-        if(this.viewer.highlightCorrectAnswer){
+        if (this.viewer.highlightCorrectAnswer) {
             const oldAnswerSelected = document.getElementById(`${this.viewer.answerSelected}Button`);
             oldAnswerSelected.style.backgroundColor = "#56d15a";
             this.disableButtons()
         }
     }
 
-    disableButtons(){
+    disableButtons() {
         const buttons = this.container.querySelectorAll("button");
 
-        for (let button of buttons){
+        for (let button of buttons) {
             button.disabled = true
         }
     }

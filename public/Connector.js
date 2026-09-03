@@ -12,7 +12,7 @@ export default class Connector {
         this.valid = false;
         this.html = null;
 
-        if(this.checkLinePossible()){
+        if (this.checkLinePossible()) {
             this.valid = true;
         } else {
             return;
@@ -32,12 +32,12 @@ export default class Connector {
     }
 
     //todo: check if this is duplicated in Viewer. Decide where check should happen (here ideally)
-    checkLinePossible(){
-        if(this.node1.outputs.length >= this.node1.maxOutputs){
+    checkLinePossible() {
+        if (this.node1.outputs.length >= this.node1.maxOutputs) {
             console.log("Cannot add. Output already in use");
             return false;
         }
-        
+
         //if the right hand node is clicked before left hand then retry
         if (this.node1.coordinates.x > this.node2.coordinates.x) {
             console.log("Wrong way round");
@@ -49,12 +49,12 @@ export default class Connector {
             console.log("Cannot add. Inputs already in use")
             return false;
         }
-        
-        if(!this.node1.creatingOutput) {
+
+        if (!this.node1.creatingOutput) {
             return false;
         }
 
-        if(!this.node2.acceptingInput) {
+        if (!this.node2.acceptingInput) {
             return false;
         }
 
@@ -64,13 +64,13 @@ export default class Connector {
 
 
 
-    setInputSlot(){
-        if(this.node2.maxInputs === 1){
+    setInputSlot() {
+        if (this.node2.maxInputs === 1) {
             this.inputSlot = 0;
             return;
         }
 
-        if(this.node2.inputs.length === 0){
+        if (this.node2.inputs.length === 0) {
             const top = this.node2.getInputCoord(0);
             const bottom = this.node2.getInputCoord(1);
             if (Math.abs(top.y - this.aCoord.y) >= Math.abs(bottom.y - this.aCoord.y)) {
@@ -81,29 +81,29 @@ export default class Connector {
             return;
         }
 
-        if(this.node2.inputs.length === 1){
+        if (this.node2.inputs.length === 1) {
             const existingConnector = this.node2.inputs[0]
             const existingConnectorOutputCoordY = existingConnector.node1.getOutputCoord().y;
 
-            if(existingConnectorOutputCoordY < this.aCoord.y){
+            if (existingConnectorOutputCoordY < this.aCoord.y) {
                 this.inputSlot = 1;
                 existingConnector.inputSlot = 0;
-            } else { 
+            } else {
                 existingConnector.inputSlot = 1;
                 this.inputSlot = 0
             }
-            
+
             existingConnector.redrawLine();
             return;
         }
     }
 
 
-    setUpLine(){
+    setUpLine() {
         this.aCoord = this.node1.getOutputCoord();
         this.setInputSlot();
         this.bCoord = this.node2.getInputCoord(this.inputSlot);
-        
+
         this.node1.outputs.push(this);
         this.node2.inputs.push(this);
     }
@@ -115,24 +115,24 @@ export default class Connector {
     }
 
 
-    calculateRoutePoints(){
+    calculateRoutePoints() {
         let arrayOfCoords = [];
         const a = this.aCoord
         const b = this.bCoord
         const clearance = 10;
 
-        if(b.x >= a.x) {
-            const midX = a.x + ((b.x - a.x)/2);
-            arrayOfCoords = [a, {x: midX, y: a.y}, {x: midX, y: b.y}, b];
+        if (b.x >= a.x) {
+            const midX = a.x + ((b.x - a.x) / 2);
+            arrayOfCoords = [a, { x: midX, y: a.y }, { x: midX, y: b.y }, b];
         } else {
-            const midX = a.x + ((b.x - a.x)/2);
-            const midY = a.y + ((b.y - a.y)/2);
+            const midX = a.x + ((b.x - a.x) / 2);
+            const midY = a.y + ((b.y - a.y) / 2);
             arrayOfCoords = [
                 a, //1 
-                {x:a.x + clearance, y: a.y}, //2
-                {x: a.x +clearance, y: midY},  //3
-                {x: b.x -clearance, y: midY},  //4
-                {x: b.x -clearance, y: b.y}, //5
+                { x: a.x + clearance, y: a.y }, //2
+                { x: a.x + clearance, y: midY },  //3
+                { x: b.x - clearance, y: midY },  //4
+                { x: b.x - clearance, y: b.y }, //5
                 b //6
             ];
         }
@@ -141,15 +141,15 @@ export default class Connector {
 
 
 
-    getPath(){
+    getPath() {
         const points = this.calculateRoutePoints();
-        
+
         let path = "";
 
-        for (let coords of points){
+        for (let coords of points) {
             if (coords === points[0]) {
                 path = `M${coords.x} ${coords.y} ` + path
-            } else { 
+            } else {
                 path = path + `L${coords.x} ${coords.y} `
             }
         };

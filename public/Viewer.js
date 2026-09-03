@@ -18,7 +18,7 @@ export default class Viewer {
         }
         window.addEventListener('resize', this.resize);
 
-        this.sizeBefore = {x: 0, y:0}
+        this.sizeBefore = { x: 0, y: 0 }
         this.level
         this.initialised = false;
         this.answerSelected = null;
@@ -32,40 +32,40 @@ export default class Viewer {
         this.createBin();
         this.createStartPointsFromSchema();
         this.createEndPointsFromSchema();
-        this.sizeBefore = {x: this.width, y: this.height};
+        this.sizeBefore = { x: this.width, y: this.height };
         this.addStartingGates();
         //this.printAllIDs();
         this.createStartingConnections();
         this.initialised = true;
     }
-/*
-//todo
-//for debugging - remove later...
-    printAllIDs(){
-        for(let node of this.viewerObjects){
-            console.log(`${node.id} has state: ${node.state}`)
-        }
-        for(let gate of this.gates){
-            let output = "";
-            if(gate.draggable){
-                output = "draggable"
-            } else {
-                output = "static"
+    /*
+    //todo
+    //for debugging - remove later...
+        printAllIDs(){
+            for(let node of this.viewerObjects){
+                console.log(`${node.id} has state: ${node.state}`)
             }
-            console.log(`${gate.id} is ${output}`)
+            for(let gate of this.gates){
+                let output = "";
+                if(gate.draggable){
+                    output = "draggable"
+                } else {
+                    output = "static"
+                }
+                console.log(`${gate.id} is ${output}`)
+            }
         }
-    }
-*/
+    */
 
-    createEndPointsFromSchema(){
+    createEndPointsFromSchema() {
         const endNodes = this.level.endNodes;
         const integer = endNodes.length;
-        const xCoord = this.width-100;
-        const heightDivision = this.height/(integer+1)
+        const xCoord = this.width - 100;
+        const heightDivision = this.height / (integer + 1)
         let i = 0;
-        for (let endNode of endNodes){
-            const y = heightDivision * (i+1);
-            this.createEndPoint(endNode.state,xCoord,y, endNode.id)
+        for (let endNode of endNodes) {
+            const y = heightDivision * (i + 1);
+            this.createEndPoint(endNode.state, xCoord, y, endNode.id)
             i++;
         }
     }
@@ -81,15 +81,15 @@ export default class Viewer {
         this.viewerObjects.push(endPoint);
         this.addConnectionListener(endPoint);
     }
-    
-    createStartPointsFromSchema(){
+
+    createStartPointsFromSchema() {
         const startNodes = this.level.startNodes;
         const integer = startNodes.length;
-        const xCoord = 50;        
-        const heightDivision = this.height/(integer+1)
+        const xCoord = 50;
+        const heightDivision = this.height / (integer + 1)
         let i = 0;
-        for(let startNode of startNodes) {
-            const y = heightDivision * (i+1);
+        for (let startNode of startNodes) {
+            const y = heightDivision * (i + 1);
             this.createStartPoint(startNode.state, 50, y, startNode.id);
             i++;
         }
@@ -115,7 +115,7 @@ export default class Viewer {
 
 
     //on view resize, carry out the following
-    resizeHelper(){
+    resizeHelper() {
         this.updateViewerDimensions();
         this.repositionBin();
         this.repositionEndPoints();
@@ -125,26 +125,26 @@ export default class Viewer {
     }
 
     //used when changing the window size 
-    repositionGates(){
+    repositionGates() {
         const margin = 100;
-        const usableWidthBefore = this.sizeBefore.x - (margin*2);
-        const usableWidthNow = this.width - (margin *2)
-        const usableHeightBefore = this.sizeBefore.y - (margin*2);
-        const usableHeightNow = this.height - (margin *2)
-        
-        for(let gate of this.gates){
-            const oldPositionX = (gate.coordinates.x + (gate.size.width/2) - margin)/usableWidthBefore;
-            const newX = margin + (oldPositionX * usableWidthNow)
-            gate.coordinates.x = newX - (gate.size.width/2);
+        const usableWidthBefore = this.sizeBefore.x - (margin * 2);
+        const usableWidthNow = this.width - (margin * 2)
+        const usableHeightBefore = this.sizeBefore.y - (margin * 2);
+        const usableHeightNow = this.height - (margin * 2)
 
-            const oldPositionY = (gate.coordinates.y + (gate.size.height/2) - margin)/usableHeightBefore;
+        for (let gate of this.gates) {
+            const oldPositionX = (gate.coordinates.x + (gate.size.width / 2) - margin) / usableWidthBefore;
+            const newX = margin + (oldPositionX * usableWidthNow)
+            gate.coordinates.x = newX - (gate.size.width / 2);
+
+            const oldPositionY = (gate.coordinates.y + (gate.size.height / 2) - margin) / usableHeightBefore;
             const newY = margin + (oldPositionY * usableHeightNow)
-            gate.coordinates.y = newY - (gate.size.height/2);
+            gate.coordinates.y = newY - (gate.size.height / 2);
 
             this.updateGatePosition(gate)
-            
-        }   
-        this.sizeBefore = {x: this.width, y: this.height};
+
+        }
+        this.sizeBefore = { x: this.width, y: this.height };
     }
 
 
@@ -165,7 +165,7 @@ export default class Viewer {
     }
 
     //used when changing the window size 
-    repositionStartPoints(){
+    repositionStartPoints() {
         const startPoints = this.viewerObjects.filter(node => node.type === 'start');
         const count = startPoints.length;
         const heightDivision = this.height / (count + 1);
@@ -181,9 +181,9 @@ export default class Viewer {
 
 
     //used when changing the window size 
-    repositionBin(){
+    repositionBin() {
         const bin = this.viewerObjects.find(node => node.type === 'bin');
-        
+
         bin.coordinates = { x: (this.width / 2) - 50, y: 0 };
         bin.html.style.left = `${bin.coordinates.x}px`;
         bin.html.style.top = `${bin.coordinates.y}px`;
@@ -226,18 +226,18 @@ export default class Viewer {
         gateElement.style.top = `${gate.coordinates.y}px`;
     }
 
-    addStartingGates(){
-        if(this.level.startingGates.length === 0){
+    addStartingGates() {
+        if (this.level.startingGates.length === 0) {
             return;
         }
-        for (let gate of this.level.startingGates){
-            const position = {x: gate.x * this.width, y: gate.y * this.height}
+        for (let gate of this.level.startingGates) {
+            const position = { x: gate.x * this.width, y: gate.y * this.height }
 
             this.addGate(gate.type);
 
 
-            this.gates.at(-1).coordinates = {x: position.x, y: position.y};
-            
+            this.gates.at(-1).coordinates = { x: position.x, y: position.y };
+
             this.updateGatePosition(this.gates.at(-1));
             this.gates.at(-1).draggable = gate.draggable;
             this.gates.at(-1).id = gate.id;
@@ -265,6 +265,7 @@ export default class Viewer {
         if (this.connectionMode) {
             window.alert("Please finish drawing your connection or unclick the draw button to add more gates.")
         } else {
+            gate.createHTML();
             this.container.appendChild(gate.html);
             this.updateGatePosition(gate);
             this.addEventListenersToGate(gate);
@@ -301,7 +302,7 @@ export default class Viewer {
 
         const onmousemove = (event) => {
             const position = this.mouseToViewerCoordinates(event);
-            
+
             moveAt(
                 position.x,
                 position.y
@@ -312,9 +313,9 @@ export default class Viewer {
             const bin = this.viewerObjects.find(obj => obj.type === 'bin');
 
             if (
-                position.x < this.width / 2 + bin.size.width/2
+                position.x < this.width / 2 + bin.size.width / 2
                 &&
-                position.x > this.width / 2 - bin.size.width/2
+                position.x > this.width / 2 - bin.size.width / 2
                 &&
                 position.y < bin.size.height
             ) {
@@ -346,9 +347,9 @@ export default class Viewer {
             const bin = this.viewerObjects.find(obj => obj.type === 'bin');
 
             if (
-                position.x < this.width / 2 + bin.size.width/2
+                position.x < this.width / 2 + bin.size.width / 2
                 &&
-                position.x > this.width / 2 - bin.size.width/2
+                position.x > this.width / 2 - bin.size.width / 2
                 &&
                 position.y < bin.size.height
             ) {
@@ -361,7 +362,7 @@ export default class Viewer {
             gate.html.style.zIndex = 1;
 
             this.redoAllLines();
-            if(this.level.id === 999){
+            if (this.level.id === 999) {
                 this.evaluateCircuit();
             }
         }
@@ -401,12 +402,12 @@ export default class Viewer {
         if (this.selectedOutputNode != null) {
             this.linkNodes(node);
         } else {
-            if(node.creatingOutput){
+            if (node.creatingOutput) {
                 node.html.classList.add('node-selected');
                 this.selectedOutputNode = node;
             }
         }
-        if(this.level.id === 999){
+        if (this.level.id === 999) {
             this.evaluateCircuit();
         }
     }
@@ -416,7 +417,7 @@ export default class Viewer {
         const node1 = this.selectedOutputNode;
         const node2 = node;
 
-        
+
         //deselects current node
         if (node1 === node2) {
             this.selectedOutputNode = null;
@@ -424,7 +425,7 @@ export default class Viewer {
             return;
         }
 
-        if (this.viewerObjects.includes(node1) && this.viewerObjects.includes(node2) && this.level.id !== 999){
+        if (this.viewerObjects.includes(node1) && this.viewerObjects.includes(node2) && this.level.id !== 999) {
             this.selectedOutputNode = null;
             node1.html.classList.remove('node-selected');
             console.log("Not possible: start and end nodes cannot be connected directly to each other")
@@ -453,23 +454,23 @@ export default class Viewer {
 
     }
 
-    createStartingConnections(){
+    createStartingConnections() {
         const nodesAndGates = this.viewerObjects.concat(this.gates);
-        for (const connections of this.level.startingConnections){
+        for (const connections of this.level.startingConnections) {
             const node1 = nodesAndGates.find(nodeOrGate => nodeOrGate.id === connections.from)
             const node2 = nodesAndGates.find(nodeOrGate => nodeOrGate.id === connections.to)
-            this.makeConnection(node1,node2)
+            this.makeConnection(node1, node2)
         }
     }
 
-    makeConnection(node1, node2){
-        if(this.level.maxConnections !== Infinity){
+    makeConnection(node1, node2) {
+        if (this.level.maxConnections !== Infinity) {
             const connectorsRemaining = this.level.maxConnections - this.connections.length
-            if(connectorsRemaining <= 0){
+            if (connectorsRemaining <= 0) {
                 return;
             }
         }
-        
+
         const connector = new Connector(node1, node2, this);
 
         if (connector.valid) {
@@ -480,22 +481,22 @@ export default class Viewer {
 
     //when user moves the gate - redraw wires  
     reDrawConnectors(gate) {
-        const connectors = this.connections.filter( connector => connector.node1 === gate || connector.node2 === gate);
-        for(let connector of connectors) {
+        const connectors = this.connections.filter(connector => connector.node1 === gate || connector.node2 === gate);
+        for (let connector of connectors) {
             connector.redrawLine();
         }
     }
 
     //for all
-    redoAllLines(){
-        for(let gate of this.gates){
+    redoAllLines() {
+        for (let gate of this.gates) {
             this.redoInputSlots(gate)
         }
-        const endPoints = this.viewerObjects.filter( node => node.type === 'end')
-        for(let endPoint of endPoints){
+        const endPoints = this.viewerObjects.filter(node => node.type === 'end')
+        for (let endPoint of endPoints) {
             this.reDrawConnectors(endPoint)
         }
-    }   
+    }
 
     //on gate drop, recalculate/check which input is closest
     redoInputSlots(node) {
@@ -503,7 +504,7 @@ export default class Viewer {
             return;
         }
 
-        if(node.inputs.length === 1) {
+        if (node.inputs.length === 1) {
             const input = node.inputs[0];
             let inputCoords = input.node1.getInputCoord(input.inputSlot);
             if (inputCoords == null) {
@@ -520,13 +521,13 @@ export default class Viewer {
             return;
         }
 
-        if(node.inputs.length === 2) {
+        if (node.inputs.length === 2) {
             const input1 = node.inputs[0];
             const input2 = node.inputs[1];
             const y1 = input1.node1.getOutputCoord().y;
             const y2 = input2.node1.getOutputCoord().y;
 
-            if (y1>=y2) {
+            if (y1 >= y2) {
                 input1.inputSlot = 1;
                 input2.inputSlot = 0;
             } else {
@@ -552,13 +553,13 @@ export default class Viewer {
     evaluateCircuit() {
 
         if (this.level.mode === "predict") {
-            if(this.answerSelected === null){
+            if (this.answerSelected === null) {
                 return;
             }
 
             const answerGiven = [];
             const expectedEndStates = this.level.expectedEndStates;
-            
+
             answerGiven.push(this.answerSelected.toString().toLowerCase());
 
 
@@ -569,9 +570,9 @@ export default class Viewer {
                 this.highlightCorrectAnswer = true;
                 this.levelComplete = true;
             }
-                
-            
-        } else if (this.level.mode === "build"){
+
+
+        } else if (this.level.mode === "build") {
             const endPoints = [];
             for (let node of this.viewerObjects) {
                 if (node.type === 'end') {
@@ -593,7 +594,7 @@ export default class Viewer {
                 const state = endPoint.inputs[0].getState();
                 if (state === true) {
                     endPoint.setState(true);
-                } else if (state === false){
+                } else if (state === false) {
                     endPoint.setState(false);
                 } else {
                     endPoint.setState("unknown");
@@ -678,7 +679,7 @@ export default class Viewer {
             XNOR: 0
         };
 
-        for(let gate of gatesUsed) {
+        for (let gate of gatesUsed) {
             if (gate.type === "AND") {
                 countGates.AND = countGates.AND + 1
             }
@@ -709,11 +710,11 @@ export default class Viewer {
         }
 
 
-        for( let gateType in this.level.requiredGates) {
+        for (let gateType in this.level.requiredGates) {
             const requiredQuantity = this.level.requiredGates[gateType];
             const usedQuantity = countGates[gateType]
 
-            if(usedQuantity < requiredQuantity) {
+            if (usedQuantity < requiredQuantity) {
                 return false
             }
         }
@@ -727,7 +728,7 @@ export default class Viewer {
     //createBin
     createBin() {
         const bin = new ViewerObject('bin', true);
-        bin.coordinates = { x: (this.width / 2) - (bin.size.width/2), y: 0 };
+        bin.coordinates = { x: (this.width / 2) - (bin.size.width / 2), y: 0 };
         bin.html.style.position = 'absolute';
         bin.html.style.left = `${bin.coordinates.x}px`;
         bin.html.style.top = `${bin.coordinates.y}px`;
@@ -736,26 +737,26 @@ export default class Viewer {
     }
 
     //todo
-    increaseStartPoints(){
+    increaseStartPoints() {
         //when run the number of start points increases
         //automatically adjusts so that the current start point shifts upwards
     }
 
     //todo
-    increaseEndPoints(){
+    increaseEndPoints() {
         //when run the number of end points increases
         //automatically adjusts so that the current end point shifts upwards
     }
 
     //todo
-    decreaseStartPoints(){
+    decreaseStartPoints() {
         //when run the number of start points decrease
         //automatically adjusts so that the bottom start point is removed and 
         //the remaining start points shifts downwards
     }
 
     //todo
-    decreaseEndPoints(){
+    decreaseEndPoints() {
         //when run the number of end points decrease
         //automatically adjusts so that the bottom end point is removed and 
         //the remaining end points shifts downwards
