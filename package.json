@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "node --test"
+    "start": "nodemon server.cjs",
+    "test": "node --test --watch"
   },
   "keywords": [],
   "author": "",
