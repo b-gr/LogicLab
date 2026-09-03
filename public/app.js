@@ -148,8 +148,10 @@ function loadLevel(level) {
 
     let firstPenUsage = true;
 
-    if (level.id === 1 || level.id === 999 || adminMode){
+    if (level.id === 1 || level.id === 999){
         firstPenUsage = true;
+    } else if (adminMode) {
+        firstPenUsage = false;
     } else {
         firstPenUsage = false;
     }
