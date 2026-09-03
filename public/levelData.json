@@ -1743,397 +1743,1010 @@
         ]
     },
     {
-    "id": 26,
-    "chapter": 6,
-    "level": 1,
-    "name": "XOR Gate",
-    "description": "XOR means Exclusive OR. Each gate below has one of the four possible input combinations. Connect each XOR gate to an end node and see how XOR behaves.",
-    "mode": "build",
-
-    "startNodes": [
-        {"state": true, "id": "start1"},
-        {"state": true, "id": "start2"},
-        {"state": true, "id": "start3"},
-        {"state": false, "id": "start4"},
-        {"state": false, "id": "start5"},
-        {"state": true, "id": "start6"},
-        {"state": false, "id": "start7"},
-        {"state": false, "id": "start8"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"},
-        {"state": "unknown", "id": "end2"},
-        {"state": "unknown", "id": "end3"},
-        {"state": "unknown", "id": "end4"}
-    ],
-
-    "expectedEndStates": [false, true, true, false],
-
-    "availableGates": {
-        "XOR": 0
+        "id": 26,
+        "chapter": 6,
+        "level": 1,
+        "name": "XOR Gate",
+        "description": "XOR means Exclusive OR. Each gate below has one of the four possible input combinations. Connect each XOR gate to an end node and see how XOR behaves.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            },
+            {
+                "state": false,
+                "id": "start4"
+            },
+            {
+                "state": false,
+                "id": "start5"
+            },
+            {
+                "state": true,
+                "id": "start6"
+            },
+            {
+                "state": false,
+                "id": "start7"
+            },
+            {
+                "state": false,
+                "id": "start8"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            },
+            {
+                "state": "unknown",
+                "id": "end2"
+            },
+            {
+                "state": "unknown",
+                "id": "end3"
+            },
+            {
+                "state": "unknown",
+                "id": "end4"
+            }
+        ],
+        "expectedEndStates": [
+            false,
+            true,
+            true,
+            false
+        ],
+        "availableGates": {
+            "XOR": 0
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "XOR",
+                "x": 0.46,
+                "y": 0.14,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "XOR",
+                "x": 0.46,
+                "y": 0.38,
+                "draggable": false
+            },
+            {
+                "id": "gate3",
+                "type": "XOR",
+                "x": 0.46,
+                "y": 0.62,
+                "draggable": false
+            },
+            {
+                "id": "gate4",
+                "type": "XOR",
+                "x": 0.46,
+                "y": 0.86,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "start3",
+                "to": "gate2"
+            },
+            {
+                "from": "start4",
+                "to": "gate2"
+            },
+            {
+                "from": "start5",
+                "to": "gate3"
+            },
+            {
+                "from": "start6",
+                "to": "gate3"
+            },
+            {
+                "from": "start7",
+                "to": "gate4"
+            },
+            {
+                "from": "start8",
+                "to": "gate4"
+            }
+        ],
+        "maxConnections": 12,
+        "commentCorrect": "Correct! XOR outputs FALSE when its inputs are the same, and TRUE when its inputs are different. So TRUE/TRUE gives FALSE, TRUE/FALSE gives TRUE, FALSE/TRUE gives TRUE and FALSE/FALSE gives FALSE.",
+        "commentWrong": "Not quite. Make sure each XOR gate is connected to an end node.",
+        "commentHint": "Each XOR gate already has its two inputs. You only need to connect each gate's output to an end node."
     },
-
-    "startingGates": [
-        {
-            "id": "gate1",
-            "type": "XOR",
-            "x": 0.46,
-            "y": 0.14,
-            "draggable": false
+    {
+        "id": 27,
+        "chapter": 6,
+        "level": 2,
+        "name": "XOR Gate",
+        "description": "Use all four gates available to build a circuit that produces a TRUE output. There may be more than one solution.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": false,
+                "id": "start3"
+            },
+            {
+                "state": false,
+                "id": "start4"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "XOR": 1,
+            "OR": 1,
+            "NOT": 1,
+            "AND": 1
         },
-        {
-            "id": "gate2",
-            "type": "XOR",
-            "x": 0.46,
-            "y": 0.38,
-            "draggable": false
+        "requiredGates": {
+            "XOR": 1,
+            "OR": 1,
+            "NOT": 1,
+            "AND": 1
         },
-        {
-            "id": "gate3",
-            "type": "XOR",
-            "x": 0.46,
-            "y": 0.62,
-            "draggable": false
-        },
-        {
-            "id": "gate4",
-            "type": "XOR",
-            "x": 0.46,
-            "y": 0.86,
-            "draggable": false
-        }
-    ],
-
-    "startingConnections": [
-        {
-            "from": "start1",
-            "to": "gate1"
-        },
-        {
-            "from": "start2",
-            "to": "gate1"
-        },
-        {
-            "from": "start3",
-            "to": "gate2"
-        },
-        {
-            "from": "start4",
-            "to": "gate2"
-        },
-        {
-            "from": "start5",
-            "to": "gate3"
-        },
-        {
-            "from": "start6",
-            "to": "gate3"
-        },
-        {
-            "from": "start7",
-            "to": "gate4"
-        },
-        {
-            "from": "start8",
-            "to": "gate4"
-        }
-    ],
-
-    "maxConnections": 12,
-
-    "commentCorrect": "Correct! XOR outputs FALSE when its inputs are the same, and TRUE when its inputs are different. So TRUE/TRUE gives FALSE, TRUE/FALSE gives TRUE, FALSE/TRUE gives TRUE and FALSE/FALSE gives FALSE.",
-    "commentWrong": "Not quite. Make sure each XOR gate is connected to an end node.",
-    "commentHint": "Each XOR gate already has its two inputs. You only need to connect each gate's output to an end node."
-},
-
-{
-    "id": 27,
-    "chapter": 6,
-    "level": 2,
-    "name": "XOR Gate",
-    "description": "Use all four gates available to build a circuit that produces a TRUE output. There may be more than one solution.",
-    "mode": "build",
-
-    "startNodes": [
-        {"state": true, "id": "start1"},
-        {"state": false, "id": "start2"},
-        {"state": false, "id": "start3"},
-        {"state": false, "id": "start4"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"}
-    ],
-
-    "expectedEndStates": [true],
-
-    "availableGates": {
-        "XOR": 1,
-        "OR": 1,
-        "NOT": 1,
-        "AND": 1
+        "maxConnections": 8,
+        "commentCorrect": "Correct! You used XOR together with AND, OR and NOT to produce the required TRUE output.",
+        "commentWrong": "Not quite. Your circuit must produce TRUE and use all four available gatesd.",
+        "commentHint": "Try producing two TRUE values before the final gate. For example, XOR can produce TRUE from different inputs, while OR followed by NOT can turn two FALSE inputs into TRUE."
     },
-
-    "requiredGates": {
-        "XOR": 1,
-        "OR": 1,
-        "NOT": 1,
-        "AND": 1
+    {
+        "id": 28,
+        "chapter": 6,
+        "level": 3,
+        "name": "XOR Gate",
+        "description": "Use two XOR gates and the AND gate to build a circuit that produces a TRUE output. All three gates must be used, but there may be more than one solution.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": false,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "XOR": 2,
+            "AND": 1
+        },
+        "requiredGates": {
+            "XOR": 2,
+            "AND": 1
+        },
+        "maxConnections": 7,
+        "commentCorrect": "Excellent! You used two XOR gates and an AND gate together to produce TRUE.",
+        "commentWrong": "Not quite. The final output needs to be TRUE, and both XOR gates and the AND gate must be used.",
+        "commentHint": "Try using each XOR gate on a pair containing one TRUE and one FALSE. What outputs would that give? You could then combine those results with AND."
     },
-
-    "maxConnections": 8,
-
-    "commentCorrect": "Correct! You used XOR together with AND, OR and NOT to produce the required TRUE output.",
-    "commentWrong": "Not quite. Your circuit must produce TRUE and use all four available gatesd.",
-    "commentHint": "Try producing two TRUE values before the final gate. For example, XOR can produce TRUE from different inputs, while OR followed by NOT can turn two FALSE inputs into TRUE."
-},
-
-{
-    "id": 28,
-    "chapter": 6,
-    "level": 3,
-    "name": "XOR Gate",
-    "description": "Use two XOR gates and the AND gate to build a circuit that produces a TRUE output. All three gates must be used, but there may be more than one solution.",
-    "mode": "build",
-
-    "startNodes": [
-        {"state": true, "id": "start1"},
-        {"state": false, "id": "start2"},
-        {"state": false, "id": "start3"},
-        {"state": true, "id": "start4"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"}
-    ],
-
-    "expectedEndStates": [true],
-
-    "availableGates": {
-        "XOR": 2,
-        "AND": 1
+    {
+        "id": 29,
+        "chapter": 6,
+        "level": 4,
+        "name": "XOR Gate",
+        "description": "What is the expected output from this XOR circuit?",
+        "mode": "predict",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            false
+        ],
+        "availableGates": {
+            "XOR": 0
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "XOR",
+                "x": 0.32,
+                "y": 0.35,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "XOR",
+                "x": 0.66,
+                "y": 0.50,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "gate1",
+                "to": "gate2"
+            },
+            {
+                "from": "start3",
+                "to": "gate2"
+            },
+            {
+                "from": "gate2",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 5,
+        "commentCorrect": "Correct! TRUE XOR FALSE gives TRUE. The second XOR therefore receives TRUE and TRUE, which gives FALSE.",
+        "commentWrong": "Not quite. Calculate the output of the first XOR gate before moving on to the second.",
+        "commentHint": "The first XOR gate receives two different values, so it outputs TRUE. What does XOR do when both of its inputs are TRUE?",
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
     },
-
-    "requiredGates": {
-        "XOR": 2,
-        "AND": 1
+    {
+        "id": 30,
+        "chapter": 6,
+        "level": 5,
+        "name": "XOR Gate",
+        "description": "This circuit combines XOR with some of the gates you've already seen. Work through each layer and determine the final output.",
+        "mode": "predict",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            },
+            {
+                "state": false,
+                "id": "start5"
+            },
+            {
+                "state": false,
+                "id": "start6"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            false
+        ],
+        "availableGates": {
+            "XOR": 0,
+            "AND": 0,
+            "NOT": 0,
+            "NOR": 0
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "XOR",
+                "x": 0.22,
+                "y": 0.18,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "AND",
+                "x": 0.22,
+                "y": 0.48,
+                "draggable": false
+            },
+            {
+                "id": "gate3",
+                "type": "NOR",
+                "x": 0.22,
+                "y": 0.78,
+                "draggable": false
+            },
+            {
+                "id": "gate4",
+                "type": "XOR",
+                "x": 0.48,
+                "y": 0.32,
+                "draggable": false
+            },
+            {
+                "id": "gate5",
+                "type": "NOT",
+                "x": 0.48,
+                "y": 0.70,
+                "draggable": false
+            },
+            {
+                "id": "gate6",
+                "type": "XOR",
+                "x": 0.73,
+                "y": 0.50,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "start3",
+                "to": "gate2"
+            },
+            {
+                "from": "start4",
+                "to": "gate2"
+            },
+            {
+                "from": "start5",
+                "to": "gate3"
+            },
+            {
+                "from": "start6",
+                "to": "gate3"
+            },
+            {
+                "from": "gate1",
+                "to": "gate4"
+            },
+            {
+                "from": "gate2",
+                "to": "gate4"
+            },
+            {
+                "from": "gate3",
+                "to": "gate5"
+            },
+            {
+                "from": "gate4",
+                "to": "gate6"
+            },
+            {
+                "from": "gate5",
+                "to": "gate6"
+            },
+            {
+                "from": "gate6",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 12,
+        "commentCorrect": "Correct! The first XOR outputs TRUE, the AND outputs TRUE and the NOR outputs TRUE. TRUE XOR TRUE gives FALSE, while NOT TRUE gives FALSE. The final XOR therefore receives FALSE and FALSE, producing FALSE.",
+        "commentWrong": "Not quite. This one has several stages, so calculate one layer at a time.",
+        "commentHint": "Start with the three gates on the left. Their outputs are TRUE, TRUE and TRUE. Use those results to calculate the middle XOR and NOT gates before moving to the final XOR.",
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
     },
-
-    "maxConnections": 7,
-
-    "commentCorrect": "Excellent! You used two XOR gates and an AND gate together to produce TRUE.",
-    "commentWrong": "Not quite. The final output needs to be TRUE, and both XOR gates and the AND gate must be used.",
-    "commentHint": "Try using each XOR gate on a pair containing one TRUE and one FALSE. What outputs would that give? You could then combine those results with AND."
-},
-
-{
-    "id": 29,
-    "chapter": 6,
-    "level": 4,
-    "name": "XOR Gate",
-    "description": "What is the expected output from this XOR circuit?",
-    "mode": "predict",
-
-    "startNodes": [
-        {"state": true, "id": "start1"},
-        {"state": false, "id": "start2"},
-        {"state": true, "id": "start3"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"}
-    ],
-
-    "expectedEndStates": [false],
-
-    "availableGates": {
-        "XOR": 0
+    {
+        "id": 31,
+        "chapter": 7,
+        "level": 1,
+        "name": "XNOR Gate",
+        "description": "XNOR gives the opposite result to XOR. The first two circuits show XOR followed by NOT. Complete the final two circuits using XNOR and compare all four possible input combinations.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            },
+            {
+                "state": false,
+                "id": "start4"
+            },
+            {
+                "state": false,
+                "id": "start5"
+            },
+            {
+                "state": true,
+                "id": "start6"
+            },
+            {
+                "state": false,
+                "id": "start7"
+            },
+            {
+                "state": false,
+                "id": "start8"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            },
+            {
+                "state": "unknown",
+                "id": "end2"
+            },
+            {
+                "state": "unknown",
+                "id": "end3"
+            },
+            {
+                "state": "unknown",
+                "id": "end4"
+            }
+        ],
+        "expectedEndStates": [
+            true,
+            false,
+            false,
+            true
+        ],
+        "availableGates": {
+            "XNOR": 2
+        },
+        "requiredGates": {
+            "XNOR": 2
+        },
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "XOR",
+                "x": 0.32,
+                "y": 0.14,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "NOT",
+                "x": 0.57,
+                "y": 0.14,
+                "draggable": false
+            },
+            {
+                "id": "gate3",
+                "type": "XOR",
+                "x": 0.32,
+                "y": 0.38,
+                "draggable": false
+            },
+            {
+                "id": "gate4",
+                "type": "NOT",
+                "x": 0.57,
+                "y": 0.38,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "gate1",
+                "to": "gate2"
+            },
+            {
+                "from": "gate2",
+                "to": "end1"
+            },
+            {
+                "from": "start3",
+                "to": "gate3"
+            },
+            {
+                "from": "start4",
+                "to": "gate3"
+            },
+            {
+                "from": "gate3",
+                "to": "gate4"
+            },
+            {
+                "from": "gate4",
+                "to": "end2"
+            }
+        ],
+        "maxConnections": 14,
+        "commentCorrect": "Correct! XNOR gives exactly the same result as XOR followed by NOT. When both inputs are the same XNOR outputs TRUE, and when the inputs are different it outputs FALSE.",
+        "commentWrong": "Not quite. Use the two XNOR gates to complete the remaining input combinations and compare their results with the XOR and NOT circuits above.",
+        "commentHint": "Each remaining pair of inputs needs one XNOR gate. Connect FALSE and TRUE to one, and FALSE and FALSE to the other, then connect each gate to an end node."
     },
-
-    "startingGates": [
-        {
-            "id": "gate1",
-            "type": "XOR",
-            "x": 0.32,
-            "y": 0.35,
-            "draggable": false
+    {
+        "id": 32,
+        "chapter": 7,
+        "level": 2,
+        "name": "XNOR Gate",
+        "description": "Use the XNOR, OR and AND gates to build a circuit that produces a TRUE output. All three gates must be used, but there may be more than one solution.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": false,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "XNOR": 1,
+            "OR": 1,
+            "AND": 1
         },
-        {
-            "id": "gate2",
-            "type": "XOR",
-            "x": 0.66,
-            "y": 0.50,
-            "draggable": false
-        }
-    ],
-
-    "startingConnections": [
-        {
-            "from": "start1",
-            "to": "gate1"
+        "requiredGates": {
+            "XNOR": 1,
+            "OR": 1,
+            "AND": 1
         },
-        {
-            "from": "start2",
-            "to": "gate1"
-        },
-        {
-            "from": "gate1",
-            "to": "gate2"
-        },
-        {
-            "from": "start3",
-            "to": "gate2"
-        },
-        {
-            "from": "gate2",
-            "to": "end1"
-        }
-    ],
-
-    "maxConnections": 5,
-
-    "commentCorrect": "Correct! TRUE XOR FALSE gives TRUE. The second XOR therefore receives TRUE and TRUE, which gives FALSE.",
-    "commentWrong": "Not quite. Calculate the output of the first XOR gate before moving on to the second.",
-    "commentHint": "The first XOR gate receives two different values, so it outputs TRUE. What does XOR do when both of its inputs are TRUE?",
-
-    "options": ["TRUE", "FALSE"]
-},
-
-{
-    "id": 30,
-    "chapter": 6,
-    "level": 5,
-    "name": "XOR Gate",
-    "description": "This circuit combines XOR with some of the gates you've already seen. Work through each layer and determine the final output.",
-    "mode": "predict",
-
-    "startNodes": [
-        {"state": true, "id": "start1"},
-        {"state": false, "id": "start2"},
-        {"state": true, "id": "start3"},
-        {"state": true, "id": "start4"},
-        {"state": false, "id": "start5"},
-        {"state": false, "id": "start6"}
-    ],
-
-    "endNodes": [
-        {"state": "unknown", "id": "end1"}
-    ],
-
-    "expectedEndStates": [false],
-
-    "availableGates": {
-        "XOR": 0,
-        "AND": 0,
-        "NOT": 0,
-        "NOR": 0
+        "maxConnections": 7,
+        "commentCorrect": "Correct! You successfully used XNOR together with OR and AND to produce TRUE.",
+        "commentWrong": "Not quite. The final output must be TRUE and all three gates need to form part of the circuit.",
+        "commentHint": "XNOR can produce TRUE from two matching inputs. Think about how you could combine that result with the remaining inputs using OR and AND."
     },
-
-    "startingGates": [
-        {
-            "id": "gate1",
-            "type": "XOR",
-            "x": 0.22,
-            "y": 0.18,
-            "draggable": false
+    {
+        "id": 33,
+        "chapter": 7,
+        "level": 3,
+        "name": "XNOR Gate",
+        "description": "This circuit combines XNOR with AND and OR. Work through each gate and determine the final output.",
+        "mode": "predict",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": true,
+                "id": "start2"
+            },
+            {
+                "state": false,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            true
+        ],
+        "availableGates": {
+            "XNOR": 0,
+            "AND": 0,
+            "OR": 0
         },
-        {
-            "id": "gate2",
-            "type": "AND",
-            "x": 0.22,
-            "y": 0.48,
-            "draggable": false
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "XNOR",
+                "x": 0.28,
+                "y": 0.30,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "AND",
+                "x": 0.28,
+                "y": 0.68,
+                "draggable": false
+            },
+            {
+                "id": "gate3",
+                "type": "OR",
+                "x": 0.65,
+                "y": 0.50,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "start3",
+                "to": "gate2"
+            },
+            {
+                "from": "start4",
+                "to": "gate2"
+            },
+            {
+                "from": "gate1",
+                "to": "gate3"
+            },
+            {
+                "from": "gate2",
+                "to": "gate3"
+            },
+            {
+                "from": "gate3",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 7,
+        "commentCorrect": "Correct! Two TRUE values passed through a XNOR gate gives TRUE. FALSE AND TRUE gives FALSE. The final OR therefore receives TRUE and FALSE, giving TRUE.",
+        "commentWrong": "Not quite. Calculate the XNOR and AND gates separately before moving to the final OR gate.",
+        "commentHint": "The XNOR receives two matching values, while the AND gate receives FALSE and TRUE.",
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
+    },
+    {
+        "id": 34,
+        "chapter": 7,
+        "level": 4,
+        "name": "XNOR Gate",
+        "description": "Build a circuit that produces a FALSE output using all five available gates. There may be more than one valid solution.",
+        "mode": "build",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            },
+            {
+                "state": true,
+                "id": "start5"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            false
+        ],
+        "availableGates": {
+            "XNOR": 1,
+            "XOR": 1,
+            "NOT": 1,
+            "OR": 1,
+            "NAND": 1
         },
-        {
-            "id": "gate3",
-            "type": "NOR",
-            "x": 0.22,
-            "y": 0.78,
-            "draggable": false
+        "requiredGates": {
+            "XNOR": 1,
+            "XOR": 1,
+            "NOT": 1,
+            "OR": 1,
+            "NAND": 1
         },
-        {
-            "id": "gate4",
-            "type": "XOR",
-            "x": 0.48,
-            "y": 0.32,
-            "draggable": false
+        "maxConnections": 11,
+        "commentCorrect": "Excellent! You used XNOR alongside several other gate types to construct a circuit with an FALSE output.",
+        "commentWrong": "The final output needs to be FALSE and all five available gate types must be used in the completed circuit.",
+        "commentHint": "Work backwards from the required FALSE output. Consider which gates can naturally produce FALSE, then use the remaining gates to create the input values they need."
+    },
+    {
+        "id": 35,
+        "chapter": 7,
+        "level": 5,
+        "name": "XNOR Gate",
+        "description": "This circuit combines several different gate types. Work through each layer carefully and determine the final output. Remember a gate with a small circle after the main shape is the NOT version of that gate.",
+        "mode": "predict",
+        "startNodes": [
+            {
+                "state": true,
+                "id": "start1"
+            },
+            {
+                "state": false,
+                "id": "start2"
+            },
+            {
+                "state": true,
+                "id": "start3"
+            },
+            {
+                "state": true,
+                "id": "start4"
+            },
+            {
+                "state": false,
+                "id": "start5"
+            },
+            {
+                "state": false,
+                "id": "start6"
+            },
+            {
+                "state": true,
+                "id": "start7"
+            },
+            {
+                "state": false,
+                "id": "start8"
+            }
+        ],
+        "endNodes": [
+            {
+                "state": "unknown",
+                "id": "end1"
+            }
+        ],
+        "expectedEndStates": [
+            false
+        ],
+        "availableGates": {
+            "AND": 0,
+            "OR": 0,
+            "NOT": 0,
+            "NAND": 0,
+            "NOR": 0,
+            "XOR": 0,
+            "XNOR": 0
         },
-        {
-            "id": "gate5",
-            "type": "NOT",
-            "x": 0.48,
-            "y": 0.70,
-            "draggable": false
-        },
-        {
-            "id": "gate6",
-            "type": "XOR",
-            "x": 0.73,
-            "y": 0.50,
-            "draggable": false
-        }
-    ],
-
-    "startingConnections": [
-        {
-            "from": "start1",
-            "to": "gate1"
-        },
-        {
-            "from": "start2",
-            "to": "gate1"
-        },
-        {
-            "from": "start3",
-            "to": "gate2"
-        },
-        {
-            "from": "start4",
-            "to": "gate2"
-        },
-        {
-            "from": "start5",
-            "to": "gate3"
-        },
-        {
-            "from": "start6",
-            "to": "gate3"
-        },
-        {
-            "from": "gate1",
-            "to": "gate4"
-        },
-        {
-            "from": "gate2",
-            "to": "gate4"
-        },
-        {
-            "from": "gate3",
-            "to": "gate5"
-        },
-        {
-            "from": "gate4",
-            "to": "gate6"
-        },
-        {
-            "from": "gate5",
-            "to": "gate6"
-        },
-        {
-            "from": "gate6",
-            "to": "end1"
-        }
-    ],
-
-    "maxConnections": 12,
-
-    "commentCorrect": "Correct! The first XOR outputs TRUE, the AND outputs TRUE and the NOR outputs TRUE. TRUE XOR TRUE gives FALSE, while NOT TRUE gives FALSE. The final XOR therefore receives FALSE and FALSE, producing FALSE.",
-    "commentWrong": "Not quite. This one has several stages, so calculate one layer at a time.",
-    "commentHint": "Start with the three gates on the left. Their outputs are TRUE, TRUE and TRUE. Use those results to calculate the middle XOR and NOT gates before moving to the final XOR.",
-
-    "options": ["TRUE", "FALSE"]
-},
+        "startingGates": [
+            {
+                "id": "gate1",
+                "type": "XOR",
+                "x": 0.20,
+                "y": 0.12,
+                "draggable": false
+            },
+            {
+                "id": "gate2",
+                "type": "XNOR",
+                "x": 0.20,
+                "y": 0.36,
+                "draggable": false
+            },
+            {
+                "id": "gate3",
+                "type": "NOR",
+                "x": 0.20,
+                "y": 0.62,
+                "draggable": false
+            },
+            {
+                "id": "gate4",
+                "type": "AND",
+                "x": 0.20,
+                "y": 0.85,
+                "draggable": false
+            },
+            {
+                "id": "gate5",
+                "type": "OR",
+                "x": 0.45,
+                "y": 0.25,
+                "draggable": false
+            },
+            {
+                "id": "gate6",
+                "type": "NAND",
+                "x": 0.45,
+                "y": 0.70,
+                "draggable": false
+            },
+            {
+                "id": "gate7",
+                "type": "NOT",
+                "x": 0.65,
+                "y": 0.25,
+                "draggable": false
+            },
+            {
+                "id": "gate8",
+                "type": "XNOR",
+                "x": 0.68,
+                "y": 0.52,
+                "draggable": false
+            }
+        ],
+        "startingConnections": [
+            {
+                "from": "start1",
+                "to": "gate1"
+            },
+            {
+                "from": "start2",
+                "to": "gate1"
+            },
+            {
+                "from": "start3",
+                "to": "gate2"
+            },
+            {
+                "from": "start4",
+                "to": "gate2"
+            },
+            {
+                "from": "start5",
+                "to": "gate3"
+            },
+            {
+                "from": "start6",
+                "to": "gate3"
+            },
+            {
+                "from": "start7",
+                "to": "gate4"
+            },
+            {
+                "from": "start8",
+                "to": "gate4"
+            },
+            {
+                "from": "gate1",
+                "to": "gate5"
+            },
+            {
+                "from": "gate2",
+                "to": "gate5"
+            },
+            {
+                "from": "gate3",
+                "to": "gate6"
+            },
+            {
+                "from": "gate4",
+                "to": "gate6"
+            },
+            {
+                "from": "gate5",
+                "to": "gate7"
+            },
+            {
+                "from": "gate7",
+                "to": "gate8"
+            },
+            {
+                "from": "gate6",
+                "to": "gate8"
+            },
+            {
+                "from": "gate8",
+                "to": "end1"
+            }
+        ],
+        "maxConnections": 16,
+        "commentCorrect": "Correct! You successfully traced the complete mixed circuit and found the FALSE output.",
+        "commentWrong": "Not quite. This circuit has several layers, so calculate each pair of gates before moving further to the right.",
+        "commentHint": "Start with the four gates on the left. Their outputs are TRUE, TRUE, TRUE and FALSE. Use those results to calculate the OR and NAND gates, then continue towards the final XNOR.",
+        "options": [
+            "TRUE",
+            "FALSE"
+        ]
+    },
     {
         "id": 999,
         "chapter": "",
