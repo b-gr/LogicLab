@@ -3,7 +3,6 @@ import assert from "node:assert";
 import Connector from "../public/Connector.js";
 import ViewerObject from "../public/ViewerObject.js";
 import LogicGate from "../public/LogicGate.js";
-import { connect } from "node:http2";
 
 
 let tempViewer;
@@ -14,12 +13,7 @@ let node2;
 
 
 beforeEach(() => {
-    tempViewer = {
-        svg: {
-            appendChild: () => { }
-        },
-        updateConnector: () => { }
-    }
+    tempViewer = {}
 
     node1 = {
         coordinates: { x: 100, y: 100 },

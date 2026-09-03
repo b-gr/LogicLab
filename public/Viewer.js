@@ -73,6 +73,7 @@ export default class Viewer {
     //build end points
     createEndPoint(state, x, y, id) {
         const endPoint = new ViewerObject('end', state, id);
+        endPoint.createHTML();
         endPoint.coordinates = { x: x, y: y };
         endPoint.html.style.position = 'absolute';
         endPoint.html.style.left = `${x}px`;
@@ -98,6 +99,7 @@ export default class Viewer {
     //build start points
     createStartPoint(state, x, y, id) {
         const startPoint = new ViewerObject('start', state, id);
+        startPoint.createHTML();
         startPoint.coordinates = { x: x, y: y };
         startPoint.html.style.position = 'absolute';
         startPoint.html.style.left = `${x}px`;
@@ -729,6 +731,7 @@ export default class Viewer {
     //createBin
     createBin() {
         const bin = new ViewerObject('bin', true);
+        bin.createHTML();
         bin.coordinates = { x: (this.width / 2) - (bin.size.width / 2), y: 0 };
         bin.html.style.position = 'absolute';
         bin.html.style.left = `${bin.coordinates.x}px`;

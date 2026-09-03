@@ -31,7 +31,7 @@ export default class ViewerObject {
             this.id = "bin";
         }
 
-        this.html = this.createHTML();
+        this.html = null;
 
     }
 
@@ -115,7 +115,7 @@ export default class ViewerObject {
             container.innerHTML = this.binOpenSVG();
         }
 
-
+        this.html = container;
         return container;
     }
 

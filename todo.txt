@@ -1,7 +1,6 @@
 to do:
 
     before anything else: 
-        - create final levels for XOR/XNOR
         - change admin mode to OFF
         - create information "level 0" to introduce the layout and how to use
 
@@ -22,9 +21,6 @@ to do:
         - add a grid layout to the level structures
 
 
-    test visually
-    test through code (Boolean results in console)
-    test through unit testing
 
     expansion
     - user accounts
