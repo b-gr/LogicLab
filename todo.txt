@@ -1,6 +1,7 @@
 to do:
 
     before anything else: 
+        - test for level data (schema)
         - change admin mode to OFF
         - create information "level 0" to introduce the layout and how to use
 

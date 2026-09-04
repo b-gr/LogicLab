@@ -3,7 +3,7 @@ import Toolbar from "./Toolbar.js";
 import Viewer from "./Viewer.js";
 import Level from "./Level.js";
 
-const adminMode = true;
+const adminMode = false;
 const mainContent = document.getElementById("mainContent");
 const startButton = document.getElementById("startButton");
 const levelTable = document.getElementById("levelTable");
