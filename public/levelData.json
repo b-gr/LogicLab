@@ -4,7 +4,7 @@
         "chapter": 1,
         "level": 1,
         "name": "AND Gate",
-        "description": "Add an AND gate using the button on the toolbar, then connect the start nodes (left) to it and the end node (right), using the connection tool ✏️.",
+        "description": "Add an AND gate using the button on the toolbar, drag it to the correct position, then connect the start nodes (left) to it and the end node (right), using the connection tool ✏️.",
         "mode": "build",
         "startNodes": [
             {
