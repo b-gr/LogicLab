@@ -29,47 +29,47 @@ beforeEach(() => {
     viewer.initialised = true;
     viewer.answerSelected = null;
     viewer.highlightCorrectAnswer = false;
-    
+
 
 })
 
 
 
 test("updateGateCoordinates works", () => {
-    const gate = {coordinates: {x:20, y: 700}, size: { width: 120, height: 60}}
-    viewer.updateGateCoordinates(gate,200,400)
-    assert.deepEqual(gate.coordinates, {x: 200, y: 400})
+    const gate = { coordinates: { x: 20, y: 700 }, size: { width: 120, height: 60 } }
+    viewer.updateGateCoordinates(gate, 200, 400)
+    assert.deepEqual(gate.coordinates, { x: 200, y: 400 })
 })
 
 
 test("mouse to coords works", () => {
-    const event = {clientX: 450, clientY: 230}
+    const event = { clientX: 450, clientY: 230 }
     const result = viewer.mouseToViewerCoordinates(event)
-    assert.deepEqual(result, {x: 450 - 10, y: 230 - 10})
+    assert.deepEqual(result, { x: 450 - 10, y: 230 - 10 })
 })
 
 test("prevents gates from leaving area", () => {
-    const gate = {coordinates: {x:20, y: 700}, size: { width: 120, height: 60}}
-    viewer.updateGateCoordinates(gate,-20,-40)
-    assert.deepEqual(gate.coordinates, {x:0,y:0})
-    viewer.updateGateCoordinates(gate,2000,4000)
-    assert.deepEqual(gate.coordinates, {x:880,y:940})
+    const gate = { coordinates: { x: 20, y: 700 }, size: { width: 120, height: 60 } }
+    viewer.updateGateCoordinates(gate, -20, -40)
+    assert.deepEqual(gate.coordinates, { x: 0, y: 0 })
+    viewer.updateGateCoordinates(gate, 2000, 4000)
+    assert.deepEqual(gate.coordinates, { x: 880, y: 940 })
 })
 
 test("evaluate level", () => {
     viewer.level = {
-        mode:"predict", expectedEndStates: [true]
+        mode: "predict", expectedEndStates: [true]
     }
 
     viewer.answerSelected = null;
-    viewer.evaluateCircuit(); 
+    viewer.evaluateCircuit();
     assert.equal(viewer.levelComplete, false)
 
     viewer.level = {
-        mode:"predict", expectedEndStates: [true]
+        mode: "predict", expectedEndStates: [true]
     }
 
     viewer.answerSelected = "TRUE";
-    viewer.evaluateCircuit(); 
+    viewer.evaluateCircuit();
     assert.equal(viewer.levelComplete, true)
 })

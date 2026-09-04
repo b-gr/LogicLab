@@ -129,7 +129,7 @@ test("rejects a connection when gate/node has reached max input already", () => 
 test("reject connection from right to left", () => {
     node1.coordinates.x = 300;
     gate1.coordinates.x = 200;
-    const connector = new Connector(node1,gate1,tempViewer);
+    const connector = new Connector(node1, gate1, tempViewer);
     assert.equal(connector.valid, false)
 })
 
@@ -138,9 +138,9 @@ test("Failed connections don't chnage gates, or remain connected", () => {
     const connector2 = new Connector(gate1, gate2, tempViewer) //should fail as node 1 already outputting once
     assert.equal(connector.valid, true)
     assert.equal(connector2.valid, false)
-    assert.equal(gate2.inputs.length, 1 );
+    assert.equal(gate2.inputs.length, 1);
     assert.equal(node1.outputs.length, 1);
-    assert.equal(gate1.outputs.length,0)
+    assert.equal(gate1.outputs.length, 0)
 })
 
 test("setInputSlot works correctly", () => {
@@ -163,13 +163,13 @@ test("getState() works correctly", () => {
 test("remove() works correctly", () => {
     const connector = new Connector(node1, gate1, tempViewer);
     const connector2 = new Connector(gate2, node2, tempViewer);
-    assert.equal(gate1.inputs.length, 1 );
+    assert.equal(gate1.inputs.length, 1);
     assert.equal(node1.outputs.length, 1);
-    assert.equal(gate2.outputs.length, 1 );
+    assert.equal(gate2.outputs.length, 1);
     assert.equal(node2.inputs.length, 1);
     connector.remove();
-    assert.equal(gate1.inputs.length, 0 );
+    assert.equal(gate1.inputs.length, 0);
     assert.equal(node1.outputs.length, 0);
-    assert.equal(gate2.outputs.length, 1 );
+    assert.equal(gate2.outputs.length, 1);
     assert.equal(node2.inputs.length, 1);
 })

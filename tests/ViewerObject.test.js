@@ -46,18 +46,18 @@ test("setState() works", () => {
 
 test("getOutputCoord works as intended", () => {
     const node = new ViewerObject("start", true, "start1");
-    node.coordinates = {x: 100, y: 200}
+    node.coordinates = { x: 100, y: 200 }
     const xAdjustment = node.size.width;
     const yAdjustment = node.size.height / 2;
-    const expectedOutputCoords = {x: node.coordinates.x + xAdjustment, y: node.coordinates.y + yAdjustment}
+    const expectedOutputCoords = { x: node.coordinates.x + xAdjustment, y: node.coordinates.y + yAdjustment }
     assert.deepEqual(node.getOutputCoord(), expectedOutputCoords)
 })
 
 test("getInputCoord works as intended", () => {
     const node = new ViewerObject("end", false, "end1");
-    node.coordinates = {x: 100, y: 200}
+    node.coordinates = { x: 100, y: 200 }
     const xAdjustment = 0;
     const yAdjustment = node.size.height / 2;
-    const expectedOutputCoords = {x: node.coordinates.x + xAdjustment, y: node.coordinates.y + yAdjustment}
+    const expectedOutputCoords = { x: node.coordinates.x + xAdjustment, y: node.coordinates.y + yAdjustment }
     assert.deepEqual(node.getInputCoord(), expectedOutputCoords)
 })
