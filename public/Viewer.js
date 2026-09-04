@@ -38,24 +38,18 @@ export default class Viewer {
         this.createStartingConnections();
         this.initialised = true;
     }
-    /*
-    //todo
-    //for debugging - remove later...
-        printAllIDs(){
-            for(let node of this.viewerObjects){
-                console.log(`${node.id} has state: ${node.state}`)
-            }
-            for(let gate of this.gates){
-                let output = "";
-                if(gate.draggable){
-                    output = "draggable"
-                } else {
-                    output = "static"
-                }
-                console.log(`${gate.id} is ${output}`)
-            }
-        }
-    */
+
+
+    //used when changing the window size 
+    updateViewerDimensions() {
+        const viewerRectangle = this.container.getBoundingClientRect();
+        this.width = viewerRectangle.width;
+        this.height = viewerRectangle.height;
+        this.startX = viewerRectangle.left;
+        this.endX = viewerRectangle.right;
+        this.startY = viewerRectangle.top;
+        this.endY = viewerRectangle.bottom;
+    }
 
     createEndPointsFromSchema() {
         const endNodes = this.level.endNodes;
@@ -191,16 +185,7 @@ export default class Viewer {
         bin.html.style.top = `${bin.coordinates.y}px`;
     }
 
-    //used when changing the window size 
-    updateViewerDimensions() {
-        const viewerRectangle = this.container.getBoundingClientRect();
-        this.width = viewerRectangle.width;
-        this.height = viewerRectangle.height;
-        this.startX = viewerRectangle.left;
-        this.endX = viewerRectangle.right;
-        this.startY = viewerRectangle.top;
-        this.endY = viewerRectangle.bottom;
-    }
+
 
     updateGateCoordinates(gate, x, y) {
         const viewerRectangle = this.container.getBoundingClientRect();
