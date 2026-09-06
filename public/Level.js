@@ -8,13 +8,12 @@ description,
 mode,
 startNodes = [],
 endNodes = [],
-expectedEndStates,
+expectedEndStates = [],
 availableGates = {},
 requiredGates = {},
 maxConnections = Infinity,
 startingGates = [],
 startingConnections = [],
-updateEndPointsAutomatically = true,
 commentCorrect,
 commentWrong,
 commentHint,
@@ -36,7 +35,6 @@ options = []
         this.maxConnections = maxConnections;
         this.startingGates = startingGates;
         this.startingConnections = startingConnections;
-        this.updateEndPointsAutomatically = updateEndPointsAutomatically;
         this.commentCorrect = commentCorrect;
         this.commentWrong = commentWrong;
         this.commentHint = commentHint;
