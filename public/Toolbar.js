@@ -66,7 +66,7 @@ export default class Toolbar {
     penClick() {
         const penButton = document.getElementById("penButton");
         if (this.firstClickPen) {
-            window.alert("To use the connector tool, first click the starting node, then the final node.")
+            window.alert("To use the connector tool, first click the starting node, then the final node. Always connect from left to right.")
             this.firstClickPen = false;
         }
         if (!this.connectorOn) {
