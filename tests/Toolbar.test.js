@@ -12,7 +12,7 @@ function beforeEachBuildTest() {
             <html>
                 <body>
                     <p>Test Webpage</p>
-                    <di id="toolbar"></div>
+                    <div id="toolbar"></div>
                 </body>
             </html>
         `);
