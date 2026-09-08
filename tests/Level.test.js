@@ -64,13 +64,14 @@ for (let level of levels) {
     test (`Level ${level.id} is a ${level.mode} type level and has required properties`, () => {
         if (level.mode === "build"){
             for (let property of buildRequiredProperties) {
-                assert.ok(property in level, `Missing "${property}" in level ${level.id}`)
+                assert.ok(property in level, `Missing "${property}" in level ${level.id}`);
             }
             
             assert.equal(typeof level.maxConnections, "number");
             assert.ok(!Array.isArray(level.availableGates))
             assert.equal(typeof level.availableGates, "object");
-
+            assert.ok(!Array.isArray(level.requiredGates))
+            assert.equal(typeof level.requiredGates, "object");
         }
 
         if (level.mode === "predict") {
@@ -80,6 +81,7 @@ for (let level of levels) {
             
             assert.ok(Array.isArray(level.startingGates));
             assert.ok(Array.isArray(level.startingConnections));
+            assert.ok(Array.isArray(level.options))
         }
 
         if (level.mode === "sandbox"){
@@ -98,8 +100,9 @@ for (let level of levels) {
             assert.ok(Array.isArray(level.startNodes));
             assert.ok(Array.isArray(level.endNodes));
             assert.ok(Array.isArray(level.expectedEndStates));
-
-
+            assert.equal(typeof level.commentCorrect, "string");
+            assert.equal(typeof level.commentWrong, "string");
+            assert.equal(typeof level.commentHint, "string");
         }
 
     })
