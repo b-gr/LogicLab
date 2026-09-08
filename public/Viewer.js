@@ -394,7 +394,7 @@ export default class Viewer {
                 this.selectedOutputNode = node;
             }
         }
-        if (this.level.id === 999) {
+        if (this.level.id === 999 || this.level.id === 26) {
             this.evaluateCircuit();
         }
     }
