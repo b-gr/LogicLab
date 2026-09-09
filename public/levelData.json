@@ -2759,15 +2759,11 @@
             {
                 "state": true,
                 "id": "start1"
-            },
-            {
-                "state": true,
-                "id": "start2"
             }
         ],
         "endNodes": [
             {
-                "state": false,
+                "state": "unknown",
                 "id": "end1"
             }
         ],

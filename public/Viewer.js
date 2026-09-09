@@ -164,6 +164,9 @@ export default class Viewer {
     repositionStartPoints() {
         const startPoints = this.viewerObjects.filter(node => node.type === 'start');
         const count = startPoints.length;
+        if (count === 0) {
+            return
+        }
         const heightDivision = this.height / (count + 1);
         let i = 1;
         for (let node of startPoints) {
@@ -612,7 +615,8 @@ export default class Viewer {
             }
 
             if (endPoints.length === 0) {
-                console.log("Error: No end points specified")
+                console.log("No end points specified")
+                return
             }
 
             for (let endPoint of endPoints) {
@@ -725,30 +729,61 @@ export default class Viewer {
         this.viewerObjects.push(bin);
     }
 
-    //todo
-    increaseStartPoints() {
-        //when run the number of start points increases
-        //automatically adjusts so that the current start point shifts upwards
+    increaseStartPoints(state) {
+        const numOfStartPoints = this.viewerObjects.filter(node => node.type === 'start').length;
+        this.createStartPoint(state,50,100,`start${numOfStartPoints+1}`)
+        this.repositionStartPoints()
+        this.redoAllLines()
+
     }
 
-    //todo
     increaseEndPoints() {
-        //when run the number of end points increases
-        //automatically adjusts so that the current end point shifts upwards
+        const numOfEndPoints = this.viewerObjects.filter(node => node.type === 'end').length;
+        this.createEndPoint("unknown",this.width-100,100,`start${numOfEndPoints+1}`)
+        this.repositionEndPoints()
+        this.redoAllLines()
+
     }
 
-    //todo
-    decreaseStartPoints() {
-        //when run the number of start points decrease
-        //automatically adjusts so that the bottom start point is removed and 
-        //the remaining start points shifts downwards
+    decreaseStartPoints(state) {
+        const startPoints = this.viewerObjects.filter(node => node.type === 'start');
+        if (startPoints.length === 0){
+            return
+        }        
+        
+        const numOfStartPointsWithCorrectState = startPoints.filter(node => node.state === state).length
+        if(numOfStartPointsWithCorrectState === 0){
+            return
+        }
+
+
+        const lastStartPoint = this.viewerObjects.findLast(node => node.type === 'start' && node.state === state)
+        if (lastStartPoint.outputs.length !== 0){
+            this.removeOneConnection(lastStartPoint.outputs[0])
+        }
+        lastStartPoint.removeHTML()
+        this.viewerObjects.splice(this.viewerObjects.indexOf(lastStartPoint), 1)
+        this.repositionStartPoints()
+        this.redoAllLines()
+        this.evaluateCircuit()
     }
 
-    //todo
+
     decreaseEndPoints() {
-        //when run the number of end points decrease
-        //automatically adjusts so that the bottom end point is removed and 
-        //the remaining end points shifts downwards
+        const endPoints = this.viewerObjects.filter(node => node.type === 'end');
+        if (endPoints.length === 0){
+            return
+        }        
+
+        const lastEndPoint = this.viewerObjects.findLast(node => node.type === 'end')
+        if (lastEndPoint.inputs.length !== 0){
+            this.removeOneConnection(lastEndPoint.inputs[0])
+        }
+        lastEndPoint.removeHTML()
+        this.viewerObjects.splice(this.viewerObjects.indexOf(lastEndPoint), 1)
+        this.repositionEndPoints()
+        this.redoAllLines()
+        this.evaluateCircuit()
     }
 
 

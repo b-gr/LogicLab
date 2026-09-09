@@ -152,6 +152,43 @@ button:hover {
     display: none;
 }
 
+#increaseStartPointsButtonTrue {
+    display: none;
+}
+
+#decreaseStartPointsButtonTrue {
+    display: none;
+}
+
+#increaseStartPointsButtonFalse {
+    display: none;
+}
+
+#decreaseStartPointsButtonFalse {
+    display: none;
+}
+
+
+#increaseEndPointsButton {
+    display: none;
+}
+
+#decreaseEndPointsButton {
+    display: none;
+}
+
+#span1 {
+    display: none;
+}
+
+#span2 {
+    display: none;
+}
+
+#span3 {
+    display: none;
+}
+
 .toolbar {
     display: none;
     max-width: 90%;
@@ -224,7 +261,18 @@ button:hover {
 }
 
 .header>div {
-    width: calc(100% / 3)
+    width: calc(100% / 5)
+}
+
+.header-section-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.startPointsControl {
+    display: flex;
+    flex-direction: column;
+    align-items:center
 }
 
 .buttonToggle {

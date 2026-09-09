@@ -12,6 +12,12 @@ const checkButton = document.getElementById("checkButton");
 const hintButton = document.getElementById("hintButton");
 const nextButton = document.getElementById("nextButton");
 const popup = document.getElementById("popup");
+const increaseStartPointsButtonTrue = document.getElementById("increaseStartPointsButtonTrue");
+const decreaseStartPointsButtonTrue = document.getElementById("decreaseStartPointsButtonTrue");
+const increaseStartPointsButtonFalse = document.getElementById("increaseStartPointsButtonFalse");
+const decreaseStartPointsButtonFalse = document.getElementById("decreaseStartPointsButtonFalse");
+const increaseEndPointsButton = document.getElementById("increaseEndPointsButton");
+const decreaseEndPointsButton = document.getElementById("decreaseEndPointsButton");
 let inPageViewer = null;
 let toolbar = null;
 
@@ -134,7 +140,17 @@ function loadLevel(level) {
     //set header buttons: 
     if (level.id !== 999) {
         checkButton.style.display = "flex";
+
     } else {
+        increaseEndPointsButton.style.display = "flex"
+        decreaseEndPointsButton.style.display = "flex"
+        increaseStartPointsButtonTrue.style.display = "flex"
+        decreaseStartPointsButtonTrue.style.display = "flex"
+        increaseStartPointsButtonFalse.style.display = "flex"
+        decreaseStartPointsButtonFalse.style.display = "flex"
+        document.getElementById("span1").style.display = "inline"
+        document.getElementById("span2").style.display = "inline"
+        document.getElementById("span3").style.display = "inline"
         checkButton.style.display = "none";
     }
 
@@ -168,6 +184,32 @@ function loadLevel(level) {
     document.getElementById("toolbar").style.display = "flex";
 
 
+
+    increaseEndPointsButton.onclick = () => {
+        inPageViewer.increaseEndPoints()
+    }
+
+    decreaseEndPointsButton.onclick = () => {
+        inPageViewer.decreaseEndPoints()
+    }
+
+    increaseStartPointsButtonTrue.onclick = () => {
+        inPageViewer.increaseStartPoints(true)
+    }
+
+    decreaseStartPointsButtonTrue.onclick = () => {
+        inPageViewer.decreaseStartPoints(true)
+    }
+
+    increaseStartPointsButtonFalse.onclick = () => {
+        inPageViewer.increaseStartPoints(false)
+    }
+
+    decreaseStartPointsButtonFalse.onclick = () => {
+        inPageViewer.decreaseStartPoints(false)
+    }
+
+
     //add listeners to back button and 
     backButton.onclick = () => {
         document.getElementById("popupTitle").textContent = "";
@@ -180,6 +222,15 @@ function loadLevel(level) {
         inPageViewer.destroy();
         inPageViewer = null;
         checkButton.style.display = "none";
+        increaseEndPointsButton.style.display = "none"
+        decreaseEndPointsButton.style.display = "none"
+        increaseStartPointsButtonTrue.style.display = "none"
+        decreaseStartPointsButtonTrue.style.display = "none"
+        increaseStartPointsButtonFalse.style.display = "none"
+        decreaseStartPointsButtonFalse.style.display = "none"
+        document.getElementById("span1").style.display = "none"
+        document.getElementById("span2").style.display = "none"
+        document.getElementById("span3").style.display = "none"
         levelMenuViewLoad();
     };
 
