@@ -16,7 +16,7 @@ const buildRequiredProperties = [
     "startNodes",
     "endNodes",
     "expectedEndStates",
-    "availableGates", 
+    "availableGates",
     "requiredGates",
     "maxConnections",
     "commentCorrect",
@@ -35,7 +35,7 @@ const predictRequiredProperties = [
     "startNodes",
     "endNodes",
     "expectedEndStates",
-    "availableGates", 
+    "availableGates",
     "startingGates",
     "startingConnections",
     "maxConnections",
@@ -56,17 +56,17 @@ const sandboxRequiredProperties = [
     "mode",
     "startNodes",
     "endNodes",
-    "availableGates", 
+    "availableGates",
 ]
 
 
 for (let level of levels) {
-    test (`Level ${level.id} is a ${level.mode} type level and has required properties`, () => {
-        if (level.mode === "build"){
+    test(`Level ${level.id} is a ${level.mode} type level and has required properties`, () => {
+        if (level.mode === "build") {
             for (let property of buildRequiredProperties) {
                 assert.ok(property in level, `Missing "${property}" in level ${level.id}`);
             }
-            
+
             assert.equal(typeof level.maxConnections, "number");
             assert.ok(!Array.isArray(level.availableGates))
             assert.equal(typeof level.availableGates, "object");
@@ -78,13 +78,13 @@ for (let level of levels) {
             for (let property of predictRequiredProperties) {
                 assert.ok(property in level, `Missing "${property}" in level ${level.id}`)
             }
-            
+
             assert.ok(Array.isArray(level.startingGates));
             assert.ok(Array.isArray(level.startingConnections));
             assert.ok(Array.isArray(level.options))
         }
 
-        if (level.mode === "sandbox"){
+        if (level.mode === "sandbox") {
             for (let property of sandboxRequiredProperties) {
                 assert.ok(property in level, `Missing "${property}" in level ${level.id}`)
             }

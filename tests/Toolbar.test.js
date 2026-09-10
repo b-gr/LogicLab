@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert";
-import {JSDOM} from "jsdom"
+import { JSDOM } from "jsdom"
 import Toolbar from "../public/Toolbar.js";
 
 let addedGate = null;
@@ -38,56 +38,56 @@ function beforeEachBuildTest() {
             XNOR: 1
         }
     }
-    const toolbar = new Toolbar(tempViewer,tempBuildLevel,false)
+    const toolbar = new Toolbar(tempViewer, tempBuildLevel, false)
 
 }
 
 test("pen button created", () => {
     beforeEachBuildTest()
     const textFromPenButton = document.getElementById("penButton").textContent
-    assert.equal(textFromPenButton,"✏️")
+    assert.equal(textFromPenButton, "✏️")
 })
 
 test("AND button is created", () => {
     beforeEachBuildTest()
     const textFromANDButton = document.getElementById("ANDButton").textContent
-    assert.equal(textFromANDButton,"AND")
+    assert.equal(textFromANDButton, "AND")
 })
 
 test("OR button is created", () => {
     beforeEachBuildTest()
     const textFromORButton = document.getElementById("ORButton").textContent
-    assert.equal(textFromORButton,"OR")
+    assert.equal(textFromORButton, "OR")
 })
 
 test("NOT button is created", () => {
     beforeEachBuildTest()
     const textFromNOTButton = document.getElementById("NOTButton").textContent
-    assert.equal(textFromNOTButton,"NOT")
+    assert.equal(textFromNOTButton, "NOT")
 })
 
 test("NAND button is created", () => {
     beforeEachBuildTest()
     const textFromNANDButton = document.getElementById("NANDButton").textContent
-    assert.equal(textFromNANDButton,"NAND")
+    assert.equal(textFromNANDButton, "NAND")
 })
 
 test("NOR button is created", () => {
     beforeEachBuildTest()
     const textFromNORButton = document.getElementById("NORButton").textContent
-    assert.equal(textFromNORButton,"NOR")
+    assert.equal(textFromNORButton, "NOR")
 })
 
 test("XOR button is created", () => {
     beforeEachBuildTest()
     const textFromXORButton = document.getElementById("XORButton").textContent
-    assert.equal(textFromXORButton,"XOR")
+    assert.equal(textFromXORButton, "XOR")
 })
 
 test("XNOR button is created", () => {
     beforeEachBuildTest()
     const textFromXNORButton = document.getElementById("XNORButton").textContent
-    assert.equal(textFromXNORButton,"XNOR")
+    assert.equal(textFromXNORButton, "XNOR")
 })
 
 
@@ -96,7 +96,7 @@ test("ANDButtonWorks", () => {
 
     document.getElementById("ANDButton").click();
 
-    assert.strictEqual(addedGate,"AND")
+    assert.strictEqual(addedGate, "AND")
 })
 
 
@@ -122,18 +122,18 @@ function beforeEachPredictTest() {
     let tempPredictLevel = {
         mode: "predict",
         options: ["TRUE", "FALSE"]
-        }
+    }
 
-    const toolbar = new Toolbar(tempViewer,tempPredictLevel,false)
+    const toolbar = new Toolbar(tempViewer, tempPredictLevel, false)
 
 }
 
 test("predictLevelLoadsButtons", () => {
     beforeEachPredictTest()
     const trueButtonText = document.getElementById("TRUEButton").textContent
-    assert.equal(trueButtonText,"TRUE")
+    assert.equal(trueButtonText, "TRUE")
     const FALSEButtonText = document.getElementById("FALSEButton").textContent
-    assert.equal(FALSEButtonText,"FALSE")
+    assert.equal(FALSEButtonText, "FALSE")
 })
 
 

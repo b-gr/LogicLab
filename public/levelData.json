@@ -1807,10 +1807,8 @@
             true,
             false
         ],
-        "availableGates": {
-        },
-        "requiredGates": {
-        },
+        "availableGates": {},
+        "requiredGates": {},
         "startingGates": [
             {
                 "id": "gate1",

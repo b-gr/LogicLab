@@ -61,8 +61,8 @@ test("setUp new Viewer", () => {
 
 test("create start points method works", () => {
     beforeEachDOM()
-    viewer.createStartPoint(true,50,100,"start1");
-    assert.strictEqual(viewer.viewerObjects.length,1)
+    viewer.createStartPoint(true, 50, 100, "start1");
+    assert.strictEqual(viewer.viewerObjects.length, 1)
 
     const tempStartPoint = viewer.viewerObjects[0]
 
@@ -99,7 +99,7 @@ test("updateGateCoordinates updates HTML", () => {
     beforeEachDOM()
     const gate = { coordinates: { x: 20, y: 700 }, html: document.createElement("div") }
     viewer.updateGatePosition(gate)
-    
+
     assert.equal(gate.html.style.left, "20px")
 
     assert.equal(gate.html.style.top, "700px")

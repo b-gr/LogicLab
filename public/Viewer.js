@@ -731,7 +731,7 @@ export default class Viewer {
 
     increaseStartPoints(state) {
         const numOfStartPoints = this.viewerObjects.filter(node => node.type === 'start').length;
-        this.createStartPoint(state,50,100,`start${numOfStartPoints+1}`)
+        this.createStartPoint(state, 50, 100, `start${numOfStartPoints + 1}`)
         this.repositionStartPoints()
         this.redoAllLines()
 
@@ -739,7 +739,7 @@ export default class Viewer {
 
     increaseEndPoints() {
         const numOfEndPoints = this.viewerObjects.filter(node => node.type === 'end').length;
-        this.createEndPoint("unknown",this.width-100,100,`start${numOfEndPoints+1}`)
+        this.createEndPoint("unknown", this.width - 100, 100, `start${numOfEndPoints + 1}`)
         this.repositionEndPoints()
         this.redoAllLines()
 
@@ -747,18 +747,18 @@ export default class Viewer {
 
     decreaseStartPoints(state) {
         const startPoints = this.viewerObjects.filter(node => node.type === 'start');
-        if (startPoints.length === 0){
+        if (startPoints.length === 0) {
             return
-        }        
-        
+        }
+
         const numOfStartPointsWithCorrectState = startPoints.filter(node => node.state === state).length
-        if(numOfStartPointsWithCorrectState === 0){
+        if (numOfStartPointsWithCorrectState === 0) {
             return
         }
 
 
         const lastStartPoint = this.viewerObjects.findLast(node => node.type === 'start' && node.state === state)
-        if (lastStartPoint.outputs.length !== 0){
+        if (lastStartPoint.outputs.length !== 0) {
             this.removeOneConnection(lastStartPoint.outputs[0])
         }
         lastStartPoint.removeHTML()
@@ -771,12 +771,12 @@ export default class Viewer {
 
     decreaseEndPoints() {
         const endPoints = this.viewerObjects.filter(node => node.type === 'end');
-        if (endPoints.length === 0){
+        if (endPoints.length === 0) {
             return
-        }        
+        }
 
         const lastEndPoint = this.viewerObjects.findLast(node => node.type === 'end')
-        if (lastEndPoint.inputs.length !== 0){
+        if (lastEndPoint.inputs.length !== 0) {
             this.removeOneConnection(lastEndPoint.inputs[0])
         }
         lastEndPoint.removeHTML()
