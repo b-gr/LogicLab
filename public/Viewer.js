@@ -491,7 +491,13 @@ export default class Viewer {
 
     //on gate drop, recalculate/check which input is closest
     redoInputSlots(node) {
-        if (!node.acceptingInput || node.inputs.length === 0 || node.maxInputs === 1) {
+        if (!node.acceptingInput || node.inputs.length === 0) {
+            return;
+        }
+
+        
+        if (node.maxInputs === 1){
+            node.inputs[0].redrawLine();
             return;
         }
 
@@ -739,7 +745,7 @@ export default class Viewer {
 
     increaseEndPoints() {
         const numOfEndPoints = this.viewerObjects.filter(node => node.type === 'end').length;
-        this.createEndPoint("unknown", this.width - 100, 100, `start${numOfEndPoints + 1}`)
+        this.createEndPoint("unknown", this.width - 100, 100, `end${numOfEndPoints + 1}`)
         this.repositionEndPoints()
         this.redoAllLines()
 
