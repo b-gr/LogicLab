@@ -1,15 +1,11 @@
 to do:
 
     before anything else: 
-        - test for level data (schema)
-        - change admin mode to OFF
         - create information "level 0" to introduce the layout and how to use
 
     really should have:
         - if gate is 0 then blank out the toolbar in that position
         - predict gates levels (draw complete circuit then add a box over gate used and ask which gate could make it correct)
-        - add the ability to increase or decrease inputs and outputs from buttons (up and down arrows)
-        - add an information level as level0 so that it tells people what to do
         - tidy up pop up (button layout and text wrapping)
 
     nice to have: 
@@ -19,11 +15,8 @@ to do:
         - for sandbox mode, create a drag background tool to move background so that more can be added
         - and ability to export the sandbox level layout (as JSON)
         - add a clean up button to the sandbox
-        - add a grid layout to the level structures
 
-
-
-    expansion
-    - user accounts
-    - feedback to wrong answers
-    - unlock levels with points or stars
+    expansion:
+        - user accounts
+        - better feedback to wrong answers
+        - unlock levels with points or stars
